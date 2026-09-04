@@ -168,6 +168,21 @@ export function Camera({
             </div>
           )}
 
+          {submitting && (
+            <div className="absolute inset-0 overflow-hidden bg-ink/40">
+              <div
+                className="scan-sweep-line absolute inset-x-0 h-12 -translate-y-1/2"
+                style={{
+                  background:
+                    'linear-gradient(to bottom, rgba(189,214,255,0) 0%, rgba(189,214,255,0.55) 45%, rgba(189,214,255,0.9) 50%, rgba(189,214,255,0.55) 55%, rgba(189,214,255,0) 100%)',
+                }}
+              />
+              <div className="absolute inset-x-8 top-1/2 flex -translate-y-1/2 flex-col items-center gap-2 text-center">
+                <span className="text-sm font-semibold text-white">Leyendo tu escritura...</span>
+              </div>
+            </div>
+          )}
+
           {!capture && !cameraError && (
             <button
               type="button"
@@ -179,10 +194,12 @@ export function Camera({
             </button>
           )}
 
-          <div className="absolute inset-x-8 top-4 flex items-center justify-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-semibold tracking-wide text-ink shadow-sm backdrop-blur-md">
-            <span className="size-2 shrink-0 rounded-full bg-indigo" />
-            {capture ? 'Foto lista para enviar' : 'Encuadrá tu hoja de papel'}
-          </div>
+          {!submitting && (
+            <div className="absolute inset-x-8 top-4 flex items-center justify-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-semibold tracking-wide text-ink shadow-sm backdrop-blur-md">
+              <span className="size-2 shrink-0 rounded-full bg-indigo" />
+              {capture ? 'Foto lista para enviar' : 'Encuadrá tu hoja de papel'}
+            </div>
+          )}
 
           {!capture && !cameraError && (
             <div className="absolute inset-x-4 bottom-4 flex items-center justify-center gap-2 rounded-full bg-ink/85 px-3.5 py-2 text-paper backdrop-blur-md">

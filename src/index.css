@@ -50,3 +50,19 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
+
+@keyframes scan-sweep {
+  0% {
+    top: 4%;
+  }
+  50% {
+    top: 96%;
+  }
+  100% {
+    top: 4%;
+  }
+}
+
+.scan-sweep-line {
+  animation: scan-sweep 1.8s ease-in-out infinite;
+}

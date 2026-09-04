@@ -8,7 +8,7 @@ const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
 
 const FALLBACK_METRIC = { score: 0, comment: 'Sin datos para esta entrada.' }
 
-export function Resultado({ entry }: { entry: Entry }) {
+export function Resultado({ entry, onRetry }: { entry: Entry; onRetry: () => void }) {
   const breakdown = entry.breakdown ?? {
     handwriting: FALLBACK_METRIC,
     grammar: FALLBACK_METRIC,
@@ -105,6 +105,10 @@ export function Resultado({ entry }: { entry: Entry }) {
       >
         <ShareIcon className="size-3.5" />
         Compartir tarjeta de resultado
+      </button>
+
+      <button type="button" onClick={onRetry} className="w-full py-1 text-center text-sm font-semibold text-ink-soft underline">
+        ¿No quedó como esperabas? Rehacer el envío
       </button>
     </div>
   )

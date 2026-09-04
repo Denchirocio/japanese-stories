@@ -176,9 +176,18 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
 
           {!entry.usedRequiredElements && (
             <p className="text-sm text-vermilion">
-              Che, parece que no usaste toda la gramática/vocabulario de hoy — probá incluirlo mañana.
+              Parece que no usaste toda la gramática/vocabulario de hoy — probá incluirlo la próxima vez.
             </p>
           )}
+
+          <button
+            type="button"
+            onClick={onOpenCamera}
+            className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-line bg-paper-sunken px-4 py-3 font-bold text-ink transition hover:bg-paper-sunken-strong active:scale-[0.98]"
+          >
+            <CameraIcon className="size-[18px]" />
+            Rehacer el envío de hoy
+          </button>
         </div>
       )}
     </div>

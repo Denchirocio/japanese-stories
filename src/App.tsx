@@ -42,7 +42,7 @@ function App() {
           <p className="p-6 text-center text-ink-soft">Cargando...</p>
         ) : view === 'historias' ? (
           celebrating && daily.entry ? (
-            <Resultado entry={daily.entry} />
+            <Resultado entry={daily.entry} onRetry={() => setCameraOpen(true)} />
           ) : (
             <Historias daily={daily} onOpenCamera={() => setCameraOpen(true)} />
           )
