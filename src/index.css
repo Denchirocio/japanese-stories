@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+/* Design system: "Washi & Ink" — tokens matched to the Figma file */
+@theme {
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-serif: "Noto Serif", serif;
+  --font-sans-jp: "Noto Sans JP", "Plus Jakarta Sans", sans-serif;
+  --font-serif-jp: "Noto Serif JP", "Noto Serif", serif;
+
+  /* Washi substrates */
+  --color-paper: #fbf9f6;
+  --color-paper-elevated: #ffffff;
+  --color-paper-sunken: #f5f3f0;
+  --color-paper-sunken-strong: #e4e2df;
+  --color-line: #e8e2d9;
+
+  /* Sumi ink */
+  --color-ink: #06080a;
+  --color-ink-soft: #44474a;
+  --color-ink-faint: #75777a;
+
+  /* Aizome indigo (secondary) */
+  --color-indigo: #475f83;
+  --color-indigo-strong: #2f486a;
+  --color-indigo-soft: #edf2f7;
+
+  /* Shu-iro vermilion (tertiary) */
+  --color-vermilion: #ef4e4a;
+  --color-vermilion-strong: #920212;
+  --color-vermilion-soft: #fff5f5;
+
+  /* Matcha / bamboo (success, not in the M3 export — kept from earlier pass) */
+  --color-matcha: #2f855a;
+  --color-bamboo: #38a169;
+  --color-matcha-soft: #e6fffa;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1.5rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
