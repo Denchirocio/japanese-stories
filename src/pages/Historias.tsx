@@ -1,8 +1,6 @@
-import { EntryPhoto } from '../components/EntryPhoto'
 import { SpeakerButton } from '../components/SpeakerButton'
 import { CameraIcon, CheckIcon, PencilIcon } from '../components/icons'
 import type { DailyEntryState } from '../hooks/useDailyEntry'
-import { scoreColorClass } from '../lib/entryDisplay'
 
 const CARD_SHADOW = '0px 4px 6px -1px rgba(0,0,0,0.1), 0px 2px 4px -2px rgba(0,0,0,0.1)'
 const CTA_SHADOW = '0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1)'
@@ -136,60 +134,18 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           </div>
         )}
 
-        {!entry && (
-          <button
-            type="button"
-            onClick={onOpenCamera}
-            className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-ink px-4 py-3.5 font-bold text-paper transition hover:bg-indigo active:scale-[0.98]"
-            style={{ boxShadow: CTA_SHADOW }}
-          >
-            <CameraIcon className="size-[18px]" />
-            Tomar foto
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={onOpenCamera}
+          className={`flex w-full items-center justify-center gap-2.5 rounded-xl px-4 py-3.5 font-bold transition active:scale-[0.98] ${
+            entry ? 'border border-line bg-paper-sunken text-ink hover:bg-paper-sunken-strong' : 'bg-ink text-paper hover:bg-indigo'
+          }`}
+          style={entry ? undefined : { boxShadow: CTA_SHADOW }}
+        >
+          <CameraIcon className="size-[18px]" />
+          {entry ? 'Rehacer el envío de hoy' : 'Tomar foto'}
+        </button>
       </div>
-
-      {entry && (
-        <div className="space-y-4 rounded-xl bg-paper-elevated p-6" style={{ boxShadow: CARD_SHADOW }}>
-          <div className="flex items-center justify-between">
-            <p className="font-semibold text-matcha">Ya escribiste hoy</p>
-            <p className="font-serif text-xl font-bold">
-              <span className={scoreColorClass(entry.score)}>{entry.score}</span>
-              <span className="text-[10px] font-normal tracking-wide text-ink-soft">/100</span>
-            </p>
-          </div>
-
-          <EntryPhoto blob={entry.photoBlob} alt="Tu escritura de hoy" className="w-full rounded-md border border-line" />
-
-          <div>
-            <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Lo que escribiste</p>
-            <p className="whitespace-pre-wrap text-ink">{entry.transcription}</p>
-          </div>
-          <div>
-            <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Versión corregida</p>
-            <p className="whitespace-pre-wrap text-ink">{entry.corrected}</p>
-          </div>
-          <div>
-            <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Explicación</p>
-            <p className="whitespace-pre-wrap text-ink-soft">{entry.explanation}</p>
-          </div>
-
-          {!entry.usedRequiredElements && (
-            <p className="text-sm text-vermilion">
-              Parece que no usaste toda la gramática/vocabulario de hoy — probá incluirlo la próxima vez.
-            </p>
-          )}
-
-          <button
-            type="button"
-            onClick={onOpenCamera}
-            className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-line bg-paper-sunken px-4 py-3 font-bold text-ink transition hover:bg-paper-sunken-strong active:scale-[0.98]"
-          >
-            <CameraIcon className="size-[18px]" />
-            Rehacer el envío de hoy
-          </button>
-        </div>
-      )}
     </div>
   )
 }

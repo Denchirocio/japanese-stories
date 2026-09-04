@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { AppHeader } from './components/AppHeader'
 import { BottomNav } from './components/BottomNav'
 import { useDailyEntry } from './hooks/useDailyEntry'
+import type { Entry } from './lib/entries'
 import { Camera } from './pages/Camera'
 import { Cuaderno } from './pages/Cuaderno'
+import { DetalleEntrada } from './pages/DetalleEntrada'
 import { Historias } from './pages/Historias'
 import { Resultado } from './pages/Resultado'
 
@@ -13,6 +15,7 @@ function App() {
   const [view, setView] = useState<View>('historias')
   const [cameraOpen, setCameraOpen] = useState(false)
   const [celebrating, setCelebrating] = useState(false)
+  const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null)
   const daily = useDailyEntry()
 
   if (cameraOpen) {
@@ -26,6 +29,10 @@ function App() {
         }}
       />
     )
+  }
+
+  if (selectedEntry) {
+    return <DetalleEntrada entry={selectedEntry} onBack={() => setSelectedEntry(null)} />
   }
 
   function changeView(v: View) {
@@ -47,7 +54,7 @@ function App() {
             <Historias daily={daily} onOpenCamera={() => setCameraOpen(true)} />
           )
         ) : (
-          <Cuaderno daily={daily} />
+          <Cuaderno daily={daily} onSelectEntry={setSelectedEntry} />
         )}
       </main>
 

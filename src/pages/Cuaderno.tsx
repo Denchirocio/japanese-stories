@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import { EntryPhoto } from '../components/EntryPhoto'
 import { EntryThumbnail } from '../components/EntryThumbnail'
 import type { DailyEntryState } from '../hooks/useDailyEntry'
 import { currentMonthLabel, isSameMonth, jpWeekdayLabel, relativeDateLabel } from '../lib/date'
@@ -10,9 +9,8 @@ const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
 
 type Filter = 'todos' | 'mes' | 'top' | 'revisar'
 
-export function Cuaderno({ daily }: { daily: DailyEntryState }) {
+export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onSelectEntry: (entry: Entry) => void }) {
   const [entries, setEntries] = useState<Entry[] | null>(null)
-  const [openDate, setOpenDate] = useState<string | null>(null)
   const [filter, setFilter] = useState<Filter>('todos')
 
   useEffect(() => {
@@ -66,64 +64,45 @@ export function Cuaderno({ daily }: { daily: DailyEntryState }) {
       ) : (
         <div className="space-y-3">
           {filtered.map((entry) => {
-            const open = openDate === entry.date
             const isToday = entry.date === daily.today
             return (
-              <article
+              <button
                 key={entry.date}
-                className="overflow-hidden rounded-xl bg-paper-elevated p-4"
+                type="button"
+                onClick={() => onSelectEntry(entry)}
+                className="block w-full overflow-hidden rounded-xl bg-paper-elevated p-4 text-left"
                 style={{ boxShadow: CARD_SHADOW }}
               >
-                <button type="button" onClick={() => setOpenDate(open ? null : entry.date)} className="block w-full text-left">
-                  <div className="mb-2.5 flex items-center gap-2">
-                    {isToday && <span className="size-2 shrink-0 rounded-full bg-vermilion" />}
-                    <span className="text-xs font-bold tracking-wide text-ink">{relativeDateLabel(entry.date, daily.today)}</span>
-                    <span className="text-[10px] tracking-wide text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
-                  </div>
+                <div className="mb-2.5 flex items-center gap-2">
+                  {isToday && <span className="size-2 shrink-0 rounded-full bg-vermilion" />}
+                  <span className="text-xs font-bold tracking-wide text-ink">{relativeDateLabel(entry.date, daily.today)}</span>
+                  <span className="text-[10px] tracking-wide text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
+                </div>
 
-                  <div className="flex items-start gap-3">
-                    <EntryThumbnail blob={entry.photoBlob} alt={`Escritura del ${entry.date}`} />
-                    <div className="flex min-w-0 flex-1 flex-col justify-between self-stretch">
-                      <div className="space-y-0.5">
-                        <div className="flex items-baseline justify-between gap-2">
-                          <p className="truncate text-base font-bold text-ink">{entry.prompt.themeTitle}</p>
-                          <p className="shrink-0 font-serif text-xl font-bold">
-                            <span className={scoreColorClass(entry.score)}>{entry.score}</span>
-                            <span className="text-[10px] font-normal tracking-wide text-ink-soft">/100</span>
-                          </p>
-                        </div>
-                        <p className="line-clamp-2 text-[13px] text-ink-soft">{entry.corrected}</p>
+                <div className="flex items-start gap-3">
+                  <EntryThumbnail blob={entry.photoBlob} alt={`Escritura del ${entry.date}`} />
+                  <div className="flex min-w-0 flex-1 flex-col justify-between self-stretch">
+                    <div className="space-y-0.5">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <p className="truncate text-base font-bold text-ink">{entry.prompt.themeTitle}</p>
+                        <p className="shrink-0 font-serif text-xl font-bold">
+                          <span className={scoreColorClass(entry.score)}>{entry.score}</span>
+                          <span className="text-[10px] font-normal tracking-wide text-ink-soft">/100</span>
+                        </p>
                       </div>
-                      <div className="mt-2 flex flex-wrap gap-1">
-                        <span className="rounded-full bg-paper-sunken px-2 py-0.5 text-[10px] font-semibold tracking-wide text-ink">
-                          #{entry.prompt.level}
-                        </span>
-                        <span className="rounded-full bg-indigo-soft px-2 py-0.5 text-[10px] font-bold tracking-wide text-indigo-strong">
-                          {grammarTag(entry.prompt.grammar)}
-                        </span>
-                      </div>
+                      <p className="line-clamp-2 text-[13px] text-ink-soft">{entry.corrected}</p>
+                    </div>
+                    <div className="mt-2 flex flex-wrap gap-1">
+                      <span className="rounded-full bg-paper-sunken px-2 py-0.5 text-[10px] font-semibold tracking-wide text-ink">
+                        #{entry.prompt.level}
+                      </span>
+                      <span className="rounded-full bg-indigo-soft px-2 py-0.5 text-[10px] font-bold tracking-wide text-indigo-strong">
+                        {grammarTag(entry.prompt.grammar)}
+                      </span>
                     </div>
                   </div>
-                </button>
-
-                {open && (
-                  <div className="mt-4 space-y-3 border-t border-line pt-4">
-                    <EntryPhoto blob={entry.photoBlob} alt={`Escritura del ${entry.date}`} className="w-full rounded-md border border-line" />
-                    <div>
-                      <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Lo que escribiste</p>
-                      <p className="whitespace-pre-wrap text-ink">{entry.transcription}</p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Versión corregida</p>
-                      <p className="whitespace-pre-wrap text-ink">{entry.corrected}</p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Explicación</p>
-                      <p className="whitespace-pre-wrap text-ink-soft">{entry.explanation}</p>
-                    </div>
-                  </div>
-                )}
-              </article>
+                </div>
+              </button>
             )
           })}
         </div>

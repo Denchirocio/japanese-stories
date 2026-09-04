@@ -1,21 +1,14 @@
+import { EntryPhoto } from '../components/EntryPhoto'
+import { EntryTextDetail } from '../components/EntryTextDetail'
 import { HankoSeal } from '../components/HankoSeal'
 import { ShareIcon, SparkleIcon } from '../components/icons'
-import { SkillBar } from '../components/SkillBar'
+import { ScoreBreakdown } from '../components/ScoreBreakdown'
 import type { Entry } from '../lib/entries'
 import { levelBadge } from '../lib/entryDisplay'
 
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
 
-const FALLBACK_METRIC = { score: 0, comment: 'Sin datos para esta entrada.' }
-
 export function Resultado({ entry, onRetry }: { entry: Entry; onRetry: () => void }) {
-  const breakdown = entry.breakdown ?? {
-    handwriting: FALLBACK_METRIC,
-    grammar: FALLBACK_METRIC,
-    vocabulary: FALLBACK_METRIC,
-    naturalness: FALLBACK_METRIC,
-  }
-
   async function handleShare() {
     const text = `¡Completé el desafío de hoy en Kotoba 言葉! Puntaje: ${entry.score}/100 (${levelBadge(entry.score)})`
     if (navigator.share) {
@@ -51,52 +44,11 @@ export function Resultado({ entry, onRetry }: { entry: Entry; onRetry: () => voi
         </div>
       </div>
 
-      <div className="rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Calificación general</p>
-            <p className="font-serif text-[34px] font-semibold text-ink">
-              {entry.score}
-              <span className="text-base font-semibold text-ink-soft">/100</span>
-            </p>
-          </div>
-          <div className="flex items-center gap-1.5 rounded-full bg-paper-sunken-strong px-3 py-1.5">
-            <span className="size-2.5 shrink-0 rounded-full bg-vermilion" />
-            <span className="text-base font-bold text-ink">{levelBadge(entry.score)}</span>
-          </div>
-        </div>
-      </div>
+      <ScoreBreakdown result={entry} level={entry.prompt.level} />
 
-      <div className="space-y-4 rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
-        <div className="flex items-center justify-between">
-          <span className="text-base font-semibold text-ink">Desglose de destrezas</span>
-          <span className="text-[10px] font-bold tracking-wide text-ink-soft">Criterio JLPT {entry.prompt.level}</span>
-        </div>
-        <SkillBar
-          label="Trazo y caligrafía"
-          score={breakdown.handwriting.score}
-          comment={breakdown.handwriting.comment}
-          colorClass="bg-ink"
-        />
-        <SkillBar
-          label="Gramática y estructura"
-          score={breakdown.grammar.score}
-          comment={breakdown.grammar.comment}
-          colorClass="bg-indigo"
-        />
-        <SkillBar
-          label="Vocabulario aplicado"
-          score={breakdown.vocabulary.score}
-          comment={breakdown.vocabulary.comment}
-          colorClass="bg-vermilion"
-        />
-        <SkillBar
-          label="Naturalidad y fluidez"
-          score={breakdown.naturalness.score}
-          comment={breakdown.naturalness.comment}
-          colorClass="bg-matcha"
-        />
-      </div>
+      <EntryPhoto blob={entry.photoBlob} alt="Tu escritura de hoy" className="w-full rounded-xl border border-line" />
+
+      <EntryTextDetail transcription={entry.transcription} corrected={entry.corrected} explanation={entry.explanation} />
 
       <button
         type="button"
