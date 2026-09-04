@@ -34,12 +34,23 @@ interface RequestBody {
   prompt: DailyPrompt
 }
 
+interface SkillMetric {
+  score: number
+  comment: string
+}
+
 interface CorrectionResult {
   transcription: string
   corrected: string
   explanation: string
   usedRequiredElements: boolean
   score: number
+  breakdown: {
+    handwriting: SkillMetric
+    grammar: SkillMetric
+    vocabulary: SkillMetric
+    naturalness: SkillMetric
+  }
 }
 
 const SYSTEM_PROMPT = `Sos un profesor de japonés que corrige textos escritos a mano por un estudiante hispanohablante.
@@ -52,10 +63,15 @@ Tu tarea:
 2. Dá una versión corregida y natural del mismo texto.
 3. Explicá en español, de forma breve y clara, los errores encontrados (gramática, kanji, partículas, naturalidad).
 4. Indicá si el estudiante usó correctamente la gramática objetivo y al menos la mayoría de los sustantivos, verbos y adjetivos pedidos.
-5. Asigná un puntaje de 0 a 100 evaluando: la extensión (un texto completo de 6+ oraciones, no unas pocas líneas sueltas), el uso correcto de la gramática objetivo, el uso de los sustantivos/verbos/adjetivos pedidos, y la naturalidad general. Sé exigente pero justo: 90+ es excelente y completo, 70-89 es bueno pero corto o con errores menores, menos de 70 es muy corto o tiene errores importantes.
+5. Asigná un puntaje general de 0 a 100 evaluando: la extensión (un texto completo de 6+ oraciones, no unas pocas líneas sueltas), el uso correcto de la gramática objetivo, el uso de los sustantivos/verbos/adjetivos pedidos, y la naturalidad general. Sé exigente pero justo: 90+ es excelente y completo, 70-89 es bueno pero corto o con errores menores, menos de 70 es muy corto o tiene errores importantes.
+6. Además del puntaje general, evaluá por separado estas 4 destrezas, cada una de 0 a 100 con un comentario de una sola frase corta en español:
+   - "handwriting": legibilidad y trazo de la escritura a mano en la foto (proporciones, prolijidad, firmeza del trazo).
+   - "grammar": uso correcto de la gramática objetivo y la estructura general de las oraciones.
+   - "vocabulary": uso correcto y natural de los sustantivos/verbos/adjetivos pedidos (si usó todos o la mayoría, mejor puntaje).
+   - "naturalness": qué tan natural y fluido suena el texto para alguien nativo, más allá de si es gramaticalmente correcto.
 
 Respondé ÚNICAMENTE con un objeto JSON válido, sin texto adicional, con este formato exacto:
-{"transcription": "...", "corrected": "...", "explanation": "...", "usedRequiredElements": true, "score": 85}`
+{"transcription": "...", "corrected": "...", "explanation": "...", "usedRequiredElements": true, "score": 85, "breakdown": {"handwriting": {"score": 90, "comment": "..."}, "grammar": {"score": 85, "comment": "..."}, "vocabulary": {"score": 100, "comment": "..."}, "naturalness": {"score": 80, "comment": "..."}}}`
 
 function extractJson(text: string): CorrectionResult {
   const match = text.match(/\{[\s\S]*\}/)

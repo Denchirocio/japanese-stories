@@ -1,11 +1,22 @@
 import type { DailyPrompt } from '../data/prompts'
 
+export interface SkillMetric {
+  score: number
+  comment: string
+}
+
 export interface CorrectionResult {
   transcription: string
   corrected: string
   explanation: string
   usedRequiredElements: boolean
   score: number
+  breakdown?: {
+    handwriting: SkillMetric
+    grammar: SkillMetric
+    vocabulary: SkillMetric
+    naturalness: SkillMetric
+  }
 }
 
 export async function requestCorrection(
