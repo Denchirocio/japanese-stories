@@ -15,9 +15,6 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
     { text: 'Trazar a mano en libreta o papel con tinta/lápiz', done: !!entry },
   ]
 
-  const verbHint =
-    prompt.verbs.length > 0 ? Array.from(new Set(prompt.verbs.map((v) => v.form))).join(' / ') : null
-
   return (
     <div className="mx-auto max-w-lg space-y-4 px-4 pb-12 pt-6">
       <div className="flex items-baseline justify-between">
@@ -95,10 +92,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
         {/* Verbos requeridos */}
         {prompt.verbs.length > 0 && (
           <div className="space-y-2.5">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold tracking-wide text-ink uppercase">Verbos requeridos</span>
-              {verbHint && <span className="text-[10px] font-medium tracking-wide text-indigo">Usa {verbHint}</span>}
-            </div>
+            <span className="text-xs font-bold tracking-wide text-ink uppercase">Verbos requeridos</span>
             <div className="grid grid-cols-2 gap-2">
               {prompt.verbs.map((verb) => (
                 <div key={verb.word} className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-2.5">
@@ -110,7 +104,6 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
                     <SpeakerButton text={verb.word} className="mt-0.5" />
                   </div>
                   <p className="text-[13px] text-ink-soft">{verb.translation}</p>
-                  <p className="text-[10px] font-bold tracking-wide text-ink-soft uppercase">{verb.form}</p>
                 </div>
               ))}
             </div>
@@ -132,7 +125,6 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
                     <SpeakerButton text={word.word} className="mt-0.5" />
                   </div>
                   <p className="text-[13px] text-ink-soft">{word.translation}</p>
-                  <p className="text-[10px] font-bold tracking-wide text-ink-soft uppercase">{word.type}形容詞</p>
                 </div>
               ))}
             </div>
