@@ -8,6 +8,7 @@ import { Cuaderno } from './pages/Cuaderno'
 import { DetalleEntrada } from './pages/DetalleEntrada'
 import { Historias } from './pages/Historias'
 import { Resultado } from './pages/Resultado'
+import { Splash } from './pages/Splash'
 
 export type View = 'historias' | 'cuaderno'
 
@@ -17,6 +18,10 @@ function App() {
   const [celebrating, setCelebrating] = useState(false)
   const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null)
   const daily = useDailyEntry()
+
+  if (daily.loading) {
+    return <Splash />
+  }
 
   if (cameraOpen) {
     return (
@@ -45,9 +50,7 @@ function App() {
       <AppHeader />
 
       <main className="pt-16 pb-16">
-        {daily.loading ? (
-          <p className="p-6 text-center text-ink-soft">Cargando...</p>
-        ) : view === 'historias' ? (
+        {view === 'historias' ? (
           celebrating && daily.entry ? (
             <Resultado entry={daily.entry} onRetry={() => setCameraOpen(true)} />
           ) : (
