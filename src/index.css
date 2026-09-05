@@ -48,7 +48,7 @@ body {
   margin: 0;
   background-color: var(--color-paper);
   background-image: radial-gradient(rgba(6, 8, 10, 0.08) 1px, transparent 1px);
-  background-size: 9px 9px;
+  background-size: 20px 20px;
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
