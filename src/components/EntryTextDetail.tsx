@@ -15,12 +15,18 @@ export function EntryTextDetail({
   return (
     <div className="space-y-4">
       <div className="rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
-        <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Lo que escribiste</p>
+        <div className="mb-1 flex items-center gap-1.5">
+          <span className="size-2 rounded-full bg-vermilion" />
+          <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Lo que escribiste</p>
+        </div>
         <p className="whitespace-pre-wrap text-ink">{transcription}</p>
       </div>
 
       <div className="rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
-        <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Versión corregida</p>
+        <div className="mb-1 flex items-center gap-1.5">
+          <span className="size-2 rounded-full bg-indigo" />
+          <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Versión corregida</p>
+        </div>
         <FormattedText text={corrected} className="text-ink" />
       </div>
 

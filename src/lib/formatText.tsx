@@ -4,9 +4,9 @@ export function renderFormattedParts(text: string): ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*)/g)
   return parts.map((part, i) =>
     part.startsWith('**') && part.endsWith('**') ? (
-      <strong key={i} className="font-bold text-ink">
+      <mark key={i} className="rounded bg-indigo-soft px-1 font-semibold text-indigo-strong">
         {part.slice(2, -2)}
-      </strong>
+      </mark>
     ) : (
       part
     ),
