@@ -19,7 +19,7 @@ export function EntryTextDetail({
           <span className="size-2 rounded-full bg-vermilion" />
           <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Lo que escribiste</p>
         </div>
-        <p className="whitespace-pre-wrap text-ink">{transcription}</p>
+        <p className="whitespace-pre-wrap text-lg leading-relaxed text-ink">{transcription}</p>
       </div>
 
       <div className="rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
@@ -27,13 +27,13 @@ export function EntryTextDetail({
           <span className="size-2 rounded-full bg-indigo" />
           <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Versión corregida</p>
         </div>
-        <FormattedText text={corrected} className="text-ink" />
+        <FormattedText text={corrected} className="text-lg leading-relaxed text-ink" />
       </div>
 
       <div className="rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
         <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Explicación</p>
         {Array.isArray(explanation) ? (
-          <ul className="list-disc space-y-1.5 pl-4 text-ink-soft marker:text-ink-faint">
+          <ul className="list-disc space-y-2 pl-4 text-base text-ink-soft marker:text-ink-faint">
             {explanation.map((item, i) => (
               <li key={i} className="pl-1 leading-relaxed">
                 {renderFormattedParts(item)}
@@ -41,7 +41,7 @@ export function EntryTextDetail({
             ))}
           </ul>
         ) : (
-          <FormattedText text={explanation} className="text-ink-soft" />
+          <FormattedText text={explanation} className="text-base leading-relaxed text-ink-soft" />
         )}
       </div>
     </div>

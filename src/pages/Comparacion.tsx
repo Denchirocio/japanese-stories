@@ -118,7 +118,7 @@ export function Comparacion({ original, correction, onBack }: { original: Entry;
             >
               {attemptLabel(entry.attempt)}
             </span>
-            <FormattedText text={entry.corrected} className="text-[13px] leading-relaxed text-ink" />
+            <FormattedText text={entry.corrected} className="text-lg leading-relaxed text-ink" />
           </div>
         ))}
       </div>
