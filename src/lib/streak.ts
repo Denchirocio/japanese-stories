@@ -40,3 +40,28 @@ export function activeStreakCount(streak: Streak, today: string): number {
   if (isYesterday(streak.lastEntryDate, today)) return streak.count
   return 0
 }
+
+// Reconstruye el streak a partir de las fechas de entradas reales (por
+// ejemplo, después de restaurar un backup en un dispositivo nuevo).
+export function recomputeStreakFromDates(dates: string[]): Streak {
+  const sorted = [...new Set(dates)].sort()
+
+  if (sorted.length === 0) {
+    const empty: Streak = { count: 0, lastEntryDate: null }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(empty))
+    return empty
+  }
+
+  let count = 1
+  for (let i = sorted.length - 1; i > 0; i--) {
+    if (isYesterday(sorted[i - 1], sorted[i])) {
+      count++
+    } else {
+      break
+    }
+  }
+
+  const next: Streak = { count, lastEntryDate: sorted[sorted.length - 1] }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+  return next
+}
