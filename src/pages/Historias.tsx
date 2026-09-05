@@ -42,7 +42,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
             <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Tema del día</span>
           </div>
           <div className="flex flex-wrap items-baseline justify-between gap-x-2">
-            <p className="font-serif-jp text-[26px] leading-[1.3] text-ink">{prompt.themeTitle}</p>
+            <p className="font-sans-jp text-[26px] font-semibold leading-[1.3] text-ink">{prompt.themeTitle}</p>
             <p className="text-base text-ink-soft italic">{prompt.grammar}</p>
           </div>
         </div>
