@@ -14,9 +14,9 @@ function ExplanationCard({ index, title, description }: { index: number; title?:
       <span className="mt-0.5 shrink-0 rounded bg-[#d4e3ff] px-1.5 py-0.5 text-[10px] font-bold tracking-wide text-[#001c3a]">
         {index}
       </span>
-      <div className="min-w-0 flex-1 space-y-0.5">
-        {title && <p className="text-[13px] font-semibold text-ink">{renderFormattedParts(title)}</p>}
-        <p className="text-xs leading-relaxed font-medium text-ink-soft">{renderFormattedParts(description)}</p>
+      <div className="min-w-0 flex-1 space-y-1">
+        {title && <p className="text-base font-semibold text-ink">{renderFormattedParts(title)}</p>}
+        <p className="text-base leading-relaxed font-medium text-ink-soft">{renderFormattedParts(description)}</p>
       </div>
     </div>
   )
