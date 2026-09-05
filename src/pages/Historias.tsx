@@ -98,19 +98,10 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           </div>
         </div>
 
-        {/* Gramática requerida */}
-        <div className="space-y-1 rounded-lg bg-paper-sunken p-3.5">
-          <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Gramática requerida</span>
-          <p className="font-sans-jp text-lg font-semibold text-ink">{prompt.grammar}</p>
-          {(prompt.grammar.includes('・') || prompt.grammar.includes('／')) && (
-            <p className="text-[11px] text-ink-faint">Alcanza con usar al menos una de estas formas correctamente.</p>
-          )}
-        </div>
-
-        {/* Palabras obligatorias */}
+        {/* Palabras */}
         <div className="space-y-2.5">
           <div className="flex items-center gap-1.5">
-            <span className="text-xs font-bold tracking-wide text-ink uppercase">Palabras obligatorias</span>
+            <span className="text-xs font-bold tracking-wide text-ink uppercase">Palabras</span>
           </div>
           <div className="grid grid-cols-2 gap-2">
             {prompt.vocab.map((word) => (
@@ -127,10 +118,10 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           </div>
         </div>
 
-        {/* Verbos requeridos */}
+        {/* Verbos */}
         {prompt.verbs.length > 0 && (
           <div className="space-y-2.5">
-            <span className="text-xs font-bold tracking-wide text-ink uppercase">Verbos requeridos</span>
+            <span className="text-xs font-bold tracking-wide text-ink uppercase">Verbos</span>
             <div className="grid grid-cols-2 gap-2">
               {prompt.verbs.map((verb) => (
                 <div key={verb.word} className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-2.5">
@@ -145,10 +136,10 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           </div>
         )}
 
-        {/* Adjetivos requeridos */}
+        {/* Adjetivos */}
         {prompt.adjectives.length > 0 && (
           <div className="space-y-2.5">
-            <span className="text-xs font-bold tracking-wide text-ink uppercase">Adjetivos requeridos</span>
+            <span className="text-xs font-bold tracking-wide text-ink uppercase">Adjetivos</span>
             <div className="grid grid-cols-2 gap-2">
               {prompt.adjectives.map((word) => (
                 <div key={word.word} className="rounded-lg border-l-2 border-matcha bg-paper-sunken p-2.5">
@@ -163,10 +154,10 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           </div>
         )}
 
-        {/* Lugares requeridos */}
+        {/* Lugares */}
         {prompt.places.length > 0 && (
           <div className="space-y-2.5">
-            <span className="text-xs font-bold tracking-wide text-ink uppercase">Lugares requeridos</span>
+            <span className="text-xs font-bold tracking-wide text-ink uppercase">Lugares</span>
             <div className="grid grid-cols-2 gap-2">
               {prompt.places.map((word) => (
                 <div key={word.word} className="rounded-lg border-l-2 border-violet bg-paper-sunken p-2.5">
@@ -180,6 +171,15 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
             </div>
           </div>
         )}
+
+        {/* Gramática */}
+        <div className="space-y-1 rounded-lg bg-paper-sunken p-3.5">
+          <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Gramática</span>
+          <p className="font-sans-jp text-lg font-semibold text-ink">{prompt.grammar}</p>
+          {(prompt.grammar.includes('・') || prompt.grammar.includes('／')) && (
+            <p className="text-[11px] text-ink-faint">Alcanza con usar al menos una de estas formas correctamente.</p>
+          )}
+        </div>
 
         <button
           type="button"
