@@ -16,10 +16,20 @@ const SKILLS: { key: 'handwriting' | 'grammar' | 'vocabulary' | 'naturalness'; l
 ]
 
 function DeltaTag({ delta }: { delta: number }) {
-  if (delta === 0) return <span className="text-xs font-semibold text-ink-soft">Sin cambio</span>
+  if (delta === 0) {
+    return (
+      <span className="rounded-full bg-paper-sunken-strong px-2 py-0.5 text-[10px] font-bold tracking-wide text-ink-soft uppercase">
+        Sin cambio
+      </span>
+    )
+  }
   const positive = delta > 0
   return (
-    <span className={`text-xs font-bold ${positive ? 'text-matcha' : 'text-vermilion'}`}>
+    <span
+      className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${
+        positive ? 'bg-matcha-soft text-matcha' : 'bg-vermilion-soft text-vermilion-strong'
+      }`}
+    >
       {positive ? '+' : ''}
       {delta} pts
     </span>
