@@ -1,13 +1,21 @@
 import type { CorrectionResult } from '../lib/correctWriting'
 import { levelBadge } from '../lib/entryDisplay'
 import { countUniqueKanji, countWords } from '../lib/textStats'
-import { BrushIcon, MedalIcon } from './icons'
+import { BrushIcon, CompareIcon, MedalIcon } from './icons'
 import { SkillBar } from './SkillBar'
 
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
 const FALLBACK_METRIC = { score: 0, comment: 'Sin datos para esta entrada.' }
 
-export function ScoreBreakdown({ result, level }: { result: CorrectionResult; level: string }) {
+export function ScoreBreakdown({
+  result,
+  level,
+  onCompare,
+}: {
+  result: CorrectionResult
+  level: string
+  onCompare?: () => void
+}) {
   const breakdown = result.breakdown ?? {
     handwriting: FALLBACK_METRIC,
     grammar: FALLBACK_METRIC,
@@ -29,9 +37,21 @@ export function ScoreBreakdown({ result, level }: { result: CorrectionResult; le
               <span className="text-base font-semibold text-ink-soft">/100</span>
             </p>
           </div>
-          <div className="flex items-center gap-1.5 rounded-full bg-paper-sunken-strong px-3 py-1.5">
-            <span className="size-2.5 shrink-0 rounded-full bg-vermilion" />
-            <span className="text-base font-bold text-ink">{levelBadge(result.score)}</span>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 rounded-full bg-paper-sunken-strong px-3 py-1.5">
+              <span className="size-2.5 shrink-0 rounded-full bg-vermilion" />
+              <span className="text-base font-bold text-ink">{levelBadge(result.score)}</span>
+            </div>
+            {onCompare && (
+              <button
+                type="button"
+                onClick={onCompare}
+                aria-label="Comparar con el otro intento de hoy"
+                className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-paper-sunken-strong text-ink-soft transition hover:bg-paper-sunken hover:text-ink"
+              >
+                <CompareIcon className="size-4" />
+              </button>
+            )}
           </div>
         </div>
 

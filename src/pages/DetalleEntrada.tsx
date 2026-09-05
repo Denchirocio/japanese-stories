@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { EntryPhoto } from '../components/EntryPhoto'
 import { EntryTextDetail } from '../components/EntryTextDetail'
 import { ScoreBreakdown } from '../components/ScoreBreakdown'
-import { BackArrowIcon, CompareIcon } from '../components/icons'
+import { BackArrowIcon } from '../components/icons'
 import { jpWeekdayLabel } from '../lib/date'
 import { getEntriesForDate, type Entry } from '../lib/entries'
 import { attemptBadgeClass, attemptLabel } from '../lib/entryDisplay'
@@ -53,18 +53,13 @@ export function DetalleEntrada({
         </div>
       </div>
 
-      {sibling && (
-        <button
-          type="button"
-          onClick={() => onCompare(entry.attempt === 1 ? entry : sibling, entry.attempt === 1 ? sibling : entry)}
-          className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-paper-sunken py-2.5 text-xs font-semibold text-ink-soft transition hover:bg-paper-sunken-strong"
-        >
-          <CompareIcon className="size-3.5" />
-          Comparar con el otro intento de hoy
-        </button>
-      )}
-
-      <ScoreBreakdown result={entry} level={entry.prompt.level} />
+      <ScoreBreakdown
+        result={entry}
+        level={entry.prompt.level}
+        onCompare={
+          sibling ? () => onCompare(entry.attempt === 1 ? entry : sibling, entry.attempt === 1 ? sibling : entry) : undefined
+        }
+      />
 
       <EntryPhoto blob={entry.photoBlob} alt={`Escritura del ${entry.date}`} className="w-full rounded-xl border border-line" />
 
