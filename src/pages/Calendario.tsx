@@ -163,9 +163,9 @@ export function Calendario({
         <button
           type="button"
           onClick={onGoToHistorias}
-          className="shrink-0 rounded-lg bg-indigo px-3.5 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-strong"
+          className="shrink-0 rounded-lg bg-ink px-3.5 py-2 text-xs font-semibold text-paper shadow-sm hover:bg-indigo"
         >
-          Historia
+          {daily.entry ? 'Ver corrección' : 'Enviar historia'}
         </button>
       </div>
     </div>
