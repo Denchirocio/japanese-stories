@@ -40,7 +40,7 @@ export function Resultado({ entry, onRetry }: { entry: Entry; onRetry: () => voi
             <h1 className="font-serif text-[26px] leading-[1.25] text-ink">¡Desafío completado!</h1>
             <p className="text-[13px] text-ink-soft">Tu práctica de hoy fue evaluada.</p>
           </div>
-          <HankoSeal score={entry.score} />
+          <HankoSeal />
         </div>
       </div>
 
