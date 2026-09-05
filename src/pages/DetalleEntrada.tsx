@@ -18,7 +18,7 @@ export function DetalleEntrada({ entry, onBack }: { entry: Entry; onBack: () => 
         </button>
         <div>
           <p className="font-serif text-xl text-ink">
-            {entry.date} <span className="text-base text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
+            {entry.date} <span className="font-sans-jp text-base text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
           </p>
           <p className="text-sm text-ink-soft">{entry.prompt.themeTitle}</p>
         </div>

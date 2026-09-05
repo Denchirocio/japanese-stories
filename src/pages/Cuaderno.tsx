@@ -73,7 +73,7 @@ export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onS
                 <div className="mb-2.5 flex items-center gap-2">
                   {isToday && <span className="size-2 shrink-0 rounded-full bg-vermilion" />}
                   <span className="text-xs font-bold tracking-wide text-ink">{relativeDateLabel(entry.date, daily.today)}</span>
-                  <span className="text-[10px] tracking-wide text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
+                  <span className="font-sans-jp text-sm tracking-wide text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
                 </div>
 
                 <div className="flex items-start gap-3">

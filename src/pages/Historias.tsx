@@ -30,7 +30,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
       <div className="flex items-baseline justify-between">
         <h1 className="font-serif text-2xl font-medium text-ink">Desafío de Hoy</h1>
         <p className="text-sm text-ink-soft">
-          {shortDate(daily.today)} <span className="text-xs">{jpWeekdayLabel(daily.today)}</span>
+          {shortDate(daily.today)} <span className="font-sans-jp text-sm">{jpWeekdayLabel(daily.today)}</span>
         </p>
       </div>
 
