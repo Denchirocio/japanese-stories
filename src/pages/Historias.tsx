@@ -1,5 +1,5 @@
 import { SpeakerButton } from '../components/SpeakerButton'
-import { CameraIcon, CheckIcon, PencilIcon, RefreshIcon } from '../components/icons'
+import { CameraIcon, CheckIcon, MapPinIcon, PencilIcon, RefreshIcon } from '../components/icons'
 import type { DailyEntryState } from '../hooks/useDailyEntry'
 import { jpWeekdayLabel, shortDate } from '../lib/date'
 
@@ -20,7 +20,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
 
   const criteria = [
     { text: 'Escribir un texto completo de al menos 6 a 8 oraciones (no 3 frases sueltas)', done: !!entry },
-    { text: 'Usar los sustantivos, verbos y adjetivos pedidos', done: !!entry?.usedRequiredElements },
+    { text: 'Usar los sustantivos, verbos, adjetivos y lugares pedidos', done: !!entry?.usedRequiredElements },
     { text: 'Trazar a mano en libreta o papel con tinta/lápiz', done: !!entry },
   ]
   const allDone = criteria.every((c) => c.done)
@@ -145,6 +145,27 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
                 <div key={word.word} className="rounded-lg border-l-2 border-matcha bg-paper-sunken p-2.5">
                   <div className="flex items-start justify-between gap-1">
                     <JpWord word={word.word} furigana={word.furigana} accentClass="text-matcha" />
+                    <SpeakerButton text={word.word} className="mt-0.5" />
+                  </div>
+                  <p className="text-[13px] text-ink-soft">{word.translation}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Lugares requeridos */}
+        {prompt.places.length > 0 && (
+          <div className="space-y-2.5">
+            <div className="flex items-center gap-1.5">
+              <MapPinIcon className="size-3.5 text-vermilion" />
+              <span className="text-xs font-bold tracking-wide text-ink uppercase">Lugares requeridos</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {prompt.places.map((word) => (
+                <div key={word.word} className="rounded-lg border-l-2 border-vermilion bg-paper-sunken p-2.5">
+                  <div className="flex items-start justify-between gap-1">
+                    <JpWord word={word.word} furigana={word.furigana} accentClass="text-vermilion" />
                     <SpeakerButton text={word.word} className="mt-0.5" />
                   </div>
                   <p className="text-[13px] text-ink-soft">{word.translation}</p>
