@@ -1,0 +1,13 @@
+{
+  "name": "Kotoba 言葉",
+  "short_name": "Kotoba",
+  "description": "Práctica diaria de escritura en japonés",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf9f6",
+  "theme_color": "#fbf9f6",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
