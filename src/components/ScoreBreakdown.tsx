@@ -1,5 +1,7 @@
 import type { CorrectionResult } from '../lib/correctWriting'
 import { levelBadge } from '../lib/entryDisplay'
+import { countUniqueKanji, countWords } from '../lib/textStats'
+import { BrushIcon, MedalIcon } from './icons'
 import { SkillBar } from './SkillBar'
 
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
@@ -13,9 +15,12 @@ export function ScoreBreakdown({ result, level }: { result: CorrectionResult; le
     naturalness: FALLBACK_METRIC,
   }
 
+  const wordCount = countWords(result.transcription)
+  const kanjiCount = countUniqueKanji(result.transcription)
+
   return (
     <>
-      <div className="rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
+      <div className="space-y-4 rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
         <div className="flex items-end justify-between">
           <div>
             <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Calificación general</p>
@@ -27,6 +32,19 @@ export function ScoreBreakdown({ result, level }: { result: CorrectionResult; le
           <div className="flex items-center gap-1.5 rounded-full bg-paper-sunken-strong px-3 py-1.5">
             <span className="size-2.5 shrink-0 rounded-full bg-vermilion" />
             <span className="text-base font-bold text-ink">{levelBadge(result.score)}</span>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center gap-2">
+          <div className="flex flex-1 flex-col items-center justify-center gap-0.5 rounded-lg bg-paper-sunken p-2.5">
+            <MedalIcon className="size-4 text-indigo" />
+            <span className="text-base font-bold text-ink">{wordCount}</span>
+            <span className="text-center text-[10px] font-bold tracking-wide text-ink-soft uppercase">Palabras totales</span>
+          </div>
+          <div className="flex flex-1 flex-col items-center justify-center gap-0.5 rounded-lg bg-paper-sunken p-2.5">
+            <BrushIcon className="size-4 text-indigo" />
+            <span className="text-base font-bold text-ink">{kanjiCount} Kanji</span>
+            <span className="text-center text-[10px] font-bold tracking-wide text-ink-soft uppercase">en tu escrito</span>
           </div>
         </div>
       </div>
