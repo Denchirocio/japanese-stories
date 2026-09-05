@@ -9,6 +9,10 @@ export function grammarTag(grammar: string): string {
   return `#${head}`
 }
 
+export function attemptLabel(attempt: 1 | 2): string {
+  return attempt === 1 ? 'Original' : 'Corrección'
+}
+
 export function levelBadge(score: number): string {
   if (score >= 95) return 'Nivel S'
   if (score >= 90) return 'Nivel A+'

@@ -122,9 +122,9 @@ export function Camera({
     try {
       const base64 = await blobToBase64(capture.blob)
       const correction = await requestCorrection(base64, 'image/jpeg', daily.prompt)
-      const savedEntry = await saveEntry(daily.today, daily.prompt, capture.blob, correction)
+      const savedEntry = await saveEntry(daily.today, daily.nextAttempt, daily.prompt, capture.blob, correction)
       const newStreak = bumpStreakForToday(daily.today)
-      daily.setEntry(savedEntry)
+      daily.addEntryToday(savedEntry)
       daily.setStreak(newStreak)
       onSaved()
     } catch (err) {

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { EntryThumbnail } from '../components/EntryThumbnail'
 import type { DailyEntryState } from '../hooks/useDailyEntry'
 import { jpWeekdayLabel, relativeDateLabel } from '../lib/date'
-import { grammarTag, scoreColorClass } from '../lib/entryDisplay'
+import { attemptLabel, grammarTag, scoreColorClass } from '../lib/entryDisplay'
 import { listEntries, type Entry } from '../lib/entries'
 
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
@@ -64,7 +64,7 @@ export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onS
             const isToday = entry.date === daily.today
             return (
               <button
-                key={entry.date}
+                key={entry.id}
                 type="button"
                 onClick={() => onSelectEntry(entry)}
                 className="block w-full overflow-hidden rounded-xl bg-paper-elevated p-4 text-left"
@@ -74,6 +74,9 @@ export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onS
                   {isToday && <span className="size-2 shrink-0 rounded-full bg-vermilion" />}
                   <span className="text-xs font-bold tracking-wide text-ink">{relativeDateLabel(entry.date, daily.today)}</span>
                   <span className="font-sans-jp text-sm tracking-wide text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
+                  <span className="ml-auto rounded-full bg-paper-sunken px-2 py-0.5 text-[10px] font-bold tracking-wide text-ink-soft uppercase">
+                    {attemptLabel(entry.attempt)}
+                  </span>
                 </div>
 
                 <div className="flex items-start gap-3">

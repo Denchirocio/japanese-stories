@@ -16,12 +16,13 @@ function JpWord({ word, furigana, accentClass }: { word: string; furigana?: stri
 }
 
 export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onOpenCamera: () => void }) {
-  const { prompt, entry, refreshUsed, refreshPrompt } = daily
+  const { prompt, attemptsUsed, canSubmit, lastEntry, refreshUsed, refreshPrompt } = daily
+  const hasEntry = attemptsUsed > 0
 
   const criteria = [
-    { text: 'Escribir un texto completo de al menos 6 a 8 oraciones (no 3 frases sueltas)', done: !!entry },
-    { text: 'Usar los sustantivos, verbos, adjetivos y lugares pedidos', done: !!entry?.usedRequiredElements },
-    { text: 'Trazar a mano en libreta o papel con tinta/lápiz', done: !!entry },
+    { text: 'Escribir un texto completo de al menos 6 a 8 oraciones (no 3 frases sueltas)', done: hasEntry },
+    { text: 'Usar los sustantivos, verbos, adjetivos y lugares pedidos', done: !!lastEntry?.usedRequiredElements },
+    { text: 'Trazar a mano en libreta o papel con tinta/lápiz', done: hasEntry },
   ]
   const allDone = criteria.every((c) => c.done)
 
@@ -42,7 +43,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
               <span className="size-2 rounded-full bg-indigo" />
               <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Tema del día</span>
             </div>
-            {!entry && (
+            {!hasEntry && (
               <button
                 type="button"
                 onClick={refreshPrompt}
@@ -195,13 +196,16 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
         <button
           type="button"
           onClick={onOpenCamera}
-          className={`flex w-full items-center justify-center gap-2.5 rounded-xl px-4 py-3.5 font-bold transition active:scale-[0.98] ${
-            entry ? 'border border-line bg-paper-sunken text-ink hover:bg-paper-sunken-strong' : 'bg-ink text-paper hover:bg-indigo'
+          disabled={!canSubmit}
+          className={`flex w-full items-center justify-center gap-2.5 rounded-xl px-4 py-3.5 font-bold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100 ${
+            !canSubmit || hasEntry
+              ? 'border border-line bg-paper-sunken text-ink hover:bg-paper-sunken-strong'
+              : 'bg-ink text-paper hover:bg-indigo'
           }`}
-          style={entry ? undefined : { boxShadow: CTA_SHADOW }}
+          style={!canSubmit || hasEntry ? undefined : { boxShadow: CTA_SHADOW }}
         >
           <CameraIcon className="size-[18px]" />
-          {entry ? 'Rehacer el envío de hoy' : 'Subir historia'}
+          {canSubmit ? (hasEntry ? 'Rehacer el envío de hoy' : 'Subir historia') : 'Ya usaste tus 2 intentos de hoy'}
         </button>
       </div>
     </div>

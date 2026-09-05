@@ -47,7 +47,10 @@ export function Calendario({
 
   const entryByDate = useMemo(() => {
     const map = new Map<string, Entry>()
-    entries?.forEach((e) => map.set(e.date, e))
+    entries?.forEach((e) => {
+      const existing = map.get(e.date)
+      if (!existing || e.attempt > existing.attempt) map.set(e.date, e)
+    })
     return map
   }, [entries])
 
@@ -70,7 +73,9 @@ export function Calendario({
     })
   }
 
-  const completedThisMonth = entries?.filter((e) => e.date.startsWith(`${year}-${pad(month + 1)}`)).length ?? 0
+  const completedThisMonth = new Set(
+    entries?.filter((e) => e.date.startsWith(`${year}-${pad(month + 1)}`)).map((e) => e.date),
+  ).size
 
   return (
     <div className="mx-auto max-w-lg space-y-4 px-4 pb-12 pt-6">
@@ -154,18 +159,18 @@ export function Calendario({
       <div className="flex items-center justify-between gap-3 rounded-xl bg-paper-sunken p-4">
         <div>
           <p className="text-base font-semibold text-ink">
-            {daily.entry ? '¡Ya escribiste hoy!' : '¿Listo para escribir hoy?'}
+            {daily.lastEntry ? '¡Ya escribiste hoy!' : '¿Listo para escribir hoy?'}
           </p>
           <p className="text-[13px] text-ink-soft">
-            {daily.entry ? 'Podés revisar tu corrección de hoy.' : 'Tu pluma y tu cuaderno esperan el trazo del día.'}
+            {daily.lastEntry ? 'Podés revisar tu corrección de hoy.' : 'Tu pluma y tu cuaderno esperan el trazo del día.'}
           </p>
         </div>
         <button
           type="button"
-          onClick={() => (daily.entry ? onSelectEntry(daily.entry) : onGoToHistorias())}
+          onClick={() => (daily.lastEntry ? onSelectEntry(daily.lastEntry) : onGoToHistorias())}
           className="shrink-0 rounded-lg bg-ink px-3.5 py-2 text-xs font-semibold text-paper shadow-sm hover:bg-indigo"
         >
-          {daily.entry ? 'Ver corrección' : 'Enviar historia'}
+          {daily.lastEntry ? 'Ver corrección' : 'Enviar historia'}
         </button>
       </div>
     </div>

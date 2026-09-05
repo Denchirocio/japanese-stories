@@ -52,8 +52,8 @@ function App() {
 
       <main className="pt-16 pb-16">
         {view === 'historias' ? (
-          celebrating && daily.entry ? (
-            <Resultado entry={daily.entry} onRetry={() => setCameraOpen(true)} />
+          celebrating && daily.lastEntry ? (
+            <Resultado entry={daily.lastEntry} canRetry={daily.canSubmit} onRetry={() => setCameraOpen(true)} />
           ) : (
             <Historias daily={daily} onOpenCamera={() => setCameraOpen(true)} />
           )

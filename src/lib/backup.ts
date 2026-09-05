@@ -75,7 +75,7 @@ export async function backupEntry(entry: Entry): Promise<void> {
   const photoType = photoBlob.type || 'image/jpeg'
   const data = JSON.parse(JSON.stringify({ ...rest, photoBase64, photoType }))
 
-  const res = await fetch(`${BASE_URL}/users/${uid}/entries/${entry.date}`, {
+  const res = await fetch(`${BASE_URL}/users/${uid}/entries/${entry.id}`, {
     method: 'PATCH',
     headers: { Authorization: `Bearer ${idToken}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ fields: toFirestoreFields(data) }),
@@ -85,7 +85,7 @@ export async function backupEntry(entry: Entry): Promise<void> {
   }
 }
 
-export async function fetchMissingEntries(existingDates: Set<string>): Promise<Entry[]> {
+export async function fetchMissingEntries(existingIds: Set<string>): Promise<Entry[]> {
   const { uid, idToken } = await getAuthContext()
   const entries: Entry[] = []
   let pageToken: string | undefined
@@ -105,13 +105,17 @@ export async function fetchMissingEntries(existingDates: Set<string>): Promise<E
     }
 
     for (const doc of json.documents ?? []) {
-      const dateId = doc.name.split('/').pop() as string
-      if (existingDates.has(dateId)) continue
+      const id = doc.name.split('/').pop() as string
+      if (existingIds.has(id)) continue
       const data = fromFirestoreFields(doc.fields) as Omit<Entry, 'photoBlob'> & {
         photoBase64: string
         photoType: string
       }
       const { photoBase64, photoType, ...rest } = data
+      // Compatibilidad con backups viejos (de antes de permitir 2 intentos
+      // por día), guardados con el date como id y sin campos id/attempt.
+      if (!rest.id) rest.id = id.includes('-') && /-[12]$/.test(id) ? id : `${rest.date}-1`
+      if (!rest.attempt) rest.attempt = 1
       entries.push({ ...rest, photoBlob: base64ToBlob(photoBase64, photoType) } as Entry)
     }
     pageToken = json.nextPageToken

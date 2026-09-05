@@ -4,6 +4,7 @@ import { ScoreBreakdown } from '../components/ScoreBreakdown'
 import { BackArrowIcon } from '../components/icons'
 import { jpWeekdayLabel } from '../lib/date'
 import type { Entry } from '../lib/entries'
+import { attemptLabel } from '../lib/entryDisplay'
 
 export function DetalleEntrada({ entry, onBack }: { entry: Entry; onBack: () => void }) {
   return (
@@ -16,10 +17,15 @@ export function DetalleEntrada({ entry, onBack }: { entry: Entry; onBack: () => 
         >
           <BackArrowIcon className="size-3.5 text-ink" />
         </button>
-        <div>
-          <p className="font-serif text-xl text-ink">
-            {entry.date} <span className="font-sans-jp text-base text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
-          </p>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <p className="font-serif text-xl text-ink">
+              {entry.date} <span className="font-sans-jp text-base text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
+            </p>
+            <span className="rounded-full bg-paper-sunken px-2 py-0.5 text-[10px] font-bold tracking-wide text-ink-soft uppercase">
+              {attemptLabel(entry.attempt)}
+            </span>
+          </div>
           <p className="text-sm text-ink-soft">{entry.prompt.themeTitle}</p>
         </div>
       </div>

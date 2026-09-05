@@ -4,7 +4,9 @@ import { backupEntry, fetchMissingEntries } from './backup'
 import type { CorrectionResult } from './correctWriting'
 
 export interface Entry extends CorrectionResult {
+  id: string
   date: string
+  attempt: 1 | 2
   prompt: DailyPrompt
   photoBlob: Blob
   createdAt: number
@@ -14,16 +16,34 @@ interface JapaneseStoriesDB extends DBSchema {
   entries: {
     key: string
     value: Entry
+    indexes: { 'by-date': string }
   }
 }
+
+const DB_VERSION = 2
 
 let dbPromise: Promise<IDBPDatabase<JapaneseStoriesDB>> | null = null
 
 function getDb() {
   if (!dbPromise) {
-    dbPromise = openDB<JapaneseStoriesDB>('japanese-stories', 1, {
-      upgrade(db) {
-        db.createObjectStore('entries', { keyPath: 'date' })
+    dbPromise = openDB<JapaneseStoriesDB>('japanese-stories', DB_VERSION, {
+      async upgrade(db, oldVersion, _newVersion, transaction) {
+        if (oldVersion < 2) {
+          // v1 guardaba una sola entrada por día (keyPath 'date'). Se migra a
+          // keyPath 'id' (`${date}-${attempt}`) para permitir hasta 2 envíos
+          // por día, conservando lo que ya estaba guardado como intento 1.
+          let oldEntries: (Omit<Entry, 'id' | 'attempt'> & { id?: string; attempt?: number })[] = []
+          if (db.objectStoreNames.contains('entries')) {
+            oldEntries = await transaction.objectStore('entries').getAll()
+            db.deleteObjectStore('entries')
+          }
+          const store = db.createObjectStore('entries', { keyPath: 'id' })
+          store.createIndex('by-date', 'date')
+          for (const old of oldEntries) {
+            const migrated: Entry = { ...old, id: `${old.date}-1`, attempt: 1 } as Entry
+            await store.put(migrated)
+          }
+        }
       },
     })
   }
@@ -32,26 +52,28 @@ function getDb() {
 
 export async function saveEntry(
   dateId: string,
+  attempt: 1 | 2,
   prompt: DailyPrompt,
   photoBlob: Blob,
   correction: CorrectionResult,
 ): Promise<Entry> {
-  const entry: Entry = { date: dateId, prompt, photoBlob, ...correction, createdAt: Date.now() }
+  const entry: Entry = { id: `${dateId}-${attempt}`, date: dateId, attempt, prompt, photoBlob, ...correction, createdAt: Date.now() }
   const db = await getDb()
   await db.put('entries', entry)
   backupEntry(entry).catch((err) => console.error('No se pudo respaldar la entrada en la nube', err))
   return entry
 }
 
-export async function getEntry(dateId: string): Promise<Entry | undefined> {
+export async function getEntriesForDate(dateId: string): Promise<Entry[]> {
   const db = await getDb()
-  return db.get('entries', dateId)
+  const entries = await db.getAllFromIndex('entries', 'by-date', dateId)
+  return entries.sort((a, b) => a.attempt - b.attempt)
 }
 
 export async function listEntries(): Promise<Entry[]> {
   const db = await getDb()
   const all = await db.getAll('entries')
-  return all.sort((a, b) => (a.date < b.date ? 1 : -1))
+  return all.sort((a, b) => (a.date === b.date ? a.attempt - b.attempt : a.date < b.date ? 1 : -1))
 }
 
 let restorePromise: Promise<Entry[]> | null = null
@@ -64,8 +86,8 @@ export function restoreMissingEntries(): Promise<Entry[]> {
   if (!restorePromise) {
     restorePromise = (async () => {
       const db = await getDb()
-      const existingDates = new Set(await db.getAllKeys('entries'))
-      const missing = await fetchMissingEntries(existingDates)
+      const existingIds = new Set(await db.getAllKeys('entries'))
+      const missing = await fetchMissingEntries(existingIds)
       for (const entry of missing) {
         await db.put('entries', entry)
       }
@@ -77,5 +99,5 @@ export function restoreMissingEntries(): Promise<Entry[]> {
 
 export async function listEntryDates(): Promise<string[]> {
   const db = await getDb()
-  return db.getAllKeys('entries')
+  return db.getAllKeysFromIndex('entries', 'by-date')
 }

@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
 import { promptForDate, todayId } from '../lib/date'
-import { getEntry, listEntryDates, restoreMissingEntries, type Entry } from '../lib/entries'
+import { getEntriesForDate, listEntryDates, restoreMissingEntries, type Entry } from '../lib/entries'
 import { hasUsedPromptRefresh, markPromptRefreshUsed } from '../lib/promptRefresh'
 import { activeStreakCount, getStreak, recomputeStreakFromDates, type Streak } from '../lib/streak'
+
+const MAX_ATTEMPTS_PER_DAY = 2
 
 export function useDailyEntry() {
   const today = todayId()
   const [refreshUsed, setRefreshUsed] = useState(() => hasUsedPromptRefresh(today))
   const prompt = promptForDate(today, refreshUsed ? 1 : 0)
-  const [entry, setEntry] = useState<Entry | null>(null)
+  const [entriesToday, setEntriesToday] = useState<Entry[]>([])
   const [loading, setLoading] = useState(true)
   const [streak, setStreak] = useState<Streak>(() => getStreak())
 
@@ -18,11 +20,15 @@ export function useDailyEntry() {
     setRefreshUsed(true)
   }
 
+  function addEntryToday(entry: Entry) {
+    setEntriesToday((prev) => [...prev.filter((e) => e.attempt !== entry.attempt), entry].sort((a, b) => a.attempt - b.attempt))
+  }
+
   useEffect(() => {
     let cancelled = false
-    getEntry(today).then((e) => {
+    getEntriesForDate(today).then((entries) => {
       if (cancelled) return
-      setEntry(e ?? null)
+      setEntriesToday(entries)
       setLoading(false)
     })
     return () => {
@@ -35,8 +41,14 @@ export function useDailyEntry() {
     restoreMissingEntries()
       .then(async (restored) => {
         if (cancelled || restored.length === 0) return
-        const restoredToday = restored.find((e) => e.date === today)
-        if (restoredToday) setEntry(restoredToday)
+        const restoredToday = restored.filter((e) => e.date === today)
+        if (restoredToday.length > 0) {
+          setEntriesToday((prev) =>
+            [...prev.filter((e) => !restoredToday.some((r) => r.attempt === e.attempt)), ...restoredToday].sort(
+              (a, b) => a.attempt - b.attempt,
+            ),
+          )
+        }
         const allDates = await listEntryDates()
         if (!cancelled) setStreak(recomputeStreakFromDates(allDates))
       })
@@ -46,11 +58,20 @@ export function useDailyEntry() {
     }
   }, [today])
 
+  const attemptsUsed = entriesToday.length
+  const canSubmit = attemptsUsed < MAX_ATTEMPTS_PER_DAY
+  const nextAttempt = (attemptsUsed + 1) as 1 | 2
+  const lastEntry = entriesToday.at(-1) ?? null
+
   return {
     today,
     prompt,
-    entry,
-    setEntry,
+    entriesToday,
+    addEntryToday,
+    attemptsUsed,
+    canSubmit,
+    nextAttempt,
+    lastEntry,
     loading,
     streak,
     setStreak,

@@ -4,11 +4,11 @@ import { HankoSeal } from '../components/HankoSeal'
 import { ShareIcon, SparkleIcon } from '../components/icons'
 import { ScoreBreakdown } from '../components/ScoreBreakdown'
 import type { Entry } from '../lib/entries'
-import { levelBadge } from '../lib/entryDisplay'
+import { attemptLabel, levelBadge } from '../lib/entryDisplay'
 
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
 
-export function Resultado({ entry, onRetry }: { entry: Entry; onRetry: () => void }) {
+export function Resultado({ entry, canRetry, onRetry }: { entry: Entry; canRetry: boolean; onRetry: () => void }) {
   async function handleShare() {
     const text = `¡Completé el desafío de hoy en Kotoba 言葉! Puntaje: ${entry.score}/100 (${levelBadge(entry.score)})`
     if (navigator.share) {
@@ -33,10 +33,15 @@ export function Resultado({ entry, onRetry }: { entry: Entry; onRetry: () => voi
         <div className="pointer-events-none absolute -right-6 -bottom-6 size-36 rounded-full bg-indigo-soft/40 blur-2xl" />
         <div className="relative flex items-start justify-between gap-3">
           <div className="space-y-1.5">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-soft px-2 py-0.5 text-[10px] font-bold tracking-wide text-indigo-strong uppercase">
-              <SparkleIcon className="size-3" />
-              Análisis IA completado
-            </span>
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-soft px-2 py-0.5 text-[10px] font-bold tracking-wide text-indigo-strong uppercase">
+                <SparkleIcon className="size-3" />
+                Análisis IA completado
+              </span>
+              <span className="rounded-full bg-paper-sunken-strong px-2 py-0.5 text-[10px] font-bold tracking-wide text-ink-soft uppercase">
+                {attemptLabel(entry.attempt)}
+              </span>
+            </div>
             <h1 className="font-serif text-[26px] leading-[1.25] text-ink">¡Desafío completado!</h1>
             <p className="text-[13px] text-ink-soft">Tu práctica de hoy fue evaluada.</p>
           </div>
@@ -59,9 +64,13 @@ export function Resultado({ entry, onRetry }: { entry: Entry; onRetry: () => voi
         Compartir tarjeta de resultado
       </button>
 
-      <button type="button" onClick={onRetry} className="w-full py-1 text-center text-sm font-semibold text-ink-soft underline">
-        ¿No quedó como esperabas? Rehacer el envío
-      </button>
+      {canRetry ? (
+        <button type="button" onClick={onRetry} className="w-full py-1 text-center text-sm font-semibold text-ink-soft underline">
+          ¿No quedó como esperabas? Rehacer el envío
+        </button>
+      ) : (
+        <p className="w-full py-1 text-center text-sm text-ink-faint">Ya usaste tus 2 intentos de hoy.</p>
+      )}
     </div>
   )
 }
