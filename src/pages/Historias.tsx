@@ -129,7 +129,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
             <span className="text-xs font-bold tracking-wide text-ink uppercase">Verbos requeridos</span>
             <div className="grid grid-cols-2 gap-2">
               {prompt.verbs.map((verb) => (
-                <div key={verb.word} className="rounded-lg bg-paper-sunken p-2.5">
+                <div key={verb.word} className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-2.5">
                   <div className="flex items-start justify-between gap-1">
                     <JpWord word={verb.word} furigana={verb.furigana} accentClass="text-indigo" />
                     <SpeakerButton text={verb.word} className="mt-0.5" />
@@ -147,7 +147,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
             <span className="text-xs font-bold tracking-wide text-ink uppercase">Adjetivos requeridos</span>
             <div className="grid grid-cols-2 gap-2">
               {prompt.adjectives.map((word) => (
-                <div key={word.word} className="rounded-lg bg-paper-sunken p-2.5">
+                <div key={word.word} className="rounded-lg border-l-2 border-matcha bg-paper-sunken p-2.5">
                   <div className="flex items-start justify-between gap-1">
                     <JpWord word={word.word} furigana={word.furigana} accentClass="text-matcha" />
                     <SpeakerButton text={word.word} className="mt-0.5" />
@@ -165,7 +165,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
             <span className="text-xs font-bold tracking-wide text-ink uppercase">Lugares requeridos</span>
             <div className="grid grid-cols-2 gap-2">
               {prompt.places.map((word) => (
-                <div key={word.word} className="rounded-lg bg-paper-sunken p-2.5">
+                <div key={word.word} className="rounded-lg border-l-2 border-violet bg-paper-sunken p-2.5">
                   <div className="flex items-start justify-between gap-1">
                     <JpWord word={word.word} furigana={word.furigana} accentClass="text-violet" />
                     <SpeakerButton text={word.word} className="mt-0.5" />
