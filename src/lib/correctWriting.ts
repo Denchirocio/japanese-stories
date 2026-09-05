@@ -5,10 +5,16 @@ export interface SkillMetric {
   comment: string
 }
 
+export interface ExplanationPoint {
+  title: string
+  description: string
+}
+
 export interface CorrectionResult {
   transcription: string
   corrected: string
-  explanation: string[]
+  // string[]/string: formato viejo de entradas guardadas antes de este cambio.
+  explanation: ExplanationPoint[] | string[] | string
   usedRequiredElements: boolean
   score: number
   breakdown?: {

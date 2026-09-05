@@ -1,7 +1,26 @@
+import type { ExplanationPoint } from '../lib/correctWriting'
 import { renderFormattedParts } from '../lib/formatText'
 import { FormattedText } from './FormattedText'
 
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
+
+function isExplanationPoints(explanation: ExplanationPoint[] | string[] | string): explanation is ExplanationPoint[] {
+  return Array.isArray(explanation) && typeof explanation[0] === 'object'
+}
+
+function ExplanationCard({ index, title, description }: { index: number; title?: string; description: string }) {
+  return (
+    <div className="flex items-start gap-2.5 rounded-lg bg-paper-sunken p-3">
+      <span className="mt-0.5 shrink-0 rounded bg-[#d4e3ff] px-1.5 py-0.5 text-[10px] font-bold tracking-wide text-[#001c3a]">
+        {index}
+      </span>
+      <div className="min-w-0 flex-1 space-y-0.5">
+        {title && <p className="text-[13px] font-semibold text-ink">{renderFormattedParts(title)}</p>}
+        <p className="text-xs leading-relaxed font-medium text-ink-soft">{renderFormattedParts(description)}</p>
+      </div>
+    </div>
+  )
+}
 
 export function EntryTextDetail({
   transcription,
@@ -10,7 +29,7 @@ export function EntryTextDetail({
 }: {
   transcription: string
   corrected: string
-  explanation: string | string[]
+  explanation: ExplanationPoint[] | string[] | string
 }) {
   return (
     <div className="space-y-4">
@@ -35,15 +54,19 @@ export function EntryTextDetail({
       </div>
 
       <div className="rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
-        <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Explicación</p>
-        {Array.isArray(explanation) ? (
-          <ul className="list-disc space-y-2 pl-4 text-base text-ink-soft marker:text-ink-faint">
-            {explanation.map((item, i) => (
-              <li key={i} className="pl-1 leading-relaxed">
-                {renderFormattedParts(item)}
-              </li>
+        <p className="mb-2 text-xs font-semibold tracking-wide text-ink-soft uppercase">Explicación</p>
+        {isExplanationPoints(explanation) ? (
+          <div className="space-y-2">
+            {explanation.map((point, i) => (
+              <ExplanationCard key={i} index={i + 1} title={point.title} description={point.description} />
             ))}
-          </ul>
+          </div>
+        ) : Array.isArray(explanation) ? (
+          <div className="space-y-2">
+            {explanation.map((item, i) => (
+              <ExplanationCard key={i} index={i + 1} description={item} />
+            ))}
+          </div>
         ) : (
           <FormattedText text={explanation} className="text-base leading-relaxed text-ink-soft" />
         )}

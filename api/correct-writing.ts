@@ -40,10 +40,15 @@ interface SkillMetric {
   comment: string
 }
 
+interface ExplanationPoint {
+  title: string
+  description: string
+}
+
 interface CorrectionResult {
   transcription: string
   corrected: string
-  explanation: string[]
+  explanation: ExplanationPoint[]
   usedRequiredElements: boolean
   score: number
   breakdown: {
@@ -62,7 +67,7 @@ El estudiante debe escribir un TEXTO COMPLETO (un párrafo de al menos 6 a 8 ora
 Tu tarea:
 1. Transcribí exactamente lo que el estudiante escribió a mano (tal cual, incluso si tiene errores — no los corrijas acá). Marcá en **negrita** (formato **así**) únicamente las palabras, partículas o kanji que tengan un error (gramatical, de partícula, de kanji equivocado, etc.) — el resto del texto va sin marcar. Si no hay errores, no marques nada.
 2. Dá una versión corregida y natural del mismo texto. Marcá en **negrita** (envolviendo el texto en asteriscos dobles, formato markdown: **así**) únicamente las palabras o partículas que cambiaste respecto a lo que escribió el estudiante — el resto del texto va sin marcar.
-3. Explicá los errores encontrados (gramática, kanji, partículas, naturalidad) como una LISTA de puntos breves en español — el campo "explanation" es un array de strings, cada uno un punto corto y autocontenido (no un párrafo largo con "1) 2) 3)" adentro). Marcá en **negrita** (mismo formato **así**) los términos japoneses puntuales de los que hablás en cada punto (el error original y/o la forma correcta), para que se puedan ubicar de un vistazo.
+3. Explicá los errores encontrados (gramática, kanji, partículas, naturalidad) como una LISTA de puntos en español — el campo "explanation" es un array de objetos {"title": "...", "description": "..."}, uno por cada punto (no un párrafo largo con "1) 2) 3)" adentro). "title" es un resumen muy corto (3 a 6 palabras, sin punto final) del tipo de corrección (por ejemplo "Partícula incorrecta", "Kanji equivocado", "Falta de politesse"). "description" es 1 o 2 oraciones breves explicando el error y la forma correcta, marcando en **negrita** (formato **así**) los términos japoneses puntuales (el error original y/o la forma correcta), para que se puedan ubicar de un vistazo.
 4. Indicá si el estudiante usó correctamente la gramática objetivo y al menos la mayoría de los sustantivos, verbos, adjetivos y lugares pedidos. Los verbos y adjetivos pedidos pueden aparecer en CUALQUIER conjugación (presente, pasado, negativo, forma て, potencial, etc.) — no hace falta que coincidan con ninguna forma específica, alcanza con que la raíz de la palabra esté usada correctamente conjugada en el contexto de la oración. Si la gramática objetivo lista varias formas alternativas separadas por "・" o "／" (por ejemplo "これ・それ・あれ" o "〜ました／〜ませんでした"), alcanza con que el estudiante use CORRECTAMENTE AL MENOS UNA de esas formas — no hace falta que use todas.
 5. Asigná un puntaje general de 0 a 100 evaluando: la extensión (un texto completo de 6+ oraciones, no unas pocas líneas sueltas), el uso correcto de la gramática objetivo, el uso de los sustantivos/verbos/adjetivos/lugares pedidos, y la naturalidad general. Sé exigente pero justo: 90+ es excelente y completo, 70-89 es bueno pero corto o con errores menores, menos de 70 es muy corto o tiene errores importantes.
 6. Además del puntaje general, evaluá por separado estas 4 destrezas, cada una de 0 a 100 con un comentario de una sola frase corta en español:
@@ -72,7 +77,7 @@ Tu tarea:
    - "naturalness": qué tan natural y fluido suena el texto para alguien nativo, más allá de si es gramaticalmente correcto.
 
 Respondé ÚNICAMENTE con un objeto JSON válido, sin texto adicional, con este formato exacto:
-{"transcription": "...", "corrected": "...", "explanation": ["...", "..."], "usedRequiredElements": true, "score": 85, "breakdown": {"handwriting": {"score": 90, "comment": "..."}, "grammar": {"score": 85, "comment": "..."}, "vocabulary": {"score": 100, "comment": "..."}, "naturalness": {"score": 80, "comment": "..."}}}`
+{"transcription": "...", "corrected": "...", "explanation": [{"title": "...", "description": "..."}], "usedRequiredElements": true, "score": 85, "breakdown": {"handwriting": {"score": 90, "comment": "..."}, "grammar": {"score": 85, "comment": "..."}, "vocabulary": {"score": 100, "comment": "..."}, "naturalness": {"score": 80, "comment": "..."}}}`
 
 function extractJson(text: string): CorrectionResult {
   const match = text.match(/\{[\s\S]*\}/)
