@@ -1,11 +1,38 @@
 import { START_DATE, prompts, type DailyPrompt } from '../data/prompts'
 
+const ARG_TIMEZONE = 'America/Argentina/Buenos_Aires'
+
+function pad2(n: number): string {
+  return String(n).padStart(2, '0')
+}
+
+// El desafío del día renueva a las 12:00 (mediodía) hora Argentina, no a
+// medianoche — así que antes de esa hora todavía es "el día de ayer".
 export function todayId(): string {
-  const now = new Date()
-  const y = now.getFullYear()
-  const m = String(now.getMonth() + 1).padStart(2, '0')
-  const d = String(now.getDate()).padStart(2, '0')
-  return `${y}-${m}-${d}`
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: ARG_TIMEZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    hour12: false,
+  }).formatToParts(new Date())
+
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '0'
+  let year = Number(get('year'))
+  let month = Number(get('month'))
+  let day = Number(get('day'))
+  const hour = Number(get('hour')) % 24
+
+  if (hour < 12) {
+    const d = new Date(Date.UTC(year, month - 1, day))
+    d.setUTCDate(d.getUTCDate() - 1)
+    year = d.getUTCFullYear()
+    month = d.getUTCMonth() + 1
+    day = d.getUTCDate()
+  }
+
+  return `${year}-${pad2(month)}-${pad2(day)}`
 }
 
 export function dateIdToDaysSinceStart(dateId: string): number {
