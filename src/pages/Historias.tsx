@@ -69,12 +69,12 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           <div className="grid grid-cols-2 gap-2">
             {prompt.vocab.map((word) => (
               <div key={word.word} className="rounded-lg bg-paper-sunken p-2.5">
-                <div className="flex items-center justify-between gap-1">
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="font-serif-jp text-base text-ink">{word.word}</span>
-                    {word.furigana && <span className="text-[10px] tracking-wide text-indigo">{word.furigana}</span>}
-                  </div>
-                  <SpeakerButton text={word.word} />
+                <div className="flex items-start justify-between gap-1">
+                  <ruby className="font-serif-jp text-base leading-relaxed text-ink">
+                    {word.word}
+                    {word.furigana && <rt className="font-sans text-[9px] font-normal text-indigo">{word.furigana}</rt>}
+                  </ruby>
+                  <SpeakerButton text={word.word} className="mt-0.5" />
                 </div>
                 <p className="text-[13px] text-ink-soft">
                   {word.romaji} • {word.translation}
@@ -97,10 +97,12 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
                   key={verb.word}
                   className="flex items-center justify-between rounded-lg border-l-2 border-indigo bg-paper-sunken py-2.5 pr-2.5 pl-3"
                 >
-                  <div>
-                    <p className="flex items-baseline gap-1.5">
-                      <span className="font-serif-jp text-base text-ink">{verb.word}</span>
-                      <span className="text-[10px] tracking-wide text-indigo">{verb.furigana}</span>
+                  <div className="min-w-0">
+                    <p className="flex flex-wrap items-baseline gap-x-1.5 leading-relaxed">
+                      <ruby className="font-serif-jp text-base text-ink">
+                        {verb.word}
+                        <rt className="font-sans text-[9px] font-normal text-indigo">{verb.furigana}</rt>
+                      </ruby>
                       <span className="text-[13px] text-ink-soft">• {verb.translation}</span>
                     </p>
                     <p className="text-[10px] font-bold tracking-wide text-ink-soft uppercase">{verb.form}</p>
@@ -119,12 +121,12 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
             <div className="grid grid-cols-2 gap-2">
               {prompt.adjectives.map((word) => (
                 <div key={word.word} className="rounded-lg border-l-2 border-matcha bg-paper-sunken p-2.5">
-                  <div className="flex items-center justify-between gap-1">
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="font-serif-jp text-base text-ink">{word.word}</span>
-                      {word.furigana && <span className="text-[10px] tracking-wide text-matcha">{word.furigana}</span>}
-                    </div>
-                    <SpeakerButton text={word.word} />
+                  <div className="flex items-start justify-between gap-1">
+                    <ruby className="font-serif-jp text-base leading-relaxed text-ink">
+                      {word.word}
+                      {word.furigana && <rt className="font-sans text-[9px] font-normal text-matcha">{word.furigana}</rt>}
+                    </ruby>
+                    <SpeakerButton text={word.word} className="mt-0.5" />
                   </div>
                   <p className="text-[13px] text-ink-soft">{word.translation}</p>
                   <p className="text-[10px] font-bold tracking-wide text-ink-soft uppercase">{word.type}形容詞</p>
