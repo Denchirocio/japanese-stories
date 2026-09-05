@@ -42,7 +42,7 @@ export function jpWeekdayLabel(dateId: string): string {
   return `(${JP_WEEKDAYS[date.getDay()]}曜日)`
 }
 
-function shortDate(dateId: string): string {
+export function shortDate(dateId: string): string {
   const date = new Date(`${dateId}T00:00:00`)
   return `${date.getDate()} ${ES_MONTHS[date.getMonth()]}`
 }

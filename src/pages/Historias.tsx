@@ -1,6 +1,7 @@
 import { SpeakerButton } from '../components/SpeakerButton'
 import { CameraIcon, CheckIcon, PencilIcon } from '../components/icons'
 import type { DailyEntryState } from '../hooks/useDailyEntry'
+import { jpWeekdayLabel, shortDate } from '../lib/date'
 
 const CARD_SHADOW = '0px 4px 6px -1px rgba(0,0,0,0.1), 0px 2px 4px -2px rgba(0,0,0,0.1)'
 const CTA_SHADOW = '0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1)'
@@ -19,7 +20,12 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
 
   return (
     <div className="mx-auto max-w-lg space-y-4 px-4 pb-12 pt-6">
-      <h1 className="font-serif text-2xl font-medium text-ink">Desafío de Hoy</h1>
+      <div className="flex items-baseline justify-between">
+        <h1 className="font-serif text-2xl font-medium text-ink">Desafío de Hoy</h1>
+        <p className="text-sm text-ink-soft">
+          {shortDate(daily.today)} <span className="text-xs">{jpWeekdayLabel(daily.today)}</span>
+        </p>
+      </div>
 
       <div className="space-y-6 rounded-xl bg-paper-elevated p-6" style={{ boxShadow: CARD_SHADOW }}>
         {/* Tema del día */}
@@ -93,23 +99,18 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
               <span className="text-xs font-bold tracking-wide text-ink uppercase">Verbos requeridos</span>
               {verbHint && <span className="text-[10px] font-medium tracking-wide text-indigo">Usa {verbHint}</span>}
             </div>
-            <div className="space-y-2">
+            <div className="grid grid-cols-2 gap-2">
               {prompt.verbs.map((verb) => (
-                <div
-                  key={verb.word}
-                  className="flex items-center justify-between rounded-lg border-l-2 border-indigo bg-paper-sunken py-2.5 pr-2.5 pl-3"
-                >
-                  <div className="min-w-0">
-                    <p className="flex flex-wrap items-baseline gap-x-1.5 leading-relaxed">
-                      <ruby className="font-serif-jp text-base text-ink">
-                        {verb.word}
-                        <rt className="font-sans text-[12px] font-medium text-indigo">{verb.furigana}</rt>
-                      </ruby>
-                      <span className="text-[13px] text-ink-soft">• {verb.translation}</span>
-                    </p>
-                    <p className="text-[10px] font-bold tracking-wide text-ink-soft uppercase">{verb.form}</p>
+                <div key={verb.word} className="dotted-paper rounded-lg border-l-2 border-indigo p-2.5">
+                  <div className="flex items-start justify-between gap-1">
+                    <ruby className="font-serif-jp text-base leading-relaxed text-ink">
+                      {verb.word}
+                      <rt className="font-sans text-[12px] font-medium text-indigo">{verb.furigana}</rt>
+                    </ruby>
+                    <SpeakerButton text={verb.word} className="mt-0.5" />
                   </div>
-                  <SpeakerButton text={verb.word} />
+                  <p className="text-[13px] text-ink-soft">{verb.translation}</p>
+                  <p className="text-[10px] font-bold tracking-wide text-ink-soft uppercase">{verb.form}</p>
                 </div>
               ))}
             </div>
