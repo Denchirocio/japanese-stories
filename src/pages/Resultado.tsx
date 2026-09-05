@@ -2,6 +2,7 @@ import { EntryTextDetail } from '../components/EntryTextDetail'
 import { HankoSeal } from '../components/HankoSeal'
 import { ShareIcon, SparkleIcon } from '../components/icons'
 import { ManuscriptCard } from '../components/ManuscriptCard'
+import { MasteredVocab } from '../components/MasteredVocab'
 import { ScoreBreakdown } from '../components/ScoreBreakdown'
 import type { Entry } from '../lib/entries'
 import { attemptBadgeClass, attemptLabel, levelBadge } from '../lib/entryDisplay'
@@ -52,6 +53,8 @@ export function Resultado({ entry, canRetry, onRetry }: { entry: Entry; canRetry
       <ScoreBreakdown result={entry} level={entry.prompt.level} />
 
       <ManuscriptCard blob={entry.photoBlob} alt="Tu escritura de hoy" />
+
+      <MasteredVocab entry={entry} />
 
       <EntryTextDetail transcription={entry.transcription} corrected={entry.corrected} explanation={entry.explanation} />
 

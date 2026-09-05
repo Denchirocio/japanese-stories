@@ -3,6 +3,7 @@ import { EntryTextDetail } from '../components/EntryTextDetail'
 import { ScoreBreakdown } from '../components/ScoreBreakdown'
 import { BackArrowIcon } from '../components/icons'
 import { ManuscriptCard } from '../components/ManuscriptCard'
+import { MasteredVocab } from '../components/MasteredVocab'
 import { jpWeekdayLabel } from '../lib/date'
 import { getEntriesForDate, type Entry } from '../lib/entries'
 import { attemptBadgeClass, attemptLabel } from '../lib/entryDisplay'
@@ -62,6 +63,8 @@ export function DetalleEntrada({
       />
 
       <ManuscriptCard blob={entry.photoBlob} alt={`Escritura del ${entry.date}`} />
+
+      <MasteredVocab entry={entry} />
 
       <EntryTextDetail transcription={entry.transcription} corrected={entry.corrected} explanation={entry.explanation} />
     </div>

@@ -16,6 +16,10 @@ export interface CorrectionResult {
   // string[]/string: formato viejo de entradas guardadas antes de este cambio.
   explanation: ExplanationPoint[] | string[] | string
   usedRequiredElements: boolean
+  // Palabras del banco pedido (vocab/verbs/adjectives/places) que el
+  // estudiante usó correctamente, tal cual aparecen en el prompt del día.
+  // undefined en entradas guardadas antes de este campo.
+  usedWords?: string[]
   score: number
   breakdown?: {
     handwriting: SkillMetric
