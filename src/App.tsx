@@ -55,7 +55,7 @@ function App() {
           celebrating && daily.lastEntry ? (
             <Resultado entry={daily.lastEntry} canRetry={daily.canSubmit} onRetry={() => setCameraOpen(true)} />
           ) : (
-            <Historias daily={daily} onOpenCamera={() => setCameraOpen(true)} />
+            <Historias daily={daily} onOpenCamera={() => setCameraOpen(true)} onGoToCuaderno={() => changeView('cuaderno')} />
           )
         ) : view === 'calendario' ? (
           <Calendario daily={daily} onSelectEntry={setSelectedEntry} onGoToHistorias={() => changeView('historias')} />

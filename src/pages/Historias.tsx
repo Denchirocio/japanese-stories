@@ -15,7 +15,15 @@ function JpWord({ word, furigana, accentClass }: { word: string; furigana?: stri
   )
 }
 
-export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onOpenCamera: () => void }) {
+export function Historias({
+  daily,
+  onOpenCamera,
+  onGoToCuaderno,
+}: {
+  daily: DailyEntryState
+  onOpenCamera: () => void
+  onGoToCuaderno: () => void
+}) {
   const { prompt, attemptsUsed, canSubmit, lastEntry, refreshUsed, refreshPrompt } = daily
   const hasEntry = attemptsUsed > 0
 
@@ -28,6 +36,22 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
 
   return (
     <div className="mx-auto max-w-lg space-y-4 px-4 pb-12 pt-6">
+      {!canSubmit && (
+        <button
+          type="button"
+          onClick={onGoToCuaderno}
+          className="flex w-full items-center justify-between gap-3 rounded-xl bg-paper-sunken p-4 text-left"
+        >
+          <div>
+            <p className="text-base font-semibold text-ink">Ya usaste tus 2 intentos de hoy</p>
+            <p className="text-[13px] text-ink-soft">Podés ver tus dos versiones en el cuaderno.</p>
+          </div>
+          <span className="shrink-0 rounded-lg bg-ink px-3.5 py-2 text-xs font-semibold text-paper shadow-sm hover:bg-indigo">
+            Ver cuaderno
+          </span>
+        </button>
+      )}
+
       <div className="flex items-baseline justify-between">
         <h1 className="font-serif text-2xl font-medium text-ink">Desafío de Hoy</h1>
         <p className="text-sm text-ink-soft">
@@ -193,20 +217,19 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={onOpenCamera}
-          disabled={!canSubmit}
-          className={`flex w-full items-center justify-center gap-2.5 rounded-xl px-4 py-3.5 font-bold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100 ${
-            !canSubmit || hasEntry
-              ? 'border border-line bg-paper-sunken text-ink hover:bg-paper-sunken-strong'
-              : 'bg-ink text-paper hover:bg-indigo'
-          }`}
-          style={!canSubmit || hasEntry ? undefined : { boxShadow: CTA_SHADOW }}
-        >
-          <CameraIcon className="size-[18px]" />
-          {canSubmit ? (hasEntry ? 'Rehacer el envío de hoy' : 'Subir historia') : 'Ya usaste tus 2 intentos de hoy'}
-        </button>
+        {canSubmit && (
+          <button
+            type="button"
+            onClick={onOpenCamera}
+            className={`flex w-full items-center justify-center gap-2.5 rounded-xl px-4 py-3.5 font-bold transition active:scale-[0.98] ${
+              hasEntry ? 'border border-line bg-paper-sunken text-ink hover:bg-paper-sunken-strong' : 'bg-ink text-paper hover:bg-indigo'
+            }`}
+            style={hasEntry ? undefined : { boxShadow: CTA_SHADOW }}
+          >
+            <CameraIcon className="size-[18px]" />
+            {hasEntry ? 'Rehacer el envío de hoy' : 'Subir historia'}
+          </button>
+        )}
       </div>
     </div>
   )

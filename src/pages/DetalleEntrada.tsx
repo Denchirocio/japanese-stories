@@ -4,7 +4,7 @@ import { ScoreBreakdown } from '../components/ScoreBreakdown'
 import { BackArrowIcon } from '../components/icons'
 import { jpWeekdayLabel } from '../lib/date'
 import type { Entry } from '../lib/entries'
-import { attemptLabel } from '../lib/entryDisplay'
+import { attemptBadgeClass, attemptLabel } from '../lib/entryDisplay'
 
 export function DetalleEntrada({ entry, onBack }: { entry: Entry; onBack: () => void }) {
   return (
@@ -22,7 +22,7 @@ export function DetalleEntrada({ entry, onBack }: { entry: Entry; onBack: () => 
             <p className="font-serif text-xl text-ink">
               {entry.date} <span className="font-sans-jp text-base text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
             </p>
-            <span className="rounded-full bg-paper-sunken px-2 py-0.5 text-[10px] font-bold tracking-wide text-ink-soft uppercase">
+            <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${attemptBadgeClass(entry.attempt)}`}>
               {attemptLabel(entry.attempt)}
             </span>
           </div>

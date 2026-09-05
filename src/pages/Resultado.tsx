@@ -4,7 +4,7 @@ import { HankoSeal } from '../components/HankoSeal'
 import { ShareIcon, SparkleIcon } from '../components/icons'
 import { ScoreBreakdown } from '../components/ScoreBreakdown'
 import type { Entry } from '../lib/entries'
-import { attemptLabel, levelBadge } from '../lib/entryDisplay'
+import { attemptBadgeClass, attemptLabel, levelBadge } from '../lib/entryDisplay'
 
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
 
@@ -38,7 +38,7 @@ export function Resultado({ entry, canRetry, onRetry }: { entry: Entry; canRetry
                 <SparkleIcon className="size-3" />
                 Análisis IA completado
               </span>
-              <span className="rounded-full bg-paper-sunken-strong px-2 py-0.5 text-[10px] font-bold tracking-wide text-ink-soft uppercase">
+              <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${attemptBadgeClass(entry.attempt)}`}>
                 {attemptLabel(entry.attempt)}
               </span>
             </div>

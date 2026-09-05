@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { EntryThumbnail } from '../components/EntryThumbnail'
 import type { DailyEntryState } from '../hooks/useDailyEntry'
 import { jpWeekdayLabel, relativeDateLabel } from '../lib/date'
-import { attemptLabel, grammarTag, scoreColorClass } from '../lib/entryDisplay'
+import { attemptBadgeClass, attemptLabel, grammarTag, scoreColorClass } from '../lib/entryDisplay'
 import { listEntries, type Entry } from '../lib/entries'
 
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
@@ -74,7 +74,7 @@ export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onS
                   {isToday && <span className="size-2 shrink-0 rounded-full bg-vermilion" />}
                   <span className="text-xs font-bold tracking-wide text-ink">{relativeDateLabel(entry.date, daily.today)}</span>
                   <span className="font-sans-jp text-sm tracking-wide text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
-                  <span className="ml-auto rounded-full bg-paper-sunken px-2 py-0.5 text-[10px] font-bold tracking-wide text-ink-soft uppercase">
+                  <span className={`ml-auto rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${attemptBadgeClass(entry.attempt)}`}>
                     {attemptLabel(entry.attempt)}
                   </span>
                 </div>
