@@ -13,16 +13,18 @@ export function EntryTextDetail({
   explanation: string | string[]
 }) {
   return (
-    <div className="space-y-4 rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
-      <div>
+    <div className="space-y-4">
+      <div className="rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
         <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Lo que escribiste</p>
         <p className="whitespace-pre-wrap text-ink">{transcription}</p>
       </div>
-      <div>
+
+      <div className="rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
         <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Versión corregida</p>
         <FormattedText text={corrected} className="text-ink" />
       </div>
-      <div>
+
+      <div className="rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
         <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Explicación</p>
         {Array.isArray(explanation) ? (
           <ul className="list-disc space-y-1.5 pl-4 text-ink-soft marker:text-ink-faint">
