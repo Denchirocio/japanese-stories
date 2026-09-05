@@ -14,6 +14,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
     { text: 'Usar los sustantivos, verbos y adjetivos pedidos', done: !!entry?.usedRequiredElements },
     { text: 'Trazar a mano en libreta o papel con tinta/lápiz', done: !!entry },
   ]
+  const allDone = criteria.every((c) => c.done)
 
   return (
     <div className="mx-auto max-w-lg space-y-4 px-4 pb-12 pt-6">
@@ -51,7 +52,16 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
 
         {/* Criterios de éxito */}
         <div className="space-y-2.5 rounded-xl bg-paper-sunken/60 p-3">
-          <span className="text-xs font-bold tracking-wide text-ink uppercase">Criterios de éxito</span>
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold tracking-wide text-ink uppercase">Criterios de éxito</span>
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${
+                allDone ? 'bg-matcha-soft text-matcha' : 'bg-paper-sunken-strong text-ink-soft'
+              }`}
+            >
+              {allDone ? 'Completo' : 'Incompleto'}
+            </span>
+          </div>
           <div className="space-y-2">
             {criteria.map((c) => (
               <div key={c.text} className="flex items-center gap-3 rounded-lg bg-paper-elevated p-2.5">
