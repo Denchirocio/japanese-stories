@@ -36,8 +36,8 @@ export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onS
   ]
 
   return (
-    <div className="mx-auto max-w-lg px-4 pb-12">
-      <h1 className="pt-2 font-serif text-2xl font-medium text-ink">Mi cuaderno</h1>
+    <div className="mx-auto max-w-lg px-4 pb-12 pt-6">
+      <h1 className="font-serif text-2xl font-medium text-ink">Mi cuaderno</h1>
 
       <div className="scrollbar-none -mx-4 flex gap-2 overflow-x-auto px-4 py-4">
         {pills.map((p) => (
