@@ -1,5 +1,5 @@
 import { SpeakerButton } from '../components/SpeakerButton'
-import { CameraIcon, CheckIcon, PencilIcon } from '../components/icons'
+import { CameraIcon, CheckIcon, PencilIcon, RefreshIcon } from '../components/icons'
 import type { DailyEntryState } from '../hooks/useDailyEntry'
 import { jpWeekdayLabel, shortDate } from '../lib/date'
 
@@ -16,7 +16,7 @@ function JpWord({ word, furigana, accentClass }: { word: string; furigana?: stri
 }
 
 export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onOpenCamera: () => void }) {
-  const { prompt, entry } = daily
+  const { prompt, entry, refreshUsed, refreshPrompt } = daily
 
   const criteria = [
     { text: 'Escribir un texto completo de al menos 6 a 8 oraciones (no 3 frases sueltas)', done: !!entry },
@@ -37,9 +37,24 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
       <div className="space-y-6 rounded-xl bg-paper-elevated p-6" style={{ boxShadow: CARD_SHADOW }}>
         {/* Tema del día */}
         <div className="space-y-1">
-          <div className="flex items-center gap-1.5">
-            <span className="size-2 rounded-full bg-indigo" />
-            <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Tema del día</span>
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5">
+              <span className="size-2 rounded-full bg-indigo" />
+              <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Tema del día</span>
+            </div>
+            {!entry && (
+              <button
+                type="button"
+                onClick={refreshPrompt}
+                disabled={refreshUsed}
+                className={`flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-bold tracking-wide uppercase transition ${
+                  refreshUsed ? 'cursor-not-allowed text-ink-faint' : 'text-indigo hover:bg-indigo-soft active:scale-95'
+                }`}
+              >
+                <RefreshIcon className="size-3" />
+                {refreshUsed ? 'Ya usaste tu refresh' : 'Refrescar consigna'}
+              </button>
+            )}
           </div>
           <div className="flex flex-wrap items-baseline justify-between gap-x-2">
             <p className="font-sans-jp text-[26px] font-semibold leading-[1.3] text-ink">{prompt.themeTitle}</p>
@@ -150,7 +165,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           style={entry ? undefined : { boxShadow: CTA_SHADOW }}
         >
           <CameraIcon className="size-[18px]" />
-          {entry ? 'Rehacer el envío de hoy' : 'Tomar foto'}
+          {entry ? 'Rehacer el envío de hoy' : 'Subir historia'}
         </button>
       </div>
     </div>

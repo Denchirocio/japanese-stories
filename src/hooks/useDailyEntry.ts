@@ -1,14 +1,22 @@
 import { useEffect, useState } from 'react'
 import { promptForDate, todayId } from '../lib/date'
 import { getEntry, type Entry } from '../lib/entries'
+import { hasUsedPromptRefresh, markPromptRefreshUsed } from '../lib/promptRefresh'
 import { activeStreakCount, getStreak, type Streak } from '../lib/streak'
 
 export function useDailyEntry() {
   const today = todayId()
-  const prompt = promptForDate(today)
+  const [refreshUsed, setRefreshUsed] = useState(() => hasUsedPromptRefresh(today))
+  const prompt = promptForDate(today, refreshUsed ? 1 : 0)
   const [entry, setEntry] = useState<Entry | null>(null)
   const [loading, setLoading] = useState(true)
   const [streak, setStreak] = useState<Streak>(() => getStreak())
+
+  function refreshPrompt() {
+    if (refreshUsed) return
+    markPromptRefreshUsed(today)
+    setRefreshUsed(true)
+  }
 
   useEffect(() => {
     let cancelled = false
@@ -31,6 +39,8 @@ export function useDailyEntry() {
     streak,
     setStreak,
     activeStreak: activeStreakCount(streak, today),
+    refreshUsed,
+    refreshPrompt,
   }
 }
 

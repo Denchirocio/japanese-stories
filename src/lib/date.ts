@@ -31,9 +31,9 @@ export function dateIdToDaysSinceStart(dateId: string): number {
   return Math.floor((date.getTime() - start.getTime()) / msPerDay)
 }
 
-export function promptForDate(dateId: string): DailyPrompt {
+export function promptForDate(dateId: string, variant: 0 | 1 = 0): DailyPrompt {
   const daysSinceStart = Math.max(0, dateIdToDaysSinceStart(dateId))
-  const index = daysSinceStart % prompts.length
+  const index = (daysSinceStart * 2 + variant) % prompts.length
   return prompts[index]
 }
 
