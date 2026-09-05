@@ -76,7 +76,12 @@ Respondé ÚNICAMENTE con un objeto JSON válido, sin texto adicional, con este 
 function extractJson(text: string): CorrectionResult {
   const match = text.match(/\{[\s\S]*\}/)
   if (!match) throw new Error('La respuesta del modelo no tenía JSON')
-  return JSON.parse(match[0]) as CorrectionResult
+  try {
+    return JSON.parse(match[0]) as CorrectionResult
+  } catch (err) {
+    console.error('correct-writing: JSON inválido', match[0].slice(-300))
+    throw err
+  }
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -100,7 +105,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const message = await anthropic.messages.create({
       model: 'claude-sonnet-5',
-      max_tokens: 1500,
+      max_tokens: 4096,
       system: SYSTEM_PROMPT,
       messages: [
         {
@@ -122,6 +127,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const textBlock = message.content.find((block) => block.type === 'text')
     if (!textBlock || textBlock.type !== 'text') {
       throw new Error('Respuesta sin texto del modelo')
+    }
+
+    if (message.stop_reason === 'max_tokens') {
+      console.error('correct-writing: respuesta cortada por max_tokens', textBlock.text.slice(-200))
+      throw new Error('La respuesta se cortó por longitud (max_tokens)')
     }
 
     const result = extractJson(textBlock.text)
