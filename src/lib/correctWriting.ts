@@ -31,8 +31,8 @@ export async function requestCorrection(
   })
 
   if (!res.ok) {
-    const text = await res.text().catch(() => '')
-    throw new Error(`No se pudo corregir el texto (${res.status}): ${text}`)
+    const body = await res.json().catch(() => null)
+    throw new Error(body?.error ?? `No se pudo corregir el texto (${res.status})`)
   }
 
   return res.json() as Promise<CorrectionResult>

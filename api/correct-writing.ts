@@ -103,14 +103,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // manual, así que no vale la pena arriesgarse a reintentos silenciosos.
     const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY, maxRetries: 1 })
 
-    const vocabText = prompt.vocab.map((w) => `${w.word} (${w.translation})`).join('、')
-    const verbsText = prompt.verbs.map((w) => `${w.word} (${w.translation})`).join('、')
-    const adjectivesText = prompt.adjectives.map((w) => `${w.word} (${w.translation})`).join('、')
-    const placesText = prompt.places.map((w) => `${w.word} (${w.translation})`).join('、')
+    const vocabText = (prompt.vocab ?? []).map((w) => `${w.word} (${w.translation})`).join('、')
+    const verbsText = (prompt.verbs ?? []).map((w) => `${w.word} (${w.translation})`).join('、')
+    const adjectivesText = (prompt.adjectives ?? []).map((w) => `${w.word} (${w.translation})`).join('、')
+    const placesText = (prompt.places ?? []).map((w) => `${w.word} (${w.translation})`).join('、')
 
     const message = await anthropic.messages.create({
       model: 'claude-sonnet-5',
-      max_tokens: 4096,
+      max_tokens: 8192,
       system: SYSTEM_PROMPT,
       messages: [
         {
@@ -136,13 +136,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (message.stop_reason === 'max_tokens') {
       console.error('correct-writing: respuesta cortada por max_tokens', textBlock.text.slice(-200))
-      throw new Error('La respuesta se cortó por longitud (max_tokens)')
+      res.status(500).json({ error: 'El texto era muy largo y la respuesta se cortó. Probá con un párrafo más corto.' })
+      return
     }
 
     const result = extractJson(textBlock.text)
     res.status(200).json(result)
   } catch (err) {
     console.error('correct-writing error', err)
-    res.status(500).json({ error: 'No se pudo corregir el texto' })
+    const message = err instanceof Error ? err.message : 'Error desconocido'
+    res.status(500).json({ error: `No se pudo corregir el texto: ${message}` })
   }
 }
