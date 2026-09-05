@@ -6,31 +6,20 @@ function pad2(n: number): string {
   return String(n).padStart(2, '0')
 }
 
-// El desafío del día renueva a las 12:00 (mediodía) hora Argentina, no a
-// medianoche — así que antes de esa hora todavía es "el día de ayer".
+// El desafío del día renueva a medianoche hora Argentina (no la del
+// dispositivo), para que sea consistente sin importar el huso horario local.
 export function todayId(): string {
   const parts = new Intl.DateTimeFormat('en-CA', {
     timeZone: ARG_TIMEZONE,
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
-    hour: '2-digit',
-    hour12: false,
   }).formatToParts(new Date())
 
   const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '0'
-  let year = Number(get('year'))
-  let month = Number(get('month'))
-  let day = Number(get('day'))
-  const hour = Number(get('hour')) % 24
-
-  if (hour < 12) {
-    const d = new Date(Date.UTC(year, month - 1, day))
-    d.setUTCDate(d.getUTCDate() - 1)
-    year = d.getUTCFullYear()
-    month = d.getUTCMonth() + 1
-    day = d.getUTCDate()
-  }
+  const year = Number(get('year'))
+  const month = Number(get('month'))
+  const day = Number(get('day'))
 
   return `${year}-${pad2(month)}-${pad2(day)}`
 }
