@@ -97,7 +97,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+    // maxRetries bajo a propósito: cada reintento re-envía la foto entera y se
+    // cobra como una llamada nueva. El usuario ya tiene un botón de "Rehacer"
+    // manual, así que no vale la pena arriesgarse a reintentos silenciosos.
+    const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY, maxRetries: 1 })
 
     const vocabText = prompt.vocab.map((w) => `${w.word} (${w.translation})`).join('、')
     const verbsText = prompt.verbs.map((w) => `${w.word} (${w.translation})`).join('、')
