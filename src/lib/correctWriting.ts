@@ -8,7 +8,7 @@ export interface SkillMetric {
 export interface CorrectionResult {
   transcription: string
   corrected: string
-  explanation: string
+  explanation: string[]
   usedRequiredElements: boolean
   score: number
   breakdown?: {
