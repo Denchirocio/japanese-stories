@@ -34,6 +34,10 @@
   --color-bamboo: #38a169;
   --color-matcha-soft: #e6fffa;
 
+  /* Fuji violeta (lugares) */
+  --color-violet: #6b4f8a;
+  --color-violet-soft: #f3effa;
+
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
