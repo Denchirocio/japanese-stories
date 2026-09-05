@@ -23,5 +23,7 @@ export function levelBadge(score: number): string {
   if (score >= 80) return 'Nivel A'
   if (score >= 70) return 'Nivel B'
   if (score >= 60) return 'Nivel C'
-  return 'Nivel D'
+  if (score >= 50) return 'Nivel D'
+  if (score >= 40) return 'Nivel E'
+  return 'Nivel F'
 }
