@@ -15,12 +15,6 @@ function JpWord({ word, furigana, accentClass }: { word: string; furigana?: stri
   )
 }
 
-function splitGrammarForms(grammar: string): string[] {
-  if (grammar.includes('・')) return grammar.split('・')
-  if (grammar.includes('／')) return grammar.split('／')
-  return [grammar]
-}
-
 export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onOpenCamera: () => void }) {
   const { prompt, entry, refreshUsed, refreshPrompt } = daily
 
@@ -190,16 +184,12 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
         {/* Gramática */}
         <div className="space-y-2.5">
           <span className="text-xs font-bold tracking-wide text-ink uppercase">Gramática</span>
-          <div className="grid grid-cols-2 gap-2">
-            {splitGrammarForms(prompt.grammar).map((form) => (
-              <div key={form} className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-2.5">
-                <p className="font-sans-jp text-lg font-semibold text-ink">{form}</p>
-              </div>
-            ))}
+          <div className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-3.5">
+            <p className="font-sans-jp text-lg font-semibold text-ink">{prompt.grammar}</p>
+            {(prompt.grammar.includes('・') || prompt.grammar.includes('／')) && (
+              <p className="mt-1 text-[11px] text-ink-faint">Alcanza con usar al menos una de estas formas correctamente.</p>
+            )}
           </div>
-          {(prompt.grammar.includes('・') || prompt.grammar.includes('／')) && (
-            <p className="text-[11px] text-ink-faint">Alcanza con usar al menos una de estas formas correctamente.</p>
-          )}
         </div>
 
         <button
