@@ -98,9 +98,9 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
         </div>
 
         {/* Gramática objetivo */}
-        <div className="space-y-1 rounded-lg border border-line bg-indigo-soft p-3.5">
+        <div className="space-y-1 rounded-lg border border-line p-3.5">
           <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Gramática objetivo</span>
-          <p className="font-sans-jp text-lg font-semibold text-indigo-strong">{prompt.grammar}</p>
+          <p className="font-sans-jp text-lg font-semibold text-ink">{prompt.grammar}</p>
         </div>
 
         {/* Palabras obligatorias */}
