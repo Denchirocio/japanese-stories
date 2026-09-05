@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import { EntryThumbnail } from '../components/EntryThumbnail'
 import type { DailyEntryState } from '../hooks/useDailyEntry'
-import { currentMonthLabel, isSameMonth, jpWeekdayLabel, relativeDateLabel } from '../lib/date'
+import { jpWeekdayLabel, relativeDateLabel } from '../lib/date'
 import { grammarTag, scoreColorClass } from '../lib/entryDisplay'
 import { listEntries, type Entry } from '../lib/entries'
 
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
 
-type Filter = 'todos' | 'mes' | 'top' | 'revisar'
+type Filter = 'todos' | 'mejor' | 'peor'
 
 export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onSelectEntry: (entry: Entry) => void }) {
   const [entries, setEntries] = useState<Entry[] | null>(null)
@@ -20,22 +20,19 @@ export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onS
   const filtered = useMemo(() => {
     if (!entries) return null
     switch (filter) {
-      case 'mes':
-        return entries.filter((e) => isSameMonth(e.date, daily.today))
-      case 'top':
+      case 'mejor':
         return [...entries].sort((a, b) => b.score - a.score)
-      case 'revisar':
-        return entries.filter((e) => !e.usedRequiredElements)
+      case 'peor':
+        return [...entries].sort((a, b) => a.score - b.score)
       default:
         return entries
     }
-  }, [entries, filter, daily.today])
+  }, [entries, filter])
 
   const pills: { key: Filter; label: string }[] = [
     { key: 'todos', label: `Todos (${entries?.length ?? 0})` },
-    { key: 'mes', label: `Este mes (${currentMonthLabel()})` },
-    { key: 'top', label: 'Mejores puntuaciones' },
-    { key: 'revisar', label: 'Por revisar' },
+    { key: 'mejor', label: 'Mejor puntuación' },
+    { key: 'peor', label: 'Peor puntuación' },
   ]
 
   return (
