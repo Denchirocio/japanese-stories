@@ -16,10 +16,16 @@ function allRequirableWords(prompt: DailyPrompt): RequirableWord[] {
 }
 
 export function MasteredVocab({ entry }: { entry: Entry }) {
-  const usedWords = entry.usedWords ?? []
+  const pool = allRequirableWords(entry.prompt)
+
+  // Entradas de antes de este campo no tienen usedWords calculado por la IA:
+  // se aproxima gratis buscando si la palabra (forma de diccionario) aparece
+  // tal cual en el texto corregido. No detecta verbos/adjetivos conjugados
+  // de forma distinta a como están escritos en el prompt.
+  const usedWords = entry.usedWords ?? pool.map((w) => w.word).filter((word) => entry.corrected.includes(word))
   if (usedWords.length === 0) return null
 
-  const matched = allRequirableWords(entry.prompt).filter((w) => usedWords.includes(w.word))
+  const matched = pool.filter((w) => usedWords.includes(w.word))
   if (matched.length === 0) return null
 
   return (
