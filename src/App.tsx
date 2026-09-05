@@ -58,7 +58,7 @@ function App() {
             <Historias daily={daily} onOpenCamera={() => setCameraOpen(true)} />
           )
         ) : view === 'calendario' ? (
-          <Calendario daily={daily} onSelectEntry={setSelectedEntry} />
+          <Calendario daily={daily} onSelectEntry={setSelectedEntry} onGoToHistorias={() => changeView('historias')} />
         ) : (
           <Cuaderno daily={daily} onSelectEntry={setSelectedEntry} />
         )}
