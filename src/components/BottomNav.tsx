@@ -1,8 +1,9 @@
-import { CuadernoNavIcon, HoyNavIcon } from './icons'
+import { CalendarIcon, CuadernoNavIcon, HoyNavIcon } from './icons'
 import type { View } from '../App'
 
 const TABS: { view: View; label: string; Icon: typeof HoyNavIcon }[] = [
   { view: 'historias', label: 'Historias', Icon: HoyNavIcon },
+  { view: 'calendario', label: 'Calendario', Icon: CalendarIcon },
   { view: 'cuaderno', label: 'Cuaderno', Icon: CuadernoNavIcon },
 ]
 

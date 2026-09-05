@@ -3,6 +3,7 @@ import { AppHeader } from './components/AppHeader'
 import { BottomNav } from './components/BottomNav'
 import { useDailyEntry } from './hooks/useDailyEntry'
 import type { Entry } from './lib/entries'
+import { Calendario } from './pages/Calendario'
 import { Camera } from './pages/Camera'
 import { Cuaderno } from './pages/Cuaderno'
 import { DetalleEntrada } from './pages/DetalleEntrada'
@@ -10,7 +11,7 @@ import { Historias } from './pages/Historias'
 import { Resultado } from './pages/Resultado'
 import { Splash } from './pages/Splash'
 
-export type View = 'historias' | 'cuaderno'
+export type View = 'historias' | 'calendario' | 'cuaderno'
 
 function App() {
   const [view, setView] = useState<View>('historias')
@@ -56,6 +57,8 @@ function App() {
           ) : (
             <Historias daily={daily} onOpenCamera={() => setCameraOpen(true)} />
           )
+        ) : view === 'calendario' ? (
+          <Calendario daily={daily} onSelectEntry={setSelectedEntry} />
         ) : (
           <Cuaderno daily={daily} onSelectEntry={setSelectedEntry} />
         )}
