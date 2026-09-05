@@ -98,10 +98,13 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           </div>
         </div>
 
-        {/* Gramática objetivo */}
+        {/* Gramática requerida */}
         <div className="space-y-1 rounded-lg bg-paper-sunken p-3.5">
-          <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Gramática objetivo</span>
+          <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Gramática requerida</span>
           <p className="font-sans-jp text-lg font-semibold text-ink">{prompt.grammar}</p>
+          {(prompt.grammar.includes('・') || prompt.grammar.includes('／')) && (
+            <p className="text-[11px] text-ink-faint">Alcanza con usar al menos una de estas formas correctamente.</p>
+          )}
         </div>
 
         {/* Palabras obligatorias */}
