@@ -59,12 +59,6 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           <p className="font-sans-jp text-[26px] font-semibold leading-[1.3] text-ink">{prompt.themeTitle}</p>
         </div>
 
-        {/* Gramática objetivo */}
-        <div className="space-y-1 rounded-lg border border-line bg-indigo-soft p-3.5">
-          <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Gramática objetivo</span>
-          <p className="font-sans-jp text-lg font-semibold text-indigo-strong">{prompt.grammar}</p>
-        </div>
-
         {/* Consigna de hoy */}
         <div className="space-y-1 rounded-lg border border-line bg-paper-sunken p-3.5">
           <div className="flex items-center gap-1.5">
@@ -101,6 +95,12 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Gramática objetivo */}
+        <div className="space-y-1 rounded-lg border border-line bg-indigo-soft p-3.5">
+          <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Gramática objetivo</span>
+          <p className="font-sans-jp text-lg font-semibold text-indigo-strong">{prompt.grammar}</p>
         </div>
 
         {/* Palabras obligatorias */}
