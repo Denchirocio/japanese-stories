@@ -103,7 +103,7 @@ export function Calendario({
           {WEEKDAYS.map((w, i) => (
             <div key={i} className="flex flex-col items-center gap-0.5">
               <span className={`text-xs font-semibold tracking-wide ${w.color}`}>{w.letter}</span>
-              <span className="text-[10px] tracking-wide text-ink-faint">{w.kanji}</span>
+              <span className="text-sm font-medium tracking-wide text-ink-soft">{w.kanji}</span>
             </div>
           ))}
         </div>
@@ -121,14 +121,18 @@ export function Calendario({
                 type="button"
                 disabled={!entry}
                 onClick={() => entry && onSelectEntry(entry)}
-                className={`relative flex aspect-square items-center justify-center rounded-lg text-base font-semibold transition ${
-                  entry
-                    ? 'bg-ink text-paper hover:bg-indigo'
-                    : `${dayNumberColor(weekday)} disabled:cursor-default`
-                }`}
-                style={entry ? { boxShadow: PILL_SHADOW } : undefined}
+                className="relative flex aspect-square items-center justify-center"
               >
-                {d}
+                <span
+                  className={`flex size-9 items-center justify-center rounded-lg text-xl font-semibold transition ${
+                    entry
+                      ? 'bg-ink text-paper hover:bg-indigo'
+                      : `${dayNumberColor(weekday)} disabled:cursor-default`
+                  }`}
+                  style={entry ? { boxShadow: PILL_SHADOW } : undefined}
+                >
+                  {d}
+                </span>
                 {isToday && (
                   <span
                     className={`absolute bottom-1 size-1.5 rounded-full ${entry ? 'bg-vermilion-soft' : 'bg-vermilion'}`}
