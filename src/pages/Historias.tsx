@@ -111,7 +111,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           </div>
           <div className="grid grid-cols-2 gap-2">
             {prompt.vocab.map((word) => (
-              <div key={word.word} className="rounded-lg bg-paper-sunken p-2.5">
+              <div key={word.word} className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-2.5">
                 <div className="flex items-start justify-between gap-1">
                   <JpWord word={word.word} furigana={word.furigana} accentClass="text-indigo" />
                   <SpeakerButton text={word.word} className="mt-0.5" />
