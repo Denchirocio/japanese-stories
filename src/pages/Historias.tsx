@@ -57,6 +57,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
             )}
           </div>
           <p className="font-sans-jp text-[26px] font-semibold leading-[1.3] text-ink">{prompt.themeTitle}</p>
+          <p className="font-sans-jp text-sm text-ink-faint">{prompt.themeFurigana}</p>
         </div>
 
         {/* Consigna de hoy */}
