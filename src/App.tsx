@@ -5,6 +5,7 @@ import { useDailyEntry } from './hooks/useDailyEntry'
 import type { Entry } from './lib/entries'
 import { Calendario } from './pages/Calendario'
 import { Camera } from './pages/Camera'
+import { Comparacion } from './pages/Comparacion'
 import { Cuaderno } from './pages/Cuaderno'
 import { DetalleEntrada } from './pages/DetalleEntrada'
 import { Historias } from './pages/Historias'
@@ -18,6 +19,7 @@ function App() {
   const [cameraOpen, setCameraOpen] = useState(false)
   const [celebrating, setCelebrating] = useState(false)
   const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null)
+  const [comparing, setComparing] = useState<{ original: Entry; correction: Entry } | null>(null)
   const daily = useDailyEntry()
 
   if (daily.loading) {
@@ -35,6 +37,10 @@ function App() {
         }}
       />
     )
+  }
+
+  if (comparing) {
+    return <Comparacion original={comparing.original} correction={comparing.correction} onBack={() => setComparing(null)} />
   }
 
   if (selectedEntry) {
@@ -60,7 +66,11 @@ function App() {
         ) : view === 'calendario' ? (
           <Calendario daily={daily} onSelectEntry={setSelectedEntry} onGoToHistorias={() => changeView('historias')} />
         ) : (
-          <Cuaderno daily={daily} onSelectEntry={setSelectedEntry} />
+          <Cuaderno
+            daily={daily}
+            onSelectEntry={setSelectedEntry}
+            onCompare={(original, correction) => setComparing({ original, correction })}
+          />
         )}
       </main>
 

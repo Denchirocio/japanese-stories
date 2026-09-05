@@ -1,5 +1,13 @@
 import type { SVGProps } from 'react'
 
+export function CompareIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M9 3v14a2 2 0 0 1-2 2H3M15 21V7a2 2 0 0 1 2-2h4M6 12l-3 3 3 3M18 8l3 3-3 3" />
+    </svg>
+  )
+}
+
 export function MedalIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 7.5 15" fill="none" {...props}>

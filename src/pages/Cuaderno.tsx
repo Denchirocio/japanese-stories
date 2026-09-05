@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { EntryThumbnail } from '../components/EntryThumbnail'
+import { CompareIcon } from '../components/icons'
 import type { DailyEntryState } from '../hooks/useDailyEntry'
 import { jpWeekdayLabel, relativeDateLabel } from '../lib/date'
 import { attemptBadgeClass, attemptLabel, grammarTag, scoreColorClass } from '../lib/entryDisplay'
@@ -9,13 +10,29 @@ const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
 
 type Filter = 'todos' | 'mejor' | 'peor'
 
-export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onSelectEntry: (entry: Entry) => void }) {
+export function Cuaderno({
+  daily,
+  onSelectEntry,
+  onCompare,
+}: {
+  daily: DailyEntryState
+  onSelectEntry: (entry: Entry) => void
+  onCompare: (original: Entry, correction: Entry) => void
+}) {
   const [entries, setEntries] = useState<Entry[] | null>(null)
   const [filter, setFilter] = useState<Filter>('todos')
 
   useEffect(() => {
     listEntries().then(setEntries)
   }, [])
+
+  const originalByDate = useMemo(() => {
+    const map = new Map<string, Entry>()
+    entries?.forEach((e) => {
+      if (e.attempt === 1) map.set(e.date, e)
+    })
+    return map
+  }, [entries])
 
   const filtered = useMemo(() => {
     if (!entries) return null
@@ -62,9 +79,10 @@ export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onS
         <div className="space-y-3">
           {filtered.map((entry) => {
             const isToday = entry.date === daily.today
+            const original = entry.attempt === 2 ? originalByDate.get(entry.date) : undefined
             return (
+              <div key={entry.id} className="space-y-2">
               <button
-                key={entry.id}
                 type="button"
                 onClick={() => onSelectEntry(entry)}
                 className="block w-full overflow-hidden rounded-xl bg-paper-elevated p-4 text-left"
@@ -103,6 +121,17 @@ export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onS
                   </div>
                 </div>
               </button>
+              {original && (
+                <button
+                  type="button"
+                  onClick={() => onCompare(original, entry)}
+                  className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-paper-sunken py-2 text-xs font-semibold text-ink-soft transition hover:bg-paper-sunken-strong"
+                >
+                  <CompareIcon className="size-3.5" />
+                  Comparar los dos intentos
+                </button>
+              )}
+              </div>
             )
           })}
         </div>
