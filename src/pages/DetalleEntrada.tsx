@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { EntryPhoto } from '../components/EntryPhoto'
 import { EntryTextDetail } from '../components/EntryTextDetail'
 import { ScoreBreakdown } from '../components/ScoreBreakdown'
 import { BackArrowIcon } from '../components/icons'
+import { ManuscriptCard } from '../components/ManuscriptCard'
 import { jpWeekdayLabel } from '../lib/date'
 import { getEntriesForDate, type Entry } from '../lib/entries'
 import { attemptBadgeClass, attemptLabel } from '../lib/entryDisplay'
@@ -61,7 +61,7 @@ export function DetalleEntrada({
         }
       />
 
-      <EntryPhoto blob={entry.photoBlob} alt={`Escritura del ${entry.date}`} className="w-full rounded-xl border border-line" />
+      <ManuscriptCard blob={entry.photoBlob} alt={`Escritura del ${entry.date}`} />
 
       <EntryTextDetail transcription={entry.transcription} corrected={entry.corrected} explanation={entry.explanation} />
     </div>
