@@ -60,44 +60,6 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           <p className="font-sans-jp text-sm text-ink-faint">{prompt.themeFurigana}</p>
         </div>
 
-        {/* Consigna de hoy */}
-        <div className="space-y-1 rounded-lg border border-line bg-paper-sunken p-3.5">
-          <div className="flex items-center gap-1.5">
-            <PencilIcon className="size-4 text-ink" />
-            <span className="text-xs font-bold tracking-wide text-ink">Consigna de hoy</span>
-          </div>
-          <p className="text-[15px] leading-relaxed text-ink-soft">
-            Escribí a mano en tu libreta o papel un texto completo (al menos 6 a 8 oraciones), usando sustantivos,
-            verbos y adjetivos variados. {prompt.topic}
-          </p>
-        </div>
-
-        {/* Criterios de éxito */}
-        <div className="space-y-2.5 rounded-xl bg-paper-sunken/60 p-3">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold tracking-wide text-ink uppercase">Criterios de éxito</span>
-            <span
-              className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${
-                allDone ? 'bg-matcha-soft text-matcha' : 'bg-paper-sunken-strong text-ink-soft'
-              }`}
-            >
-              {allDone ? 'Completo' : 'Incompleto'}
-            </span>
-          </div>
-          <div className="space-y-2">
-            {criteria.map((c) => (
-              <div key={c.text} className="flex items-center gap-3 rounded-lg bg-paper-elevated p-2.5">
-                <span className="flex size-5 shrink-0 items-center justify-center rounded bg-ink">
-                  <CheckIcon className="size-2.5 text-paper" />
-                </span>
-                <p className={`flex-1 text-[13px] leading-tight ${c.done ? 'text-ink-soft line-through' : 'text-ink'}`}>
-                  {c.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Gramática requerida */}
         <div className="space-y-1 rounded-lg bg-paper-sunken p-3.5">
           <span className="text-[10px] font-bold tracking-[0.1em] text-indigo uppercase">Gramática requerida</span>
@@ -180,6 +142,44 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
             </div>
           </div>
         )}
+
+        {/* Consigna de hoy */}
+        <div className="space-y-1 rounded-lg border border-line bg-paper-sunken p-3.5">
+          <div className="flex items-center gap-1.5">
+            <PencilIcon className="size-4 text-ink" />
+            <span className="text-xs font-bold tracking-wide text-ink">Consigna de hoy</span>
+          </div>
+          <p className="text-[15px] leading-relaxed text-ink-soft">
+            Escribí a mano en tu libreta o papel un texto completo (al menos 6 a 8 oraciones), usando sustantivos,
+            verbos y adjetivos variados. {prompt.topic}
+          </p>
+        </div>
+
+        {/* Criterios de éxito */}
+        <div className="space-y-2.5 rounded-xl bg-paper-sunken/60 p-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold tracking-wide text-ink uppercase">Criterios de éxito</span>
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${
+                allDone ? 'bg-matcha-soft text-matcha' : 'bg-paper-sunken-strong text-ink-soft'
+              }`}
+            >
+              {allDone ? 'Completo' : 'Incompleto'}
+            </span>
+          </div>
+          <div className="space-y-2">
+            {criteria.map((c) => (
+              <div key={c.text} className="flex items-center gap-3 rounded-lg bg-paper-elevated p-2.5">
+                <span className="flex size-5 shrink-0 items-center justify-center rounded bg-ink">
+                  <CheckIcon className="size-2.5 text-paper" />
+                </span>
+                <p className={`flex-1 text-[13px] leading-tight ${c.done ? 'text-ink-soft line-through' : 'text-ink'}`}>
+                  {c.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <button
           type="button"
