@@ -44,7 +44,13 @@ function App() {
   }
 
   if (selectedEntry) {
-    return <DetalleEntrada entry={selectedEntry} onBack={() => setSelectedEntry(null)} />
+    return (
+      <DetalleEntrada
+        entry={selectedEntry}
+        onBack={() => setSelectedEntry(null)}
+        onCompare={(original, correction) => setComparing({ original, correction })}
+      />
+    )
   }
 
   function changeView(v: View) {
@@ -66,11 +72,7 @@ function App() {
         ) : view === 'calendario' ? (
           <Calendario daily={daily} onSelectEntry={setSelectedEntry} onGoToHistorias={() => changeView('historias')} />
         ) : (
-          <Cuaderno
-            daily={daily}
-            onSelectEntry={setSelectedEntry}
-            onCompare={(original, correction) => setComparing({ original, correction })}
-          />
+          <Cuaderno daily={daily} onSelectEntry={setSelectedEntry} />
         )}
       </main>
 

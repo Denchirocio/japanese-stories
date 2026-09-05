@@ -1,12 +1,35 @@
+import { useEffect, useState } from 'react'
 import { EntryPhoto } from '../components/EntryPhoto'
 import { EntryTextDetail } from '../components/EntryTextDetail'
 import { ScoreBreakdown } from '../components/ScoreBreakdown'
-import { BackArrowIcon } from '../components/icons'
+import { BackArrowIcon, CompareIcon } from '../components/icons'
 import { jpWeekdayLabel } from '../lib/date'
-import type { Entry } from '../lib/entries'
+import { getEntriesForDate, type Entry } from '../lib/entries'
 import { attemptBadgeClass, attemptLabel } from '../lib/entryDisplay'
 
-export function DetalleEntrada({ entry, onBack }: { entry: Entry; onBack: () => void }) {
+export function DetalleEntrada({
+  entry,
+  onBack,
+  onCompare,
+}: {
+  entry: Entry
+  onBack: () => void
+  onCompare: (original: Entry, correction: Entry) => void
+}) {
+  const [sibling, setSibling] = useState<Entry | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    getEntriesForDate(entry.date).then((entries) => {
+      if (cancelled) return
+      const other = entries.find((e) => e.attempt !== entry.attempt)
+      setSibling(other ?? null)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [entry.date, entry.attempt])
+
   return (
     <div className="mx-auto max-w-lg space-y-4 px-4 pb-12 pt-6">
       <div className="flex items-center gap-3">
@@ -29,6 +52,17 @@ export function DetalleEntrada({ entry, onBack }: { entry: Entry; onBack: () => 
           <p className="text-sm text-ink-soft">{entry.prompt.themeTitle}</p>
         </div>
       </div>
+
+      {sibling && (
+        <button
+          type="button"
+          onClick={() => onCompare(entry.attempt === 1 ? entry : sibling, entry.attempt === 1 ? sibling : entry)}
+          className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-paper-sunken py-2.5 text-xs font-semibold text-ink-soft transition hover:bg-paper-sunken-strong"
+        >
+          <CompareIcon className="size-3.5" />
+          Comparar con el otro intento de hoy
+        </button>
+      )}
 
       <ScoreBreakdown result={entry} level={entry.prompt.level} />
 
