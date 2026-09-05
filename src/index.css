@@ -46,7 +46,9 @@
 
 body {
   margin: 0;
-  background: var(--color-paper);
+  background-color: var(--color-paper);
+  background-image: radial-gradient(rgba(6, 8, 10, 0.08) 1px, transparent 1px);
+  background-size: 9px 9px;
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
@@ -65,10 +67,4 @@ body {
 
 .scan-sweep-line {
   animation: scan-sweep 1.8s ease-in-out infinite;
-}
-
-.dotted-paper {
-  background-color: var(--color-paper-sunken);
-  background-image: radial-gradient(rgba(6, 8, 10, 0.14) 1px, transparent 1px);
-  background-size: 9px 9px;
 }
