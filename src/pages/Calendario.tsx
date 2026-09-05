@@ -162,7 +162,7 @@ export function Calendario({
         </div>
         <button
           type="button"
-          onClick={onGoToHistorias}
+          onClick={() => (daily.entry ? onSelectEntry(daily.entry) : onGoToHistorias())}
           className="shrink-0 rounded-lg bg-ink px-3.5 py-2 text-xs font-semibold text-paper shadow-sm hover:bg-indigo"
         >
           {daily.entry ? 'Ver corrección' : 'Enviar historia'}
