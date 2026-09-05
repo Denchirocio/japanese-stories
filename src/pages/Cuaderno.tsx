@@ -93,10 +93,10 @@ export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onS
                       <p className="line-clamp-2 text-[13px] text-ink-soft">{entry.corrected}</p>
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1">
-                      <span className="rounded-full bg-paper-sunken px-2 py-0.5 text-[10px] font-semibold tracking-wide text-ink">
+                      <span className="rounded-full bg-[#efeeeb] px-2 py-0.5 text-[10px] font-semibold tracking-wide text-[#1b1c1a]">
                         #{entry.prompt.level}
                       </span>
-                      <span className="rounded-full bg-indigo-soft px-2 py-0.5 text-[10px] font-bold tracking-wide text-indigo-strong">
+                      <span className="rounded-full bg-[#d4e3ff] px-2 py-0.5 text-[10px] font-bold tracking-wide text-indigo-strong">
                         {grammarTag(entry.prompt.grammar)}
                       </span>
                     </div>
