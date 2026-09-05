@@ -19,7 +19,11 @@ export function EntryTextDetail({
           <span className="size-2 rounded-full bg-vermilion" />
           <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Lo que escribiste</p>
         </div>
-        <p className="whitespace-pre-wrap text-lg leading-relaxed text-ink">{transcription}</p>
+        <FormattedText
+          text={transcription}
+          className="text-lg leading-relaxed text-ink"
+          markClassName="rounded bg-vermilion-soft px-1 font-semibold text-vermilion-strong"
+        />
       </div>
 
       <div className="rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
