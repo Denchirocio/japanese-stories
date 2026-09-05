@@ -47,12 +47,12 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
                 type="button"
                 onClick={refreshPrompt}
                 disabled={refreshUsed}
-                className={`flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-bold tracking-wide uppercase transition ${
-                  refreshUsed ? 'cursor-not-allowed text-ink-faint' : 'text-indigo hover:bg-indigo-soft active:scale-95'
+                className={`flex items-center gap-1 text-[10px] font-bold tracking-wide uppercase transition ${
+                  refreshUsed ? 'cursor-not-allowed text-ink-faint' : 'text-indigo hover:text-indigo-strong active:scale-95'
                 }`}
               >
                 <RefreshIcon className="size-3" />
-                {refreshUsed ? 'Ya usaste tu refresh' : 'Refrescar consigna'}
+                {refreshUsed ? 'Ya usaste tu refresh' : 'Refrescar'}
               </button>
             )}
           </div>
