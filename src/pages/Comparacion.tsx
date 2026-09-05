@@ -76,18 +76,24 @@ export function Comparacion({ original, correction, onBack }: { original: Entry;
           const a = (original.breakdown?.[key] ?? FALLBACK_METRIC).score
           const b = (correction.breakdown?.[key] ?? FALLBACK_METRIC).score
           return (
-            <div key={key} className="space-y-1">
+            <div key={key} className="space-y-1.5">
               <div className="flex items-center justify-between">
                 <span className="text-[13px] font-medium text-ink">{label}</span>
                 <DeltaTag delta={b - a} />
               </div>
               <div className="flex items-center gap-2 text-xs text-ink-soft">
-                <span className="w-10 text-right">{a}%</span>
+                <span className="w-16 shrink-0 text-[10px] font-bold tracking-wide text-indigo-strong uppercase">Original</span>
                 <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-paper-sunken-strong">
-                  <div className="absolute inset-y-0 left-0 rounded-full bg-ink-faint" style={{ width: `${a}%` }} />
-                  <div className="absolute inset-y-0 left-0 rounded-full bg-indigo" style={{ width: `${b}%` }} />
+                  <div className="absolute inset-y-0 left-0 rounded-full bg-indigo" style={{ width: `${a}%` }} />
                 </div>
-                <span className="w-10">{b}%</span>
+                <span className="w-9 text-right">{a}%</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-ink-soft">
+                <span className="w-16 shrink-0 text-[10px] font-bold tracking-wide text-matcha uppercase">Corrección</span>
+                <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-paper-sunken-strong">
+                  <div className="absolute inset-y-0 left-0 rounded-full bg-matcha" style={{ width: `${b}%` }} />
+                </div>
+                <span className="w-9 text-right">{b}%</span>
               </div>
             </div>
           )
