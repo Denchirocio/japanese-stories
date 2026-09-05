@@ -25,6 +25,7 @@ export interface DailyPrompt {
   grammar: string
   themeTitle: string
   themeFurigana: string
+  themeTranslation: string
   topic: string
   vocab: VocabWord[]
   verbs: RequiredVerb[]
@@ -56,6 +57,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜は〜です', themeTitle: 'はじめまして',
     themeFurigana: 'はじめまして',
+    themeTranslation: 'Mucho gusto',
     topic: 'Preséntate: quién sos, de dónde sos, a qué te dedicás.',
     vocab: [v('名前', 'なまえ', 'Namae', 'Nombre'), v('学生', 'がくせい', 'Gakusei', 'Estudiante'), v('会社員', 'かいしゃいん', 'Kaishain', 'Empleado de empresa')],
     verbs: [req('住みます', 'すみます', 'Vivir', 'Forma ます'), req('働きます', 'はたらきます', 'Trabajar', 'Forma ます')],
@@ -65,6 +67,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜も〜です', themeTitle: '家族と友達',
     themeFurigana: 'かぞくとともだち',
+    themeTranslation: 'Familia y amigos',
     topic: 'Presentá a un familiar o amigo, usando también algo en común con vos.',
     vocab: [v('友達', 'ともだち', 'Tomodachi', 'Amigo/a'), v('先生', 'せんせい', 'Sensei', 'Profesor/a'), v('医者', 'いしゃ', 'Isha', 'Médico/a')],
     verbs: [req('住みます', 'すみます', 'Vivir', 'Forma ます'), req('会います', 'あいます', 'Encontrarse', 'Forma ます')],
@@ -74,6 +77,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: 'これ・それ・あれ', themeTitle: '身の回りの物',
     themeFurigana: 'みのまわりのもの',
+    themeTranslation: 'Objetos cotidianos',
     topic: 'Describí tres objetos que tenés cerca ahora mismo.',
     vocab: [v('本', 'ほん', 'Hon', 'Libro'), v('時計', 'とけい', 'Tokei', 'Reloj'), v('傘', 'かさ', 'Kasa', 'Paraguas')],
     verbs: [req('使います', 'つかいます', 'Usar', 'Forma ます'), req('持ちます', 'もちます', 'Tener / llevar', 'Forma ます')],
@@ -83,6 +87,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: 'この・その・あの + 名詞', themeTitle: '私の家',
     themeFurigana: 'わたしのいえ',
+    themeTranslation: 'Mi casa',
     topic: 'Hablá de tu casa: qué hay adentro y afuera.',
     vocab: [v('家', 'いえ', 'Ie', 'Casa'), v('車', 'くるま', 'Kuruma', 'Auto'), v('猫', 'ねこ', 'Neko', 'Gato')],
     verbs: [req('住みます', 'すみます', 'Vivir', 'Forma ます'), req('掃除します', 'そうじします', 'Limpiar', 'Forma ます')],
@@ -92,6 +97,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜があります／います', themeTitle: '部屋の中',
     themeFurigana: 'へやのなか',
+    themeTranslation: 'Dentro del cuarto',
     topic: 'Describí tu cuarto: qué cosas hay y dónde están.',
     vocab: [v('机', 'つくえ', 'Tsukue', 'Escritorio'), v('椅子', 'いす', 'Isu', 'Silla'), v('犬', 'いぬ', 'Inu', 'Perro')],
     verbs: [req('あります', 'あります', 'Haber/estar (cosas)', 'Forma ます'), req('います', 'います', 'Haber/estar (seres vivos)', 'Forma ます')],
@@ -101,6 +107,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '場所 + に + あります／います', themeTitle: '近所の風景',
     themeFurigana: 'きんじょのふうけい',
+    themeTranslation: 'El paisaje del barrio',
     topic: 'Describí tu barrio: qué lugares hay cerca de tu casa.',
     vocab: [v('駅', 'えき', 'Eki', 'Estación'), v('公園', 'こうえん', 'Kouen', 'Parque'), v('銀行', 'ぎんこう', 'Ginkou', 'Banco')],
     verbs: [req('あります', 'あります', 'Haber/estar (cosas)', 'Forma ます'), req('歩きます', 'あるきます', 'Caminar', 'Forma ます')],
@@ -110,6 +117,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜の (posesión)', themeTitle: '家族の絆',
     themeFurigana: 'かぞくのきずな',
+    themeTranslation: 'El vínculo familiar',
     topic: 'Hablá de tu familia: cuántos son y qué hace cada uno.',
     vocab: [v('家族', 'かぞく', 'Kazoku', 'Familia'), v('仕事', 'しごと', 'Shigoto', 'Trabajo'), v('趣味', 'しゅみ', 'Shumi', 'Hobby')],
     verbs: [req('話します', 'はなします', 'Hablar', 'Forma ます'), req('手伝います', 'てつだいます', 'Ayudar', 'Forma ます')],
@@ -119,6 +127,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '数字 + 時／分', themeTitle: '一日の流れ',
     themeFurigana: 'いちにちのながれ',
+    themeTranslation: 'El transcurso del día',
     topic: 'Describí tu rutina de un día normal, con horarios.',
     vocab: [v('朝', 'あさ', 'Asa', 'Mañana'), v('夜', 'よる', 'Yoru', 'Noche'), v('仕事', 'しごと', 'Shigoto', 'Trabajo')],
     verbs: [req('起きます', 'おきます', 'Despertarse', 'Forma ます'), req('働きます', 'はたらきます', 'Trabajar', 'Forma ます')],
@@ -128,6 +137,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '動詞ます形 (presente/futuro)', themeTitle: '明日の予定',
     themeFurigana: 'あしたのよてい',
+    themeTranslation: 'Planes para mañana',
     topic: 'Contá qué vas a hacer mañana.',
     vocab: [v('食べます', 'たべます', 'Tabemasu', 'Comer'), v('飲みます', 'のみます', 'Nomimasu', 'Beber'), v('寝ます', 'ねます', 'Nemasu', 'Dormir')],
     verbs: [req('食べます', 'たべます', 'Comer', 'Forma ます'), req('寝ます', 'ねます', 'Dormir', 'Forma ます')],
@@ -137,6 +147,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '動詞ません (negativo)', themeTitle: '週末の過ごし方',
     themeFurigana: 'しゅうまつのすごしかた',
+    themeTranslation: 'Cómo paso el fin de semana',
     topic: 'Contá algo que NO hacés los fines de semana.',
     vocab: [v('行きます', 'いきます', 'Ikimasu', 'Ir'), v('見ます', 'みます', 'Mimasu', 'Ver'), v('買います', 'かいます', 'Kaimasu', 'Comprar')],
     verbs: [req('行きます', 'いきます', 'Ir', 'Forma ません'), req('買います', 'かいます', 'Comprar', 'Forma ません')],
@@ -146,6 +157,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜ました／〜ませんでした', themeTitle: '昨日の出来事',
     themeFurigana: 'きのうのできごと',
+    themeTranslation: 'Lo que pasó ayer',
     topic: 'Contá qué hiciste ayer, paso a paso.',
     vocab: [v('昨日', 'きのう', 'Kinou', 'Ayer'), v('先週', 'せんしゅう', 'Senshuu', 'Semana pasada'), v('休みます', 'やすみます', 'Yasumimasu', 'Descansar')],
     verbs: [req('休みます', 'やすみます', 'Descansar', 'Forma ました'), req('疲れます', 'つかれます', 'Cansarse', 'Forma ました')],
@@ -155,6 +167,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜へ行きます', themeTitle: '先週の外出',
     themeFurigana: 'せんしゅうのがいしゅつ',
+    themeTranslation: 'La salida de la semana pasada',
     topic: 'Contá adónde fuiste la semana pasada y con quién.',
     vocab: [v('駅', 'えき', 'Eki', 'Estación'), v('学校', 'がっこう', 'Gakkou', 'Escuela'), v('会社', 'かいしゃ', 'Kaisha', 'Empresa')],
     verbs: [req('行きます', 'いきます', 'Ir', 'Forma ます + へ'), req('会います', 'あいます', 'Encontrarse', 'Forma ました')],
@@ -164,6 +177,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜で (lugar de la acción)', themeTitle: 'お気に入りの場所',
     themeFurigana: 'おきにいりのばしょ',
+    themeTranslation: 'Mi lugar favorito',
     topic: 'Contá dónde estudiás o trabajás normalmente y por qué ahí.',
     vocab: [v('図書館', 'としょかん', 'Toshokan', 'Biblioteca'), v('公園', 'こうえん', 'Kouen', 'Parque'), v('カフェ', undefined, 'Kafe', 'Café')],
     verbs: [req('勉強します', 'べんきょうします', 'Estudiar', 'Forma ます'), req('読みます', 'よみます', 'Leer', 'Forma ます')],
@@ -173,6 +187,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜を食べます／飲みます', themeTitle: '今日の食事',
     themeFurigana: 'きょうのしょくじ',
+    themeTranslation: 'Las comidas de hoy',
     topic: 'Describí qué comiste hoy en cada comida.',
     vocab: [v('朝ご飯', 'あさごはん', 'Asagohan', 'Desayuno'), v('晩ご飯', 'ばんごはん', 'Bangohan', 'Cena'), v('お茶', 'おちゃ', 'Ocha', 'Té')],
     verbs: [req('食べます', 'たべます', 'Comer', 'Forma ます'), req('飲みます', 'のみます', 'Beber', 'Forma ます')],
@@ -182,6 +197,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜が好きです／嫌いです', themeTitle: '好きなもの',
     themeFurigana: 'すきなもの',
+    themeTranslation: 'Lo que me gusta',
     topic: 'Contá qué te gusta y qué no te gusta, y por qué.',
     vocab: [v('音楽', 'おんがく', 'Ongaku', 'Música'), v('映画', 'えいが', 'Eiga', 'Película'), v('スポーツ', undefined, 'Supootsu', 'Deporte')],
     verbs: [req('聞きます', 'ききます', 'Escuchar', 'Forma ます'), req('見ます', 'みます', 'Ver', 'Forma ます')],
@@ -191,6 +207,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜が上手です／下手です', themeTitle: '得意と苦手',
     themeFurigana: 'とくいとにがて',
+    themeTranslation: 'Fortalezas y debilidades',
     topic: 'Contá en qué sos bueno/a y en qué no tanto.',
     vocab: [v('料理', 'りょうり', 'Ryouri', 'Cocina'), v('絵', 'え', 'E', 'Dibujo'), v('歌', 'うた', 'Uta', 'Canción')],
     verbs: [req('作ります', 'つくります', 'Hacer / crear', 'Forma ます'), req('歌います', 'うたいます', 'Cantar', 'Forma ます')],
@@ -200,6 +217,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '形容詞 (い形容詞)', themeTitle: '私の街',
     themeFurigana: 'わたしのまち',
+    themeTranslation: 'Mi ciudad',
     topic: 'Describí tu ciudad usando al menos tres adjetivos.',
     vocab: [v('街', 'まち', 'Machi', 'Ciudad'), v('建物', 'たてもの', 'Tatemono', 'Edificio'), v('人', 'ひと', 'Hito', 'Gente')],
     verbs: [req('住みます', 'すみます', 'Vivir', 'Forma ます'), req('歩きます', 'あるきます', 'Caminar', 'Forma ます')],
@@ -209,6 +227,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '形容詞 (な形容詞)', themeTitle: '私の仕事',
     themeFurigana: 'わたしのしごと',
+    themeTranslation: 'Mi trabajo',
     topic: 'Describí tu trabajo o tus estudios usando adjetivos な.',
     vocab: [v('仕事', 'しごと', 'Shigoto', 'Trabajo'), v('会社', 'かいしゃ', 'Kaisha', 'Empresa'), v('同僚', 'どうりょう', 'Douryou', 'Colega')],
     verbs: [req('働きます', 'はたらきます', 'Trabajar', 'Forma ます'), req('頑張ります', 'がんばります', 'Esforzarse', 'Forma ます')],
@@ -218,6 +237,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜くて／〜で (conectar adjetivos)', themeTitle: '忙しい一週間',
     themeFurigana: 'いそがしいいっしゅうかん',
+    themeTranslation: 'Una semana ocupada',
     topic: 'Describí cómo fue tu semana, conectando varios adjetivos.',
     vocab: [v('一週間', 'いっしゅうかん', 'Isshuukan', 'Una semana'), v('仕事', 'しごと', 'Shigoto', 'Trabajo'), v('週末', 'しゅうまつ', 'Shuumatsu', 'Fin de semana')],
     verbs: [req('頑張ります', 'がんばります', 'Esforzarse', 'Forma ます'), req('休みます', 'やすみます', 'Descansar', 'Forma ます')],
@@ -227,6 +247,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜ませんか (invitación)', themeTitle: '週末のお誘い',
     themeFurigana: 'しゅうまつのおさそい',
+    themeTranslation: 'Invitación de fin de semana',
     topic: 'Escribí una invitación a un amigo para hacer algo juntos.',
     vocab: [v('一緒に', 'いっしょに', 'Issho ni', 'Juntos'), v('来週', 'らいしゅう', 'Raishuu', 'Próxima semana'), v('見ます', 'みます', 'Mimasu', 'Ver')],
     verbs: [req('見ます', 'みます', 'Ver', 'Forma ませんか'), req('行きます', 'いきます', 'Ir', 'Forma ませんか')],
@@ -236,6 +257,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜ましょう', themeTitle: '今度の計画',
     themeFurigana: 'こんどのけいかく',
+    themeTranslation: 'El próximo plan',
     topic: 'Proponele un plan a alguien para el próximo fin de semana.',
     vocab: [v('行きます', 'いきます', 'Ikimasu', 'Ir'), v('休みます', 'やすみます', 'Yasumimasu', 'Descansar'), v('始めます', 'はじめます', 'Hajimemasu', 'Empezar')],
     verbs: [req('始めます', 'はじめます', 'Empezar', 'Forma ましょう'), req('行きます', 'いきます', 'Ir', 'Forma ましょう')],
@@ -245,6 +267,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: 'なぜ／どうして〜から', themeTitle: '日本語を学ぶ理由',
     themeFurigana: 'にほんごをまなぶりゆう',
+    themeTranslation: 'Por qué aprendo japonés',
     topic: 'Explicá por qué estás aprendiendo japonés.',
     vocab: [v('理由', 'りゆう', 'Riyuu', 'Razón'), v('好き', 'すき', 'Suki', 'Gustar'), v('必要', 'ひつよう', 'Hitsuyou', 'Necesario')],
     verbs: [req('勉強します', 'べんきょうします', 'Estudiar', 'Forma ます'), req('頑張ります', 'がんばります', 'Esforzarse', 'Forma ます')],
@@ -254,6 +277,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜たいです', themeTitle: '行きたい場所',
     themeFurigana: 'いきたいばしょ',
+    themeTranslation: 'Lugares a los que quiero ir',
     topic: 'Contá tres lugares a los que te gustaría viajar y por qué.',
     vocab: [v('旅行', 'りょこう', 'Ryokou', 'Viaje'), v('行きます', 'いきます', 'Ikimasu', 'Ir'), v('いつか', undefined, 'Itsuka', 'Algún día')],
     verbs: [req('行きます', 'いきます', 'Ir', 'Forma たい'), req('見ます', 'みます', 'Ver', 'Forma たい')],
@@ -263,6 +287,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '動詞て形 (pedidos)', themeTitle: '職場のお願い',
     themeFurigana: 'しょくばのおねがい',
+    themeTranslation: 'Pedidos en el trabajo',
     topic: 'Escribí tres pedidos que le harías a un compañero de trabajo.',
     vocab: [v('待ちます', 'まちます', 'Machimasu', 'Esperar'), v('見せます', 'みせます', 'Misemasu', 'Mostrar'), v('手伝います', 'てつだいます', 'Tetsudaimasu', 'Ayudar')],
     verbs: [req('見せます', 'みせます', 'Mostrar', 'Forma て'), req('手伝います', 'てつだいます', 'Ayudar', 'Forma て')],
@@ -272,6 +297,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜ています (acción en progreso)', themeTitle: '今の私',
     themeFurigana: 'いまのわたし',
+    themeTranslation: 'Quién soy ahora',
     topic: 'Contá qué estás haciendo en esta etapa de tu vida.',
     vocab: [v('勉強します', 'べんきょうします', 'Benkyou shimasu', 'Estudiar'), v('働きます', 'はたらきます', 'Hatarakimasu', 'Trabajar'), v('住みます', 'すみます', 'Sumimasu', 'Vivir')],
     verbs: [req('働きます', 'はたらきます', 'Trabajar', 'Forma て + います'), req('住みます', 'すみます', 'Vivir', 'Forma て + います')],
@@ -281,6 +307,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜前に／〜後で', themeTitle: '朝と夜の習慣',
     themeFurigana: 'あさとよるのしゅうかん',
+    themeTranslation: 'Hábitos de la mañana y la noche',
     topic: 'Describí tu rutina usando antes de / después de.',
     vocab: [v('寝ます', 'ねます', 'Nemasu', 'Dormir'), v('起きます', 'おきます', 'Okimasu', 'Despertarse'), v('仕事', 'しごと', 'Shigoto', 'Trabajo')],
     verbs: [req('起きます', 'おきます', 'Despertarse', '辞書形 + 前に'), req('寝ます', 'ねます', 'Dormir', 'Forma た + 後で')],
@@ -290,6 +317,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜と思います', themeTitle: '最近のニュース',
     themeFurigana: 'さいきんのニュース',
+    themeTranslation: 'Noticias recientes',
     topic: 'Dá tu opinión sobre algo que pasó esta semana en las noticias o tu vida.',
     vocab: [v('天気', 'てんき', 'Tenki', 'Clima'), v('将来', 'しょうらい', 'Shourai', 'Futuro'), v('ニュース', undefined, 'Nyuusu', 'Noticia')],
     verbs: [req('思います', 'おもいます', 'Pensar', 'Forma と思います'), req('変わります', 'かわります', 'Cambiar', 'Forma ます')],
@@ -299,6 +327,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜ことがあります (experiencia)', themeTitle: '忘れられない経験',
     themeFurigana: 'わすれられないけいけん',
+    themeTranslation: 'Una experiencia inolvidable',
     topic: 'Contá una experiencia que tuviste alguna vez (viaje, comida rara, etc).',
     vocab: [v('一度', 'いちど', 'Ichido', 'Una vez'), v('経験', 'けいけん', 'Keiken', 'Experiencia'), v('外国', 'がいこく', 'Gaikoku', 'Extranjero')],
     verbs: [req('行きます', 'いきます', 'Ir', 'Forma た + ことがある'), req('食べます', 'たべます', 'Comer', 'Forma た + ことがある')],
@@ -308,6 +337,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜ことができます', themeTitle: 'できることとできないこと',
     themeFurigana: 'できることとできないこと',
+    themeTranslation: 'Lo que puedo y no puedo hacer',
     topic: 'Contá qué cosas podés hacer y cuáles todavía no.',
     vocab: [v('泳ぎます', 'およぎます', 'Oyogimasu', 'Nadar'), v('運転します', 'うんてんします', 'Unten shimasu', 'Manejar'), v('料理', 'りょうり', 'Ryouri', 'Cocina')],
     verbs: [req('泳ぎます', 'およぎます', 'Nadar', '辞書形 + ことができる'), req('運転します', 'うんてんします', 'Manejar', '辞書形 + ことができる')],
@@ -317,6 +347,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜なければなりません', themeTitle: '今週の義務',
     themeFurigana: 'こんしゅうのぎむ',
+    themeTranslation: 'Obligaciones de esta semana',
     topic: 'Contá qué obligaciones tenés esta semana.',
     vocab: [v('義務', 'ぎむ', 'Gimu', 'Obligación'), v('準備', 'じゅんび', 'Junbi', 'Preparación'), v('早く', 'はやく', 'Hayaku', 'Temprano')],
     verbs: [req('準備します', 'じゅんびします', 'Preparar', 'Forma なければならない'), req('起きます', 'おきます', 'Despertarse', 'Forma なければならない')],
@@ -326,6 +357,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜てもいいです／〜てはいけません', themeTitle: '家のルール',
     themeFurigana: 'いえのルール',
+    themeTranslation: 'Las reglas de casa',
     topic: 'Describí las reglas de tu casa o tu trabajo.',
     vocab: [v('ルール', undefined, 'Ruuru', 'Regla'), v('許可', 'きょか', 'Kyoka', 'Permiso'), v('禁止', 'きんし', 'Kinshi', 'Prohibición')],
     verbs: [req('使います', 'つかいます', 'Usar', 'Forma てもいい'), req('入ります', 'はいります', 'Entrar', 'Forma てはいけない')],
@@ -335,6 +367,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜たら (condicional)', themeTitle: '自由な一週間',
     themeFurigana: 'じゆうないっしゅうかん',
+    themeTranslation: 'Una semana libre',
     topic: 'Contá qué harías si tuvieras una semana libre.',
     vocab: [v('もし', undefined, 'Moshi', 'Si...'), v('お金', 'おかね', 'Okane', 'Dinero'), v('時間', 'じかん', 'Jikan', 'Tiempo')],
     verbs: [req('休みます', 'やすみます', 'Descansar', 'Forma たら'), req('旅行します', 'りょこうします', 'Viajar', 'Forma たら')],
@@ -344,6 +377,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜ば (condicional)', themeTitle: '上達への道',
     themeFurigana: 'じょうたつへのみち',
+    themeTranslation: 'El camino a mejorar',
     topic: 'Contá qué tenés que hacer para mejorar en algo que te importa.',
     vocab: [v('頑張ります', 'がんばります', 'Ganbarimasu', 'Esforzarse'), v('練習', 'れんしゅう', 'Renshuu', 'Práctica'), v('上手になります', 'じょうずになります', 'Jouzu ni narimasu', 'Volverse bueno en algo')],
     verbs: [req('頑張ります', 'がんばります', 'Esforzarse', 'Forma ば'), req('練習します', 'れんしゅうします', 'Practicar', 'Forma ば')],
@@ -353,6 +387,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜とき', themeTitle: '子供の頃',
     themeFurigana: 'こどものころ',
+    themeTranslation: 'De niño/a',
     topic: 'Contá algo que te pasaba de chico/a en una situación repetida.',
     vocab: [v('子供', 'こども', 'Kodomo', 'Niño/a'), v('時間', 'じかん', 'Jikan', 'Tiempo'), v('思い出', 'おもいで', 'Omoide', 'Recuerdo')],
     verbs: [req('泣きます', 'なきます', 'Llorar', 'Forma とき'), req('遊びます', 'あそびます', 'Jugar', 'Forma とき')],
@@ -362,6 +397,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜ようになります', themeTitle: 'できるようになったこと',
     themeFurigana: 'できるようになったこと',
+    themeTranslation: 'Lo que ahora puedo hacer',
     topic: 'Contá algo que ahora podés hacer y antes no podías.',
     vocab: [v('最近', 'さいきん', 'Saikin', 'Últimamente'), v('習慣', 'しゅうかん', 'Shuukan', 'Hábito'), v('練習', 'れんしゅう', 'Renshuu', 'Práctica')],
     verbs: [req('できます', 'できます', 'Poder hacer', 'Forma ようになる'), req('変わります', 'かわります', 'Cambiar', 'Forma ます')],
@@ -371,6 +407,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '受身形 (pasiva)', themeTitle: '叱られた日',
     themeFurigana: 'しかられたひ',
+    themeTranslation: 'El día que me retaron',
     topic: 'Contá una vez que te felicitaron o retaron por algo.',
     vocab: [v('先生', 'せんせい', 'Sensei', 'Profesor/a'), v('両親', 'りょうしん', 'Ryoushin', 'Padres'), v('友達', 'ともだち', 'Tomodachi', 'Amigo/a')],
     verbs: [req('叱られます', 'しかられます', 'Ser retado/a', 'Forma pasiva'), req('褒められます', 'ほめられます', 'Ser felicitado/a', 'Forma pasiva')],
@@ -380,6 +417,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '使役形 (causativo)', themeTitle: '親の教え',
     themeFurigana: 'おやのおしえ',
+    themeTranslation: 'Las enseñanzas de mis padres',
     topic: 'Contá algo que tus padres te hacían hacer de chico/a.',
     vocab: [v('両親', 'りょうしん', 'Ryoushin', 'Padres'), v('子供の時', 'こどものとき', 'Kodomo no toki', 'De niño/a'), v('家', 'いえ', 'Ie', 'Casa')],
     verbs: [req('させます', 'させます', 'Hacer que alguien haga algo', 'Forma causativa'), req('掃除します', 'そうじします', 'Limpiar', 'Forma causativa')],
@@ -389,6 +427,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜そうです (apariencia)', themeTitle: '見た目の印象',
     themeFurigana: 'みためのいんしょう',
+    themeTranslation: 'La primera impresión',
     topic: 'Describí algo que viste hoy solo por su apariencia (comida, clima, gente).',
     vocab: [v('天気', 'てんき', 'Tenki', 'Clima'), v('料理', 'りょうり', 'Ryouri', 'Comida'), v('人', 'ひと', 'Hito', 'Persona')],
     verbs: [req('見えます', 'みえます', 'Verse / parecer', 'Forma ます'), req('思います', 'おもいます', 'Pensar', 'Forma ます')],
@@ -398,6 +437,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜ながら', themeTitle: 'ながら作業',
     themeFurigana: 'ながらさぎょう',
+    themeTranslation: 'Hacer dos cosas a la vez',
     topic: 'Contá qué cosas hacés al mismo tiempo que otra en tu día a día.',
     vocab: [v('音楽', 'おんがく', 'Ongaku', 'Música'), v('時間', 'じかん', 'Jikan', 'Tiempo'), v('習慣', 'しゅうかん', 'Shuukan', 'Hábito')],
     verbs: [req('聞きます', 'ききます', 'Escuchar', 'Forma ながら'), req('運動します', 'うんどうします', 'Hacer ejercicio', 'Forma ながら')],
@@ -407,6 +447,7 @@ export const prompts: DailyPrompt[] = [
   {
     level: 'N4', grammar: '〜てあげます／もらいます／くれます', themeTitle: '助け合い',
     themeFurigana: 'たすけあい',
+    themeTranslation: 'Ayudarse mutuamente',
     topic: 'Contá algo que hiciste por alguien o alguien hizo por vos.',
     vocab: [v('友達', 'ともだち', 'Tomodachi', 'Amigo/a'), v('家族', 'かぞく', 'Kazoku', 'Familia'), v('同僚', 'どうりょう', 'Douryou', 'Colega')],
     verbs: [req('助けます', 'たすけます', 'Ayudar', 'Forma て + あげる/もらう/くれる'), req('教えます', 'おしえます', 'Enseñar', 'Forma て + あげる/もらう/くれる')],
