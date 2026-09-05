@@ -1,7 +1,7 @@
 import { SpeakerButton } from '../components/SpeakerButton'
-import { CameraIcon, CheckIcon, PencilIcon, RefreshIcon } from '../components/icons'
+import { CameraIcon, CheckIcon, LightbulbIcon, PencilIcon, RefreshIcon } from '../components/icons'
 import type { DailyEntryState } from '../hooks/useDailyEntry'
-import { jpWeekdayLabel, shortDate } from '../lib/date'
+import { jpWeekdayLabel, shortDate, tipForDate } from '../lib/date'
 
 const CARD_SHADOW = '0px 4px 6px -1px rgba(0,0,0,0.1), 0px 2px 4px -2px rgba(0,0,0,0.1)'
 const CTA_SHADOW = '0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1)'
@@ -101,6 +101,15 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Consejo de caligrafía */}
+        <div className="flex items-start gap-2.5 rounded-lg bg-indigo-soft p-3.5">
+          <LightbulbIcon className="mt-0.5 size-4 shrink-0 text-indigo" />
+          <div className="space-y-0.5">
+            <span className="text-xs font-bold text-indigo-strong">Consejo de caligrafía</span>
+            <p className="text-[13px] leading-relaxed text-indigo-strong">{tipForDate(daily.today)}</p>
           </div>
         </div>
 

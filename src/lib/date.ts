@@ -1,4 +1,5 @@
 import { START_DATE, prompts, type DailyPrompt } from '../data/prompts'
+import { tips } from '../data/tips'
 
 const ARG_TIMEZONE = 'America/Argentina/Buenos_Aires'
 
@@ -35,6 +36,12 @@ export function promptForDate(dateId: string, variant: 0 | 1 = 0): DailyPrompt {
   const daysSinceStart = Math.max(0, dateIdToDaysSinceStart(dateId))
   const index = (daysSinceStart * 2 + variant) % prompts.length
   return prompts[index]
+}
+
+export function tipForDate(dateId: string): string {
+  const daysSinceStart = Math.max(0, dateIdToDaysSinceStart(dateId))
+  const index = daysSinceStart % tips.length
+  return tips[index]
 }
 
 export function isYesterday(dateId: string, today: string): boolean {
