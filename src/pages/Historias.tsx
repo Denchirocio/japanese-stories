@@ -72,7 +72,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
                 <div className="flex items-start justify-between gap-1">
                   <ruby className="font-serif-jp text-base leading-relaxed text-ink">
                     {word.word}
-                    {word.furigana && <rt className="font-sans text-[9px] font-normal text-indigo">{word.furigana}</rt>}
+                    {word.furigana && <rt className="font-sans text-[12px] font-medium text-indigo">{word.furigana}</rt>}
                   </ruby>
                   <SpeakerButton text={word.word} className="mt-0.5" />
                 </div>
@@ -101,7 +101,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
                     <p className="flex flex-wrap items-baseline gap-x-1.5 leading-relaxed">
                       <ruby className="font-serif-jp text-base text-ink">
                         {verb.word}
-                        <rt className="font-sans text-[9px] font-normal text-indigo">{verb.furigana}</rt>
+                        <rt className="font-sans text-[12px] font-medium text-indigo">{verb.furigana}</rt>
                       </ruby>
                       <span className="text-[13px] text-ink-soft">• {verb.translation}</span>
                     </p>
@@ -124,7 +124,7 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
                   <div className="flex items-start justify-between gap-1">
                     <ruby className="font-serif-jp text-base leading-relaxed text-ink">
                       {word.word}
-                      {word.furigana && <rt className="font-sans text-[9px] font-normal text-matcha">{word.furigana}</rt>}
+                      {word.furigana && <rt className="font-sans text-[12px] font-medium text-matcha">{word.furigana}</rt>}
                     </ruby>
                     <SpeakerButton text={word.word} className="mt-0.5" />
                   </div>
