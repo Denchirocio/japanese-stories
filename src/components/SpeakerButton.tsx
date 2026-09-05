@@ -10,9 +10,9 @@ export function SpeakerButton({ text, className }: { text: string; className?: s
         speakJapanese(text)
       }}
       aria-label={`Escuchar ${text}`}
-      className={`shrink-0 text-ink-faint transition hover:text-indigo ${className ?? ''}`}
+      className={`flex shrink-0 items-center justify-center rounded-full p-2 text-ink-faint transition hover:bg-paper-sunken hover:text-indigo active:bg-paper-sunken-strong ${className ?? ''}`}
     >
-      <SpeakerIcon className="size-4" />
+      <SpeakerIcon className="size-5" />
     </button>
   )
 }
