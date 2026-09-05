@@ -60,11 +60,11 @@ export function Historias({ daily, onOpenCamera }: { daily: DailyEntryState; onO
           <p className="font-sans-jp text-base text-ink-soft">{prompt.grammar}</p>
         </div>
 
-        {/* Misión analógica */}
+        {/* Consigna de hoy */}
         <div className="space-y-1 rounded-lg border border-line bg-paper-sunken p-3.5">
           <div className="flex items-center gap-1.5">
             <PencilIcon className="size-4 text-ink" />
-            <span className="text-xs font-bold tracking-wide text-ink">Misión analógica</span>
+            <span className="text-xs font-bold tracking-wide text-ink">Consigna de hoy</span>
           </div>
           <p className="text-[15px] leading-relaxed text-ink-soft">
             Escribí a mano en tu libreta o papel un texto completo (al menos 6 a 8 oraciones), usando sustantivos,
