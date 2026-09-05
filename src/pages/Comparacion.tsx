@@ -71,7 +71,19 @@ export function Comparacion({ original, correction, onBack }: { original: Entry;
       </div>
 
       <div className="space-y-4 rounded-xl bg-paper-elevated p-4" style={{ boxShadow: CARD_SHADOW }}>
-        <span className="text-base font-semibold text-ink">Desglose por destreza</span>
+        <div className="flex items-center justify-between">
+          <span className="text-base font-semibold text-ink">Desglose por destreza</span>
+          <div className="flex items-center gap-3">
+            <span className="flex items-center gap-1 text-[10px] font-bold tracking-wide text-indigo-strong uppercase">
+              <span className="size-2 rounded-full bg-indigo" />
+              Original
+            </span>
+            <span className="flex items-center gap-1 text-[10px] font-bold tracking-wide text-matcha uppercase">
+              <span className="size-2 rounded-full bg-matcha" />
+              Corrección
+            </span>
+          </div>
+        </div>
         {SKILLS.map(({ key, label }) => {
           const a = (original.breakdown?.[key] ?? FALLBACK_METRIC).score
           const b = (correction.breakdown?.[key] ?? FALLBACK_METRIC).score
@@ -82,14 +94,12 @@ export function Comparacion({ original, correction, onBack }: { original: Entry;
                 <DeltaTag delta={b - a} />
               </div>
               <div className="flex items-center gap-2 text-xs text-ink-soft">
-                <span className="w-16 shrink-0 text-[10px] font-bold tracking-wide text-indigo-strong uppercase">Original</span>
                 <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-paper-sunken-strong">
                   <div className="absolute inset-y-0 left-0 rounded-full bg-indigo" style={{ width: `${a}%` }} />
                 </div>
                 <span className="w-9 text-right">{a}%</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-ink-soft">
-                <span className="w-16 shrink-0 text-[10px] font-bold tracking-wide text-matcha uppercase">Corrección</span>
                 <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-paper-sunken-strong">
                   <div className="absolute inset-y-0 left-0 rounded-full bg-matcha" style={{ width: `${b}%` }} />
                 </div>
