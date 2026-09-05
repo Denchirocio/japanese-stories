@@ -1,3 +1,5 @@
+import { FormattedText } from './FormattedText'
+
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
 
 export function EntryTextDetail({
@@ -17,11 +19,11 @@ export function EntryTextDetail({
       </div>
       <div>
         <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Versión corregida</p>
-        <p className="whitespace-pre-wrap text-ink">{corrected}</p>
+        <FormattedText text={corrected} className="text-ink" />
       </div>
       <div>
         <p className="text-xs font-semibold tracking-wide text-ink-soft uppercase">Explicación</p>
-        <p className="whitespace-pre-wrap text-ink-soft">{explanation}</p>
+        <FormattedText text={explanation} className="text-ink-soft" />
       </div>
     </div>
   )

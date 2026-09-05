@@ -60,8 +60,8 @@ El estudiante debe escribir un TEXTO COMPLETO (un párrafo de al menos 6 a 8 ora
 
 Tu tarea:
 1. Transcribí exactamente lo que el estudiante escribió a mano (tal cual, incluso si tiene errores).
-2. Dá una versión corregida y natural del mismo texto.
-3. Explicá en español, de forma breve y clara, los errores encontrados (gramática, kanji, partículas, naturalidad).
+2. Dá una versión corregida y natural del mismo texto. Marcá en **negrita** (envolviendo el texto en asteriscos dobles, formato markdown: **así**) únicamente las palabras o partículas que cambiaste respecto a lo que escribió el estudiante — el resto del texto va sin marcar.
+3. Explicá en español, de forma breve y clara, los errores encontrados (gramática, kanji, partículas, naturalidad). Marcá en **negrita** (mismo formato **así**) los términos japoneses puntuales de los que hablás (el error original y/o la forma correcta), para que se puedan ubicar de un vistazo.
 4. Indicá si el estudiante usó correctamente la gramática objetivo y al menos la mayoría de los sustantivos, verbos y adjetivos pedidos. Los verbos y adjetivos pedidos pueden aparecer en CUALQUIER conjugación (presente, pasado, negativo, forma て, potencial, etc.) — no hace falta que coincidan con ninguna forma específica, alcanza con que la raíz de la palabra esté usada correctamente conjugada en el contexto de la oración.
 5. Asigná un puntaje general de 0 a 100 evaluando: la extensión (un texto completo de 6+ oraciones, no unas pocas líneas sueltas), el uso correcto de la gramática objetivo, el uso de los sustantivos/verbos/adjetivos pedidos, y la naturalidad general. Sé exigente pero justo: 90+ es excelente y completo, 70-89 es bueno pero corto o con errores menores, menos de 70 es muy corto o tiene errores importantes.
 6. Además del puntaje general, evaluá por separado estas 4 destrezas, cada una de 0 a 100 con un comentario de una sola frase corta en español:
