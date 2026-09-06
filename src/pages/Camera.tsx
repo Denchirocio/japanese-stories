@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { BackArrowIcon, CameraIcon, FlipCameraIcon, LightbulbIcon } from '../components/icons'
-import type { DailyEntryState } from '../hooks/useDailyEntry'
-import { requestCorrection } from '../lib/correctWriting'
-import { saveEntry } from '../lib/entries'
+import type { DailyPrompt } from '../data/prompts'
+import { requestCorrection, type CorrectionResult } from '../lib/correctWriting'
 import { resizeImageFile } from '../lib/image'
-import { bumpStreakForToday } from '../lib/streak'
 
 type Facing = 'environment' | 'user'
 
@@ -21,13 +19,13 @@ function blobToBase64(blob: Blob): Promise<string> {
 }
 
 export function Camera({
-  daily,
+  prompt,
   onClose,
-  onSaved,
+  onSubmit,
 }: {
-  daily: DailyEntryState
+  prompt: DailyPrompt
   onClose: () => void
-  onSaved: () => void
+  onSubmit: (photoBlob: Blob, correction: CorrectionResult) => Promise<void>
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const streamRef = useRef<MediaStream | null>(null)
@@ -121,12 +119,8 @@ export function Camera({
     setSubmitError(null)
     try {
       const base64 = await blobToBase64(capture.blob)
-      const correction = await requestCorrection(base64, 'image/jpeg', daily.prompt)
-      const savedEntry = await saveEntry(daily.today, daily.nextAttempt, daily.prompt, capture.blob, correction)
-      const newStreak = bumpStreakForToday(daily.today)
-      daily.addEntryToday(savedEntry)
-      daily.setStreak(newStreak)
-      onSaved()
+      const correction = await requestCorrection(base64, 'image/jpeg', prompt)
+      await onSubmit(capture.blob, correction)
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Algo salió mal, probá de nuevo.')
     } finally {

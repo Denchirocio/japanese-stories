@@ -49,7 +49,20 @@ export function Calendario({
     const map = new Map<string, Entry>()
     entries?.forEach((e) => {
       const existing = map.get(e.date)
-      if (!existing || e.attempt > existing.attempt) map.set(e.date, e)
+      if (!existing) {
+        map.set(e.date, e)
+        return
+      }
+      // Preferir la entrada diaria como representante del día — la semanal
+      // (si existe) se ve dentro del detalle, no reemplaza el trazo diario.
+      const existingIsDaily = (existing.type ?? 'daily') === 'daily'
+      const currentIsDaily = (e.type ?? 'daily') === 'daily'
+      if (existingIsDaily && !currentIsDaily) return
+      if (!existingIsDaily && currentIsDaily) {
+        map.set(e.date, e)
+        return
+      }
+      if (e.attempt > existing.attempt) map.set(e.date, e)
     })
     return map
   }, [entries])

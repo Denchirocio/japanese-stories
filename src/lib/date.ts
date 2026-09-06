@@ -1,5 +1,6 @@
 import { START_DATE, prompts, type DailyPrompt } from '../data/prompts'
 import { tips } from '../data/tips'
+import { weeklyChallenges } from '../data/weeklyChallenges'
 
 const ARG_TIMEZONE = 'America/Argentina/Buenos_Aires'
 
@@ -42,6 +43,18 @@ export function tipForDate(dateId: string): string {
   const daysSinceStart = Math.max(0, dateIdToDaysSinceStart(dateId))
   const index = daysSinceStart % tips.length
   return tips[index]
+}
+
+// El desafío semanal (opcional, más corto pero más difícil) se habilita
+// solo los domingos y rota semana a semana.
+export function isSunday(dateId: string): boolean {
+  return new Date(`${dateId}T00:00:00`).getDay() === 0
+}
+
+export function weeklyChallengeForDate(dateId: string): DailyPrompt {
+  const daysSinceStart = Math.max(0, dateIdToDaysSinceStart(dateId))
+  const weekIndex = Math.floor(daysSinceStart / 7)
+  return weeklyChallenges[weekIndex % weeklyChallenges.length]
 }
 
 export function isYesterday(dateId: string, today: string): boolean {

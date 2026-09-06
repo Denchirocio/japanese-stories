@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { AppHeader } from './components/AppHeader'
 import { BottomNav } from './components/BottomNav'
 import { useDailyEntry } from './hooks/useDailyEntry'
-import type { Entry } from './lib/entries'
+import { saveEntry, type Entry } from './lib/entries'
+import { bumpStreakForToday } from './lib/streak'
 import { Calendario } from './pages/Calendario'
 import { Camera } from './pages/Camera'
 import { Comparacion } from './pages/Comparacion'
@@ -16,8 +17,8 @@ export type View = 'historias' | 'calendario' | 'cuaderno'
 
 function App() {
   const [view, setView] = useState<View>('historias')
-  const [cameraOpen, setCameraOpen] = useState(false)
-  const [celebrating, setCelebrating] = useState(false)
+  const [cameraMode, setCameraMode] = useState<'daily' | 'weekly' | null>(null)
+  const [celebratingEntry, setCelebratingEntry] = useState<Entry | null>(null)
   const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null)
   const [comparing, setComparing] = useState<{ original: Entry; correction: Entry } | null>(null)
   const daily = useDailyEntry()
@@ -26,14 +27,33 @@ function App() {
     return <Splash />
   }
 
-  if (cameraOpen) {
+  if (cameraMode === 'daily') {
     return (
       <Camera
-        daily={daily}
-        onClose={() => setCameraOpen(false)}
-        onSaved={() => {
-          setCameraOpen(false)
-          setCelebrating(true)
+        prompt={daily.prompt}
+        onClose={() => setCameraMode(null)}
+        onSubmit={async (photoBlob, correction) => {
+          const savedEntry = await saveEntry(daily.today, daily.nextAttempt, 'daily', daily.prompt, photoBlob, correction)
+          const newStreak = bumpStreakForToday(daily.today)
+          daily.addEntryToday(savedEntry)
+          daily.setStreak(newStreak)
+          setCameraMode(null)
+          setCelebratingEntry(savedEntry)
+        }}
+      />
+    )
+  }
+
+  if (cameraMode === 'weekly') {
+    return (
+      <Camera
+        prompt={daily.weeklyPrompt}
+        onClose={() => setCameraMode(null)}
+        onSubmit={async (photoBlob, correction) => {
+          const savedEntry = await saveEntry(daily.today, 1, 'weekly', daily.weeklyPrompt, photoBlob, correction)
+          daily.addWeeklyEntry(savedEntry)
+          setCameraMode(null)
+          setCelebratingEntry(savedEntry)
         }}
       />
     )
@@ -54,7 +74,7 @@ function App() {
   }
 
   function changeView(v: View) {
-    setCelebrating(false)
+    setCelebratingEntry(null)
     setView(v)
   }
 
@@ -64,10 +84,19 @@ function App() {
 
       <main className="pt-16 pb-16">
         {view === 'historias' ? (
-          celebrating && daily.lastEntry ? (
-            <Resultado entry={daily.lastEntry} canRetry={daily.canSubmit} onRetry={() => setCameraOpen(true)} />
+          celebratingEntry ? (
+            <Resultado
+              entry={celebratingEntry}
+              canRetry={celebratingEntry.type === 'weekly' ? false : daily.canSubmit}
+              onRetry={() => setCameraMode('daily')}
+            />
           ) : (
-            <Historias daily={daily} onOpenCamera={() => setCameraOpen(true)} onGoToCuaderno={() => changeView('cuaderno')} />
+            <Historias
+              daily={daily}
+              onOpenCamera={() => setCameraMode('daily')}
+              onOpenWeeklyCamera={() => setCameraMode('weekly')}
+              onGoToCuaderno={() => changeView('cuaderno')}
+            />
           )
         ) : view === 'calendario' ? (
           <Calendario daily={daily} onSelectEntry={setSelectedEntry} onGoToHistorias={() => changeView('historias')} />

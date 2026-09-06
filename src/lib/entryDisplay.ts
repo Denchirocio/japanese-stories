@@ -17,6 +17,16 @@ export function attemptBadgeClass(attempt: 1 | 2): string {
   return attempt === 1 ? 'bg-indigo-soft text-indigo-strong' : 'bg-matcha-soft text-matcha'
 }
 
+export function entryTypeLabel(entry: { type?: 'daily' | 'weekly'; attempt: 1 | 2 }): string {
+  if (entry.type === 'weekly') return 'Desafío semanal'
+  return attemptLabel(entry.attempt)
+}
+
+export function entryTypeBadgeClass(entry: { type?: 'daily' | 'weekly'; attempt: 1 | 2 }): string {
+  if (entry.type === 'weekly') return 'bg-gold-soft text-gold'
+  return attemptBadgeClass(entry.attempt)
+}
+
 export function levelBadge(score: number): string {
   if (score >= 95) return 'Nivel S'
   if (score >= 90) return 'Nivel A+'

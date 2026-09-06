@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { EntryThumbnail } from '../components/EntryThumbnail'
 import type { DailyEntryState } from '../hooks/useDailyEntry'
 import { jpWeekdayLabel, relativeDateLabel } from '../lib/date'
-import { attemptBadgeClass, attemptLabel, grammarTag, scoreColorClass } from '../lib/entryDisplay'
+import { entryTypeBadgeClass, entryTypeLabel, grammarTag, scoreColorClass } from '../lib/entryDisplay'
 import { listEntries, type Entry } from '../lib/entries'
 
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
@@ -62,20 +62,23 @@ export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onS
         <div className="space-y-3">
           {filtered.map((entry) => {
             const isToday = entry.date === daily.today
+            const isWeekly = entry.type === 'weekly'
             return (
               <button
                 key={entry.id}
                 type="button"
                 onClick={() => onSelectEntry(entry)}
-                className="block w-full overflow-hidden rounded-xl bg-paper-elevated p-4 text-left"
+                className={`block w-full overflow-hidden rounded-xl p-4 text-left ${
+                  isWeekly ? 'border-2 border-gold bg-gold-soft' : 'bg-paper-elevated'
+                }`}
                 style={{ boxShadow: CARD_SHADOW }}
               >
                 <div className="mb-2.5 flex items-center gap-2">
                   {isToday && <span className="size-2 shrink-0 rounded-full bg-vermilion" />}
                   <span className="text-xs font-bold tracking-wide text-ink">{relativeDateLabel(entry.date, daily.today)}</span>
                   <span className="font-sans-jp text-sm tracking-wide text-ink-soft">{jpWeekdayLabel(entry.date)}</span>
-                  <span className={`ml-auto rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${attemptBadgeClass(entry.attempt)}`}>
-                    {attemptLabel(entry.attempt)}
+                  <span className={`ml-auto rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${entryTypeBadgeClass(entry)}`}>
+                    {entryTypeLabel(entry)}
                   </span>
                 </div>
 

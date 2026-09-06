@@ -18,10 +18,12 @@ function JpWord({ word, furigana, accentClass }: { word: string; furigana?: stri
 export function Historias({
   daily,
   onOpenCamera,
+  onOpenWeeklyCamera,
   onGoToCuaderno,
 }: {
   daily: DailyEntryState
   onOpenCamera: () => void
+  onOpenWeeklyCamera: () => void
   onGoToCuaderno: () => void
 }) {
   const { prompt, attemptsUsed, canSubmit, lastEntry, refreshUsed, refreshPrompt } = daily
@@ -243,6 +245,49 @@ export function Historias({
           </button>
         )}
       </div>
+
+      {daily.isSunday && (
+        <div className="space-y-4 rounded-xl border-2 border-gold bg-gold-soft p-6" style={{ boxShadow: CARD_SHADOW }}>
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5">
+              <span className="size-2 rounded-full bg-gold" />
+              <span className="text-[10px] font-bold tracking-[0.1em] text-gold uppercase">Desafío semanal</span>
+            </div>
+            <span className="rounded-full bg-gold px-1.5 py-0.5 text-[9px] font-bold tracking-wide text-paper uppercase">
+              Solo domingos
+            </span>
+          </div>
+
+          <div className="space-y-1">
+            <p className="font-sans-jp text-xl font-semibold leading-[1.3] text-ink">{daily.weeklyPrompt.themeTitle}</p>
+            <p className="text-sm text-ink-faint">{daily.weeklyPrompt.themeTranslation}</p>
+          </div>
+
+          <div className="rounded-lg border border-gold/40 bg-paper-elevated p-3.5">
+            <p className="text-[15px] leading-relaxed text-ink-soft">{daily.weeklyPrompt.topic}</p>
+          </div>
+
+          <div className="rounded-lg border-l-2 border-gold bg-paper-elevated p-3.5">
+            <p className="font-sans-jp text-lg font-semibold text-ink">{daily.weeklyPrompt.grammar}</p>
+          </div>
+
+          {daily.canSubmitWeekly ? (
+            <button
+              type="button"
+              onClick={onOpenWeeklyCamera}
+              className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-gold px-4 py-3.5 font-bold text-paper transition hover:opacity-90 active:scale-[0.98]"
+            >
+              <CameraIcon className="size-[18px]" />
+              Subir desafío semanal
+            </button>
+          ) : (
+            <div className="flex items-center gap-2 rounded-lg bg-paper-elevated p-3 text-sm text-ink-soft">
+              <CheckIcon className="size-4 shrink-0 text-gold" />
+              Ya completaste el desafío semanal de hoy.
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }

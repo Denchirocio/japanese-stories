@@ -41,15 +41,15 @@ export interface DailyPrompt {
 // para adelante o atrás desplaza qué prompt le toca a cada día.
 export const START_DATE = '2026-09-04'
 
-function v(word: string, furigana: string | undefined, romaji: string, translation: string): VocabWord {
+export function v(word: string, furigana: string | undefined, romaji: string, translation: string): VocabWord {
   return { word, furigana, romaji, translation }
 }
 
-function req(word: string, furigana: string, translation: string, form: string): RequiredVerb {
+export function req(word: string, furigana: string, translation: string, form: string): RequiredVerb {
   return { word, furigana, translation, form }
 }
 
-function adj(word: string, furigana: string | undefined, romaji: string, translation: string, type: 'い' | 'な'): RequiredAdjective {
+export function adj(word: string, furigana: string | undefined, romaji: string, translation: string, type: 'い' | 'な'): RequiredAdjective {
   return { word, furigana, romaji, translation, type }
 }
 

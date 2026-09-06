@@ -5,7 +5,7 @@ import { ManuscriptCard } from '../components/ManuscriptCard'
 import { MasteredVocab } from '../components/MasteredVocab'
 import { ScoreBreakdown } from '../components/ScoreBreakdown'
 import type { Entry } from '../lib/entries'
-import { attemptBadgeClass, attemptLabel, levelBadge } from '../lib/entryDisplay'
+import { entryTypeBadgeClass, entryTypeLabel, levelBadge } from '../lib/entryDisplay'
 
 const CARD_SHADOW = '0px 1px 2px 0px rgba(0,0,0,0.05)'
 
@@ -39,8 +39,8 @@ export function Resultado({ entry, canRetry, onRetry }: { entry: Entry; canRetry
                 <SparkleIcon className="size-3" />
                 Análisis IA completado
               </span>
-              <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${attemptBadgeClass(entry.attempt)}`}>
-                {attemptLabel(entry.attempt)}
+              <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${entryTypeBadgeClass(entry)}`}>
+                {entryTypeLabel(entry)}
               </span>
             </div>
             <h1 className="font-serif text-[26px] leading-[1.25] text-ink">¡Desafío completado!</h1>
@@ -67,7 +67,9 @@ export function Resultado({ entry, canRetry, onRetry }: { entry: Entry; canRetry
         Compartir tarjeta de resultado
       </button>
 
-      {canRetry ? (
+      {entry.type === 'weekly' ? (
+        <p className="w-full py-1 text-center text-sm text-ink-faint">El desafío semanal se envía una sola vez.</p>
+      ) : canRetry ? (
         <button type="button" onClick={onRetry} className="w-full py-1 text-center text-sm font-semibold text-ink-soft underline">
           ¿No quedó como esperabas? Rehacer el envío
         </button>

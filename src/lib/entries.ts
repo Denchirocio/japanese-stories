@@ -7,6 +7,8 @@ export interface Entry extends CorrectionResult {
   id: string
   date: string
   attempt: 1 | 2
+  // undefined en entradas guardadas antes del desafío semanal -> 'daily'.
+  type?: 'daily' | 'weekly'
   prompt: DailyPrompt
   photoBlob: Blob
   createdAt: number
@@ -53,11 +55,13 @@ function getDb() {
 export async function saveEntry(
   dateId: string,
   attempt: 1 | 2,
+  type: 'daily' | 'weekly',
   prompt: DailyPrompt,
   photoBlob: Blob,
   correction: CorrectionResult,
 ): Promise<Entry> {
-  const entry: Entry = { id: `${dateId}-${attempt}`, date: dateId, attempt, prompt, photoBlob, ...correction, createdAt: Date.now() }
+  const id = type === 'weekly' ? `${dateId}-weekly` : `${dateId}-${attempt}`
+  const entry: Entry = { id, date: dateId, attempt, type, prompt, photoBlob, ...correction, createdAt: Date.now() }
   const db = await getDb()
   await db.put('entries', entry)
   backupEntry(entry).catch((err) => console.error('No se pudo respaldar la entrada en la nube', err))
@@ -100,4 +104,12 @@ export function restoreMissingEntries(): Promise<Entry[]> {
 export async function listEntryDates(): Promise<string[]> {
   const db = await getDb()
   return db.getAllKeysFromIndex('entries', 'by-date')
+}
+
+// Solo fechas de entradas del desafío diario (no del semanal) — para la
+// racha, que es sobre el hábito diario.
+export async function listDailyEntryDates(): Promise<string[]> {
+  const db = await getDb()
+  const all = await db.getAllFromIndex('entries', 'by-date')
+  return all.filter((e) => (e.type ?? 'daily') === 'daily').map((e) => e.date)
 }
