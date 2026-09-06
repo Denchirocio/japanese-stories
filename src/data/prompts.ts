@@ -23,6 +23,9 @@ export interface RequiredAdjective {
 export interface DailyPrompt {
   level: 'N5' | 'N4'
   grammar: string
+  // Punto gramatical opcional (N5 o N4 como mucho): no es obligatorio usarlo,
+  // pero si se usa bien suma puntos extra en la corrección.
+  bonusGrammar: string
   themeTitle: string
   themeFurigana: string
   themeTranslation: string
@@ -56,6 +59,7 @@ function adj(word: string, furigana: string | undefined, romaji: string, transla
 export const prompts: DailyPrompt[] = [
   {
     level: 'N5', grammar: '〜は〜です', themeTitle: 'はじめまして',
+    bonusGrammar: '〜と申します (presentación formal)',
     themeFurigana: 'はじめまして',
     themeTranslation: 'Mucho gusto',
     topic: 'Preséntate: quién sos, de dónde sos, a qué te dedicás.',
@@ -66,6 +70,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜も〜です', themeTitle: '家族と友達',
+    bonusGrammar: '〜という (nombrar a alguien/algo)',
     themeFurigana: 'かぞくとともだち',
     themeTranslation: 'Familia y amigos',
     topic: 'Presentá a un familiar o amigo, usando también algo en común con vos.',
@@ -76,6 +81,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: 'これ・それ・あれ', themeTitle: '身の回りの物',
+    bonusGrammar: '〜みたいです (parece que)',
     themeFurigana: 'みのまわりのもの',
     themeTranslation: 'Objetos cotidianos',
     topic: 'Describí tres objetos que tenés cerca ahora mismo.',
@@ -86,6 +92,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: 'この・その・あの + 名詞', themeTitle: '私の家',
+    bonusGrammar: '〜てあります (estado resultante)',
     themeFurigana: 'わたしのいえ',
     themeTranslation: 'Mi casa',
     topic: 'Hablá de tu casa: qué hay adentro y afuera.',
@@ -96,6 +103,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜があります／います', themeTitle: '部屋の中',
+    bonusGrammar: '〜ておきます (dejar preparado)',
     themeFurigana: 'へやのなか',
     themeTranslation: 'Dentro del cuarto',
     topic: 'Describí tu cuarto: qué cosas hay y dónde están.',
@@ -106,6 +114,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '場所 + に + あります／います', themeTitle: '近所の風景',
+    bonusGrammar: '〜まで (hasta, distancia)',
     themeFurigana: 'きんじょのふうけい',
     themeTranslation: 'El paisaje del barrio',
     topic: 'Describí tu barrio: qué lugares hay cerca de tu casa.',
@@ -116,6 +125,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜の (posesión)', themeTitle: '家族の絆',
+    bonusGrammar: '〜てくれる (alguien hace algo por mí)',
     themeFurigana: 'かぞくのきずな',
     themeTranslation: 'El vínculo familiar',
     topic: 'Hablá de tu familia: cuántos son y qué hace cada uno.',
@@ -126,6 +136,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '数字 + 時／分', themeTitle: '一日の流れ',
+    bonusGrammar: '〜てから (después de hacer)',
     themeFurigana: 'いちにちのながれ',
     themeTranslation: 'El transcurso del día',
     topic: 'Describí tu rutina de un día normal, con horarios.',
@@ -136,6 +147,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '動詞ます形 (presente/futuro)', themeTitle: '明日の予定',
+    bonusGrammar: '〜つもりです (tener la intención de)',
     themeFurigana: 'あしたのよてい',
     themeTranslation: 'Planes para mañana',
     topic: 'Contá qué vas a hacer mañana.',
@@ -146,6 +158,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '動詞ません (negativo)', themeTitle: '週末の過ごし方',
+    bonusGrammar: '〜たりします (hacer cosas variadas)',
     themeFurigana: 'しゅうまつのすごしかた',
     themeTranslation: 'Cómo paso el fin de semana',
     topic: 'Contá algo que NO hacés los fines de semana.',
@@ -156,6 +169,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜ました／〜ませんでした', themeTitle: '昨日の出来事',
+    bonusGrammar: '〜てしまいました (completud/pesar)',
     themeFurigana: 'きのうのできごと',
     themeTranslation: 'Lo que pasó ayer',
     topic: 'Contá qué hiciste ayer, paso a paso.',
@@ -166,6 +180,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜へ行きます', themeTitle: '先週の外出',
+    bonusGrammar: '〜たところです (justo acabo de)',
     themeFurigana: 'せんしゅうのがいしゅつ',
     themeTranslation: 'La salida de la semana pasada',
     topic: 'Contá adónde fuiste la semana pasada y con quién.',
@@ -176,6 +191,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜で (lugar de la acción)', themeTitle: 'お気に入りの場所',
+    bonusGrammar: '〜し、〜し (enumerar razones)',
     themeFurigana: 'おきにいりのばしょ',
     themeTranslation: 'Mi lugar favorito',
     topic: 'Contá dónde estudiás o trabajás normalmente y por qué ahí.',
@@ -186,6 +202,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜を食べます／飲みます', themeTitle: '今日の食事',
+    bonusGrammar: '〜すぎる (demasiado)',
     themeFurigana: 'きょうのしょくじ',
     themeTranslation: 'Las comidas de hoy',
     topic: 'Describí qué comiste hoy en cada comida.',
@@ -196,6 +213,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜が好きです／嫌いです', themeTitle: '好きなもの',
+    bonusGrammar: '〜より〜のほうが (comparación)',
     themeFurigana: 'すきなもの',
     themeTranslation: 'Lo que me gusta',
     topic: 'Contá qué te gusta y qué no te gusta, y por qué.',
@@ -206,6 +224,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜が上手です／下手です', themeTitle: '得意と苦手',
+    bonusGrammar: '〜のは〜です (nominalización)',
     themeFurigana: 'とくいとにがて',
     themeTranslation: 'Fortalezas y debilidades',
     topic: 'Contá en qué sos bueno/a y en qué no tanto.',
@@ -216,6 +235,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '形容詞 (い形容詞)', themeTitle: '私の街',
+    bonusGrammar: '〜し、〜し (enumerar cualidades)',
     themeFurigana: 'わたしのまち',
     themeTranslation: 'Mi ciudad',
     topic: 'Describí tu ciudad usando al menos tres adjetivos.',
@@ -226,6 +246,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '形容詞 (な形容詞)', themeTitle: '私の仕事',
+    bonusGrammar: '〜として (en calidad de)',
     themeFurigana: 'わたしのしごと',
     themeTranslation: 'Mi trabajo',
     topic: 'Describí tu trabajo o tus estudios usando adjetivos な.',
@@ -236,6 +257,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜くて／〜で (conectar adjetivos)', themeTitle: '忙しい一週間',
+    bonusGrammar: '〜ばかりです (solo/nada más que)',
     themeFurigana: 'いそがしいいっしゅうかん',
     themeTranslation: 'Una semana ocupada',
     topic: 'Describí cómo fue tu semana, conectando varios adjetivos.',
@@ -246,6 +268,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜ませんか (invitación)', themeTitle: '週末のお誘い',
+    bonusGrammar: '〜たらどうですか (sugerencia)',
     themeFurigana: 'しゅうまつのおさそい',
     themeTranslation: 'Invitación de fin de semana',
     topic: 'Escribí una invitación a un amigo para hacer algo juntos.',
@@ -256,6 +279,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜ましょう', themeTitle: '今度の計画',
+    bonusGrammar: '〜ことにします (decidir hacer algo)',
     themeFurigana: 'こんどのけいかく',
     themeTranslation: 'El próximo plan',
     topic: 'Proponele un plan a alguien para el próximo fin de semana.',
@@ -266,6 +290,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: 'なぜ／どうして〜から', themeTitle: '日本語を学ぶ理由',
+    bonusGrammar: '〜ようになりたい (querer llegar a poder)',
     themeFurigana: 'にほんごをまなぶりゆう',
     themeTranslation: 'Por qué aprendo japonés',
     topic: 'Explicá por qué estás aprendiendo japonés.',
@@ -276,6 +301,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜たいです', themeTitle: '行きたい場所',
+    bonusGrammar: '〜てみたい (querer probar)',
     themeFurigana: 'いきたいばしょ',
     themeTranslation: 'Lugares a los que quiero ir',
     topic: 'Contá tres lugares a los que te gustaría viajar y por qué.',
@@ -286,6 +312,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '動詞て形 (pedidos)', themeTitle: '職場のお願い',
+    bonusGrammar: '〜ていただけますか (pedido formal)',
     themeFurigana: 'しょくばのおねがい',
     themeTranslation: 'Pedidos en el trabajo',
     topic: 'Escribí tres pedidos que le harías a un compañero de trabajo.',
@@ -296,6 +323,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜ています (acción en progreso)', themeTitle: '今の私',
+    bonusGrammar: '〜続けています (seguir haciendo)',
     themeFurigana: 'いまのわたし',
     themeTranslation: 'Quién soy ahora',
     topic: 'Contá qué estás haciendo en esta etapa de tu vida.',
@@ -306,6 +334,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N5', grammar: '〜前に／〜後で', themeTitle: '朝と夜の習慣',
+    bonusGrammar: '〜ながら (simultaneidad)',
     themeFurigana: 'あさとよるのしゅうかん',
     themeTranslation: 'Hábitos de la mañana y la noche',
     topic: 'Describí tu rutina usando antes de / después de.',
@@ -316,6 +345,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜と思います', themeTitle: '最近のニュース',
+    bonusGrammar: '〜かもしれません (podría ser que)',
     themeFurigana: 'さいきんのニュース',
     themeTranslation: 'Noticias recientes',
     topic: 'Dá tu opinión sobre algo que pasó esta semana en las noticias o tu vida.',
@@ -326,6 +356,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜ことがあります (experiencia)', themeTitle: '忘れられない経験',
+    bonusGrammar: '〜たばかりです (recién acabo de)',
     themeFurigana: 'わすれられないけいけん',
     themeTranslation: 'Una experiencia inolvidable',
     topic: 'Contá una experiencia que tuviste alguna vez (viaje, comida rara, etc).',
@@ -336,6 +367,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜ことができます', themeTitle: 'できることとできないこと',
+    bonusGrammar: '〜なくてもいいです (no hace falta)',
     themeFurigana: 'できることとできないこと',
     themeTranslation: 'Lo que puedo y no puedo hacer',
     topic: 'Contá qué cosas podés hacer y cuáles todavía no.',
@@ -346,6 +378,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜なければなりません', themeTitle: '今週の義務',
+    bonusGrammar: '〜べきです (debería)',
     themeFurigana: 'こんしゅうのぎむ',
     themeTranslation: 'Obligaciones de esta semana',
     topic: 'Contá qué obligaciones tenés esta semana.',
@@ -356,6 +389,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜てもいいです／〜てはいけません', themeTitle: '家のルール',
+    bonusGrammar: '〜ことになっている (está establecido que)',
     themeFurigana: 'いえのルール',
     themeTranslation: 'Las reglas de casa',
     topic: 'Describí las reglas de tu casa o tu trabajo.',
@@ -366,6 +400,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜たら (condicional)', themeTitle: '自由な一週間',
+    bonusGrammar: '〜ばよかった (debería haber...)',
     themeFurigana: 'じゆうないっしゅうかん',
     themeTranslation: 'Una semana libre',
     topic: 'Contá qué harías si tuvieras una semana libre.',
@@ -376,6 +411,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜ば (condicional)', themeTitle: '上達への道',
+    bonusGrammar: '〜ようにする (esforzarse por)',
     themeFurigana: 'じょうたつへのみち',
     themeTranslation: 'El camino a mejorar',
     topic: 'Contá qué tenés que hacer para mejorar en algo que te importa.',
@@ -386,6 +422,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜とき', themeTitle: '子供の頃',
+    bonusGrammar: '〜たものだ (solía hacer, nostalgia)',
     themeFurigana: 'こどものころ',
     themeTranslation: 'De niño/a',
     topic: 'Contá algo que te pasaba de chico/a en una situación repetida.',
@@ -396,6 +433,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜ようになります', themeTitle: 'できるようになったこと',
+    bonusGrammar: '〜おかげで (gracias a)',
     themeFurigana: 'できるようになったこと',
     themeTranslation: 'Lo que ahora puedo hacer',
     topic: 'Contá algo que ahora podés hacer y antes no podías.',
@@ -406,6 +444,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '受身形 (pasiva)', themeTitle: '叱られた日',
+    bonusGrammar: '〜せいで (por culpa de)',
     themeFurigana: 'しかられたひ',
     themeTranslation: 'El día que me retaron',
     topic: 'Contá una vez que te felicitaron o retaron por algo.',
@@ -416,6 +455,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '使役形 (causativo)', themeTitle: '親の教え',
+    bonusGrammar: '〜ように (para que, propósito)',
     themeFurigana: 'おやのおしえ',
     themeTranslation: 'Las enseñanzas de mis padres',
     topic: 'Contá algo que tus padres te hacían hacer de chico/a.',
@@ -426,6 +466,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜そうです (apariencia)', themeTitle: '見た目の印象',
+    bonusGrammar: '〜らしい (aparentemente, se dice que)',
     themeFurigana: 'みためのいんしょう',
     themeTranslation: 'La primera impresión',
     topic: 'Describí algo que viste hoy solo por su apariencia (comida, clima, gente).',
@@ -436,6 +477,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜ながら', themeTitle: 'ながら作業',
+    bonusGrammar: '〜ついでに (aprovechando para)',
     themeFurigana: 'ながらさぎょう',
     themeTranslation: 'Hacer dos cosas a la vez',
     topic: 'Contá qué cosas hacés al mismo tiempo que otra en tu día a día.',
@@ -446,6 +488,7 @@ export const prompts: DailyPrompt[] = [
   },
   {
     level: 'N4', grammar: '〜てあげます／もらいます／くれます', themeTitle: '助け合い',
+    bonusGrammar: '〜てほしい (querer que alguien haga algo)',
     themeFurigana: 'たすけあい',
     themeTranslation: 'Ayudarse mutuamente',
     topic: 'Contá algo que hiciste por alguien o alguien hizo por vos.',

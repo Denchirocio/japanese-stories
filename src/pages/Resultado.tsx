@@ -50,7 +50,7 @@ export function Resultado({ entry, canRetry, onRetry }: { entry: Entry; canRetry
         </div>
       </div>
 
-      <ScoreBreakdown result={entry} level={entry.prompt.level} />
+      <ScoreBreakdown result={entry} level={entry.prompt.level} bonusGrammar={entry.prompt.bonusGrammar} />
 
       <ManuscriptCard blob={entry.photoBlob} alt="Tu escritura de hoy" />
 

@@ -21,6 +21,7 @@ interface RequiredAdjective {
 interface DailyPrompt {
   level: 'N5' | 'N4'
   grammar: string
+  bonusGrammar: string
   themeTitle: string
   topic: string
   vocab: VocabWord[]
@@ -51,6 +52,8 @@ interface CorrectionResult {
   explanation: ExplanationPoint[]
   usedRequiredElements: boolean
   usedWords: string[]
+  usedBonusGrammar: boolean
+  bonusPoints: number
   score: number
   breakdown: {
     handwriting: SkillMetric
@@ -61,7 +64,7 @@ interface CorrectionResult {
 }
 
 const SYSTEM_PROMPT = `Sos un profesor de japonés que corrige textos escritos a mano por un estudiante hispanohablante.
-Vas a recibir una foto de un texto escrito a mano en japonés, junto con la gramática objetivo, los sustantivos, verbos, adjetivos y lugares que debía usar, y el tema que se le pidió al estudiante.
+Vas a recibir una foto de un texto escrito a mano en japonés, junto con la gramática objetivo (obligatoria), una gramática opcional (bonus, no obligatoria), los sustantivos, verbos, adjetivos y lugares que debía usar, y el tema que se le pidió al estudiante.
 
 El estudiante debe escribir un TEXTO COMPLETO (un párrafo de al menos 6 a 8 oraciones, no 3 frases sueltas), integrando naturalmente los sustantivos, verbos, adjetivos y lugares pedidos.
 
@@ -71,15 +74,16 @@ Tu tarea:
    IMPORTANTE — CONSISTENCIA entre los pasos 1 y 2: cada error que marcaste en la transcripción (paso 1) tiene que tener su corrección correspondiente marcada acá en el mismo lugar de la oración, y viceversa — si marcaste algo acá como corregido, el error original que le dio origen tiene que estar marcado en la transcripción. Antes de responder, revisá que la cantidad de partes marcadas en el paso 1 coincida uno a uno con las partes marcadas acá (no dejes ninguna sin su par).
 3. Explicá los errores encontrados (gramática, kanji, partículas, naturalidad) como una LISTA de puntos en español — el campo "explanation" es un array de objetos {"title": "...", "description": "..."}, uno por cada punto (no un párrafo largo con "1) 2) 3)" adentro). "title" es un resumen muy corto (3 a 6 palabras, sin punto final) del tipo de corrección (por ejemplo "Partícula incorrecta", "Kanji equivocado", "Falta de politesse"). "description" es 1 o 2 oraciones breves explicando el error y la forma correcta, marcando en **negrita** (formato **así**) los términos japoneses puntuales (el error original y/o la forma correcta), para que se puedan ubicar de un vistazo.
 4. Indicá si el estudiante usó correctamente la gramática objetivo y al menos la mayoría de los sustantivos, verbos, adjetivos y lugares pedidos. Los verbos y adjetivos pedidos pueden aparecer en CUALQUIER conjugación (presente, pasado, negativo, forma て, potencial, etc.) — no hace falta que coincidan con ninguna forma específica, alcanza con que la raíz de la palabra esté usada correctamente conjugada en el contexto de la oración. Si la gramática objetivo lista varias formas alternativas separadas por "・" o "／" (por ejemplo "これ・それ・あれ" o "〜ました／〜ませんでした"), alcanza con que el estudiante use CORRECTAMENTE AL MENOS UNA de esas formas — no hace falta que use todas. Además, en el campo "usedWords" (array de strings) listá exactamente cuáles de esas palabras pedidas (tal cual están escritas en la lista de sustantivos/verbos/adjetivos/lugares objetivo, en su forma de diccionario) usó CORRECTAMENTE el estudiante en el texto — si no usó ninguna, devolvé un array vacío.
-5. Asigná un puntaje general de 0 a 100 evaluando: la extensión (un texto completo de 6+ oraciones, no unas pocas líneas sueltas), el uso correcto de la gramática objetivo, el uso de los sustantivos/verbos/adjetivos/lugares pedidos, y la naturalidad general. Sé exigente pero justo: 90+ es excelente y completo, 70-89 es bueno pero corto o con errores menores, menos de 70 es muy corto o tiene errores importantes.
-6. Además del puntaje general, evaluá por separado estas 4 destrezas, cada una de 0 a 100 con un comentario de una sola frase corta en español:
+5. Además de la gramática objetivo (obligatoria), vas a recibir una "Gramática opcional (bonus)" — NO es obligatoria y no se penaliza si no aparece. Si el estudiante la usó correctamente en algún lugar del texto (en cualquier forma apropiada), marcá "usedBonusGrammar": true y asigná entre 3 y 8 puntos extra en "bonusPoints" (más puntos si la usó de forma natural y repetida, menos si fue un uso simple pero correcto). Si no la usó, o la usó mal, "usedBonusGrammar": false y "bonusPoints": 0. Si la usó bien, agregá un punto más al final de "explanation" con título tipo "Punto extra" y la descripción celebrando el uso de esa gramática opcional.
+6. Asigná un puntaje general de 0 a 100 evaluando: la extensión (un texto completo de 6+ oraciones, no unas pocas líneas sueltas), el uso correcto de la gramática objetivo, el uso de los sustantivos/verbos/adjetivos/lugares pedidos, y la naturalidad general. Sé exigente pero justo: 90+ es excelente y completo, 70-89 es bueno pero corto o con errores menores, menos de 70 es muy corto o tiene errores importantes. Al final, sumale "bonusPoints" a este puntaje (sin pasarte de 100).
+7. Además del puntaje general, evaluá por separado estas 4 destrezas, cada una de 0 a 100 con un comentario de una sola frase corta en español:
    - "handwriting": legibilidad y trazo de la escritura a mano en la foto (proporciones, prolijidad, firmeza del trazo).
    - "grammar": uso correcto de la gramática objetivo y la estructura general de las oraciones.
    - "vocabulary": uso correcto y natural de los sustantivos/verbos/adjetivos/lugares pedidos (si usó todos o la mayoría, mejor puntaje).
    - "naturalness": qué tan natural y fluido suena el texto para alguien nativo, más allá de si es gramaticalmente correcto.
 
 Respondé ÚNICAMENTE con un objeto JSON válido, sin texto adicional, con este formato exacto:
-{"transcription": "...", "corrected": "...", "explanation": [{"title": "...", "description": "..."}], "usedRequiredElements": true, "usedWords": ["...", "..."], "score": 85, "breakdown": {"handwriting": {"score": 90, "comment": "..."}, "grammar": {"score": 85, "comment": "..."}, "vocabulary": {"score": 100, "comment": "..."}, "naturalness": {"score": 80, "comment": "..."}}}`
+{"transcription": "...", "corrected": "...", "explanation": [{"title": "...", "description": "..."}], "usedRequiredElements": true, "usedWords": ["...", "..."], "usedBonusGrammar": false, "bonusPoints": 0, "score": 85, "breakdown": {"handwriting": {"score": 90, "comment": "..."}, "grammar": {"score": 85, "comment": "..."}, "vocabulary": {"score": 100, "comment": "..."}, "naturalness": {"score": 80, "comment": "..."}}}`
 
 function extractJson(text: string): CorrectionResult {
   const match = text.match(/\{[\s\S]*\}/)
@@ -129,7 +133,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             },
             {
               type: 'text',
-              text: `Tema: ${prompt.themeTitle}\nGramática objetivo: ${prompt.grammar}\nSustantivos objetivo: ${vocabText}${verbsText ? `\nVerbos objetivo (cualquier conjugación es válida): ${verbsText}` : ''}${adjectivesText ? `\nAdjetivos objetivo (cualquier conjugación es válida): ${adjectivesText}` : ''}${placesText ? `\nLugares objetivo: ${placesText}` : ''}\nConsigna: ${prompt.topic}`,
+              text: `Tema: ${prompt.themeTitle}\nGramática objetivo: ${prompt.grammar}\nGramática opcional (bonus, no obligatoria): ${prompt.bonusGrammar}\nSustantivos objetivo: ${vocabText}${verbsText ? `\nVerbos objetivo (cualquier conjugación es válida): ${verbsText}` : ''}${adjectivesText ? `\nAdjetivos objetivo (cualquier conjugación es válida): ${adjectivesText}` : ''}${placesText ? `\nLugares objetivo: ${placesText}` : ''}\nConsigna: ${prompt.topic}`,
             },
           ],
         },

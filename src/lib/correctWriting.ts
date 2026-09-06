@@ -20,6 +20,10 @@ export interface CorrectionResult {
   // estudiante usó correctamente, tal cual aparecen en el prompt del día.
   // undefined en entradas guardadas antes de este campo.
   usedWords?: string[]
+  // Si usó bien la gramática opcional (bonus) del día. undefined en entradas
+  // guardadas antes de este campo.
+  usedBonusGrammar?: boolean
+  bonusPoints?: number
   score: number
   breakdown?: {
     handwriting: SkillMetric

@@ -217,6 +217,18 @@ export function Historias({
           </div>
         </div>
 
+        {/* Gramática opcional (bonus) */}
+        <div className="space-y-2.5">
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-bold tracking-wide text-ink uppercase">Gramática opcional</span>
+            <span className="rounded-full bg-gold-soft px-1.5 py-0.5 text-[9px] font-bold tracking-wide text-gold uppercase">Bonus</span>
+          </div>
+          <div className="rounded-lg border-l-2 border-gold bg-paper-sunken p-3.5">
+            <p className="font-sans-jp text-lg font-semibold text-ink">{prompt.bonusGrammar}</p>
+            <p className="mt-1 text-[11px] text-ink-faint">No es obligatoria — si la usás bien, sumás puntos extra en la corrección.</p>
+          </div>
+        </div>
+
         {canSubmit && (
           <button
             type="button"

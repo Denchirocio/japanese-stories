@@ -57,6 +57,7 @@ export function DetalleEntrada({
       <ScoreBreakdown
         result={entry}
         level={entry.prompt.level}
+        bonusGrammar={entry.prompt.bonusGrammar}
         onCompare={
           sibling ? () => onCompare(entry.attempt === 1 ? entry : sibling, entry.attempt === 1 ? sibling : entry) : undefined
         }

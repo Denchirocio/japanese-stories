@@ -10,10 +10,12 @@ const FALLBACK_METRIC = { score: 0, comment: 'Sin datos para esta entrada.' }
 export function ScoreBreakdown({
   result,
   level,
+  bonusGrammar,
   onCompare,
 }: {
   result: CorrectionResult
   level: string
+  bonusGrammar?: string
   onCompare?: () => void
 }) {
   const breakdown = result.breakdown ?? {
@@ -54,6 +56,15 @@ export function ScoreBreakdown({
             )}
           </div>
         </div>
+
+        {result.usedBonusGrammar && (
+          <div className="flex items-center gap-2 rounded-lg bg-gold-soft p-2.5">
+            <span className="text-lg leading-none">🎁</span>
+            <p className="text-[13px] leading-snug font-semibold text-gold">
+              +{result.bonusPoints ?? 0} pts extra por usar {bonusGrammar ?? 'la gramática opcional'}
+            </p>
+          </div>
+        )}
 
         <div className="flex items-center justify-center gap-2">
           <div className="flex flex-1 flex-col items-center justify-center gap-0.5 rounded-lg bg-paper-sunken p-2.5">
