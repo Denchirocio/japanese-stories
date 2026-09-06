@@ -267,8 +267,12 @@ export function Historias({
             <p className="text-[15px] leading-relaxed text-ink-soft">{daily.weeklyPrompt.topic}</p>
           </div>
 
-          <div className="rounded-lg border-l-2 border-gold bg-paper-elevated p-3.5">
-            <p className="font-sans-jp text-lg font-semibold text-ink">{daily.weeklyPrompt.grammar}</p>
+          <div className="space-y-1">
+            <span className="text-[10px] font-bold tracking-wide text-gold uppercase">Conectores sugeridos (opcional)</span>
+            <div className="rounded-lg border-l-2 border-gold bg-paper-elevated p-3.5">
+              <p className="font-sans-jp text-lg font-semibold text-ink">{daily.weeklyPrompt.bonusGrammar}</p>
+              <p className="mt-1 text-[11px] text-ink-faint">No es obligatorio — si usás alguno bien, sumás puntos extra.</p>
+            </div>
           </div>
 
           {daily.canSubmitWeekly ? (
