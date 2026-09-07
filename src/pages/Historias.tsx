@@ -307,13 +307,13 @@ export function Historias({
       </div>
 
       {daily.isSunday && (
-        <div className="space-y-4 rounded-xl bg-gold-soft p-6" style={{ boxShadow: CARD_SHADOW }}>
+        <div className="space-y-4 rounded-xl bg-violet-soft p-6" style={{ boxShadow: CARD_SHADOW }}>
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5">
-              <span className="size-2 rounded-full bg-gold" />
-              <span className="text-[10px] font-bold tracking-[0.1em] text-gold uppercase">Desafío semanal</span>
+              <span className="size-2 rounded-full bg-violet" />
+              <span className="text-[10px] font-bold tracking-[0.1em] text-violet uppercase">Desafío semanal</span>
             </div>
-            <span className="rounded-full bg-gold px-1.5 py-0.5 text-[9px] font-bold tracking-wide text-paper uppercase">
+            <span className="rounded-full bg-violet px-1.5 py-0.5 text-[9px] font-bold tracking-wide text-paper uppercase">
               Solo domingos
             </span>
           </div>
@@ -328,7 +328,7 @@ export function Historias({
           </div>
 
           <div className="space-y-1">
-            <span className="text-[10px] font-bold tracking-wide text-gold uppercase">Conectores sugeridos (opcional)</span>
+            <span className="text-[10px] font-bold tracking-wide text-violet uppercase">Conectores sugeridos (opcional)</span>
             <div className="rounded-lg bg-paper-elevated p-3.5">
               <p className="font-sans-jp text-lg font-semibold text-ink">{daily.weeklyPrompt.bonusGrammar}</p>
               <p className="mt-1 text-[11px] text-ink-faint">No es obligatorio — si usás alguno bien, sumás puntos extra.</p>
@@ -339,14 +339,14 @@ export function Historias({
             <button
               type="button"
               onClick={onOpenWeeklyCamera}
-              className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-gold px-4 py-3.5 font-bold text-paper transition hover:opacity-90 active:scale-[0.98]"
+              className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-violet px-4 py-3.5 font-bold text-paper transition hover:opacity-90 active:scale-[0.98]"
             >
               <CameraIcon className="size-[18px]" />
               Subir desafío semanal
             </button>
           ) : (
             <div className="flex items-center gap-2 rounded-lg bg-paper-elevated p-3 text-sm text-ink-soft">
-              <CheckIcon className="size-4 shrink-0 text-gold" />
+              <CheckIcon className="size-4 shrink-0 text-violet" />
               Ya completaste el desafío semanal de hoy.
             </div>
           )}

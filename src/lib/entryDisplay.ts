@@ -23,7 +23,7 @@ export function entryTypeLabel(entry: { type?: 'daily' | 'weekly'; attempt: 1 | 
 }
 
 export function entryTypeBadgeClass(entry: { type?: 'daily' | 'weekly'; attempt: 1 | 2 }): string {
-  if (entry.type === 'weekly') return 'bg-gold-soft text-gold'
+  if (entry.type === 'weekly') return 'bg-violet-soft text-violet'
   return attemptBadgeClass(entry.attempt)
 }
 

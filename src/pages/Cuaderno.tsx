@@ -69,7 +69,7 @@ export function Cuaderno({ daily, onSelectEntry }: { daily: DailyEntryState; onS
                 type="button"
                 onClick={() => onSelectEntry(entry)}
                 className={`block w-full overflow-hidden rounded-xl p-4 text-left ${
-                  isWeekly ? 'border-2 border-gold bg-gold-soft' : 'bg-paper-elevated'
+                  isWeekly ? 'bg-violet-soft' : 'bg-paper-elevated'
                 }`}
                 style={{ boxShadow: CARD_SHADOW }}
               >
