@@ -39,7 +39,7 @@ function AccordionSection({
           {typeof count === 'number' && <span className="text-[11px] font-medium text-ink-faint">({count})</span>}
           {badge}
         </div>
-        <ChevronRightIcon className={`size-3.5 shrink-0 text-ink-faint transition-transform ${open ? 'rotate-90' : ''}`} />
+        <ChevronRightIcon className={`size-3.5 shrink-0 text-ink-faint transition-transform ${open ? 'rotate-90' : '-rotate-90'}`} />
       </button>
       {open && children}
     </div>
