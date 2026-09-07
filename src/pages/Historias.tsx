@@ -259,8 +259,8 @@ export function Historias({
           </div>
 
           <div className="space-y-1">
-            <p className="font-sans-jp text-xl font-semibold leading-[1.3] text-ink">自由に書こう</p>
-            <p className="text-sm text-ink-faint">Esta semana no hay un tema asignado</p>
+            <p className="font-sans-jp text-xl font-semibold leading-[1.3] text-ink">書きましょう！</p>
+            <p className="text-sm text-ink-faint">Kakimashou · Esta semana no hay un tema asignado</p>
           </div>
 
           <div className="rounded-lg border border-gold/40 bg-paper-elevated p-3.5">
