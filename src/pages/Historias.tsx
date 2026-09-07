@@ -268,14 +268,6 @@ export function Historias({
           </div>
 
           <div className="space-y-1">
-            <span className="text-[10px] font-bold tracking-wide text-gold uppercase">Idea, por si te sirve (opcional)</span>
-            <div className="rounded-lg border-l-2 border-gold bg-paper-elevated p-3.5">
-              <p className="font-sans-jp text-base font-semibold text-ink">{daily.weeklyPrompt.themeTitle}</p>
-              <p className="text-sm text-ink-faint">{daily.weeklyPrompt.themeTranslation}</p>
-            </div>
-          </div>
-
-          <div className="space-y-1">
             <span className="text-[10px] font-bold tracking-wide text-gold uppercase">Conectores sugeridos (opcional)</span>
             <div className="rounded-lg border-l-2 border-gold bg-paper-elevated p-3.5">
               <p className="font-sans-jp text-lg font-semibold text-ink">{daily.weeklyPrompt.bonusGrammar}</p>
