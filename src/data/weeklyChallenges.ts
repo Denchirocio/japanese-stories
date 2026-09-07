@@ -1,117 +1,123 @@
-import { adj, req, v, type DailyPrompt } from './prompts'
+import type { DailyPrompt } from './prompts'
 
 // Desafío especial de los domingos: opcional, más corto que el desafío
-// diario. Es de escritura LIBRE — 'grammar' es siempre el mismo texto
-// "sin gramática obligatoria" para que la corrección no la evalúe como
-// requisito. Los conectores N5 sugeridos van en 'bonusGrammar', que la API
-// ya trata como bonus opcional (suma puntos extra si se usa bien, no
-// penaliza si no aparece). No reemplaza al desafío diario, se suma aparte.
-// Rota semanalmente — ver weeklyChallengeForDate en lib/date.ts.
+// diario. Es de escritura LIBRE de verdad — no se le asigna un tema ni
+// palabras obligatorias ('topic' es genérico, solo indica formato/
+// extensión, y vocab/verbs/adjectives/places quedan vacíos). 'grammar' es
+// siempre el mismo texto "sin gramática obligatoria" para que la corrección
+// no la evalúe como requisito. Los conectores N5 sugeridos van en
+// 'bonusGrammar', que la API ya trata como bonus opcional (suma puntos
+// extra si se usa bien, no penaliza si no aparece). themeTitle/Translation
+// se muestran como una idea meramente opcional (ver Historias.tsx), no
+// como instrucción de qué escribir. No reemplaza al desafío diario, se
+// suma aparte. Rota semanalmente — ver weeklyChallengeForDate en lib/date.ts.
+const FREE_WRITING_TOPIC =
+  'Escritura libre y corta (3 a 4 oraciones) — no hay un tema asignado ni palabras obligatorias, escribí sobre lo que quieras esta semana.'
+const FREE_GRAMMAR = 'Escritura libre — sin gramática obligatoria, oraciones simples con です／ます.'
+
 export const weeklyChallenges: DailyPrompt[] = [
   {
     level: 'N5',
-    grammar: 'Escritura libre — sin gramática obligatoria, oraciones simples con です／ます.',
+    grammar: FREE_GRAMMAR,
     bonusGrammar: 'そして・それから・でも・だから (conectores, opcional)',
     themeTitle: '決断の瞬間',
     themeFurigana: 'けつだんのしゅんかん',
     themeTranslation: 'El momento de decidir',
-    topic:
-      'Texto MÁS CORTO que el desafío diario (3 a 4 oraciones). Escritura libre: contá una decisión que tuviste que tomar. Te dejamos algunos conectores por si te sirven, no hace falta usarlos todos.',
-    vocab: [v('決断', 'けつだん', 'Ketsudan', 'Decisión'), v('迷い', 'まよい', 'Mayoi', 'Duda')],
-    verbs: [req('選びます', 'えらびます', 'Elegir', 'Forma ます')],
-    adjectives: [adj('難しい', 'むずかしい', 'Muzukashii', 'Difícil', 'い')],
-    places: [v('会社', 'かいしゃ', 'Kaisha', 'Empresa')],
+    topic: FREE_WRITING_TOPIC,
+    vocab: [],
+    verbs: [],
+    adjectives: [],
+    places: [],
   },
   {
     level: 'N5',
-    grammar: 'Escritura libre — sin gramática obligatoria, oraciones simples con です／ます.',
+    grammar: FREE_GRAMMAR,
     bonusGrammar: 'それから・その後で・でも (conectores, opcional)',
     themeTitle: '職場の一日',
     themeFurigana: 'しょくばのいちにち',
     themeTranslation: 'Un día en el trabajo',
-    topic:
-      'Texto corto (3 a 4 oraciones). Escritura libre: contá cómo fue tu día de trabajo. Usá los conectores solo si te ayudan a unir las ideas.',
-    vocab: [v('上司', 'じょうし', 'Joushi', 'Jefe/a'), v('会議', 'かいぎ', 'Kaigi', 'Reunión')],
-    verbs: [req('頼みます', 'たのみます', 'Pedir', 'Forma ます')],
-    adjectives: [adj('大変', 'たいへん', 'Taihen', 'Pesado / difícil', 'な')],
-    places: [v('オフィス', undefined, 'Ofisu', 'Oficina')],
+    topic: FREE_WRITING_TOPIC,
+    vocab: [],
+    verbs: [],
+    adjectives: [],
+    places: [],
   },
   {
     level: 'N5',
-    grammar: 'Escritura libre — sin gramática obligatoria, oraciones simples con です／ます.',
+    grammar: FREE_GRAMMAR,
     bonusGrammar: '急に・そのとき・びっくりしました (conectores, opcional)',
     themeTitle: '予想外の出来事',
     themeFurigana: 'よそうがいのできごと',
     themeTranslation: 'Un imprevisto',
-    topic: 'Texto corto (3 a 4 oraciones). Escritura libre: contá algo inesperado que te pasó.',
-    vocab: [v('事故', 'じこ', 'Jiko', 'Accidente'), v('瞬間', 'しゅんかん', 'Shunkan', 'Instante')],
-    verbs: [req('落とします', 'おとします', 'Dejar caer', 'Forma ます')],
-    adjectives: [adj('恥ずかしい', 'はずかしい', 'Hazukashii', 'Vergonzoso', 'い')],
-    places: [v('駅', 'えき', 'Eki', 'Estación')],
+    topic: FREE_WRITING_TOPIC,
+    vocab: [],
+    verbs: [],
+    adjectives: [],
+    places: [],
   },
   {
     level: 'N5',
-    grammar: 'Escritura libre — sin gramática obligatoria, oraciones simples con です／ます.',
+    grammar: FREE_GRAMMAR,
     bonusGrammar: 'でも・だから・と思います (conectores, opcional)',
     themeTitle: '誤解されたこと',
     themeFurigana: 'ごかいされたこと',
     themeTranslation: 'Algo que malentendieron de vos',
-    topic: 'Texto corto (3 a 4 oraciones). Escritura libre: contá un malentendido sobre vos y cómo lo aclaraste.',
-    vocab: [v('誤解', 'ごかい', 'Gokai', 'Malentendido'), v('性格', 'せいかく', 'Seikaku', 'Personalidad')],
-    verbs: [req('思います', 'おもいます', 'Pensar', 'Forma ます')],
-    adjectives: [adj('冷たい', 'つめたい', 'Tsumetai', 'Frío / distante', 'い')],
-    places: [v('学校', 'がっこう', 'Gakkou', 'Escuela')],
+    topic: FREE_WRITING_TOPIC,
+    vocab: [],
+    verbs: [],
+    adjectives: [],
+    places: [],
   },
   {
     level: 'N5',
-    grammar: 'Escritura libre — sin gramática obligatoria, oraciones simples con です／ます.',
+    grammar: FREE_GRAMMAR,
     bonusGrammar: '今度は・次からは・〜たいです (conectores, opcional)',
     themeTitle: '後悔していること',
     themeFurigana: 'こうかいしていること',
     themeTranslation: 'Algo de lo que te arrepentís',
-    topic: 'Texto corto (3 a 4 oraciones). Escritura libre: contá algo de lo que te arrepentís y qué harías distinto.',
-    vocab: [v('後悔', 'こうかい', 'Koukai', 'Arrepentimiento'), v('選択', 'せんたく', 'Sentaku', 'Elección')],
-    verbs: [req('諦めます', 'あきらめます', 'Rendirse / abandonar', 'Forma ます')],
-    adjectives: [adj('残念', 'ざんねん', 'Zannen', 'Lamentable', 'な')],
-    places: [v('家', 'いえ', 'Ie', 'Casa')],
+    topic: FREE_WRITING_TOPIC,
+    vocab: [],
+    verbs: [],
+    adjectives: [],
+    places: [],
   },
   {
     level: 'N5',
-    grammar: 'Escritura libre — sin gramática obligatoria, oraciones simples con です／ます.',
+    grammar: FREE_GRAMMAR,
     bonusGrammar: 'だから・そのおかげで・嬉しかったです (conectores, opcional)',
     themeTitle: '成功と失敗',
     themeFurigana: 'せいこうとしっぱい',
     themeTranslation: 'Éxito y fracaso',
-    topic: 'Texto corto (3 a 4 oraciones). Escritura libre: contá un éxito o un fracaso reciente.',
-    vocab: [v('成功', 'せいこう', 'Seikou', 'Éxito'), v('努力', 'どりょく', 'Doryoku', 'Esfuerzo')],
-    verbs: [req('頑張ります', 'がんばります', 'Esforzarse', 'Forma ます')],
-    adjectives: [adj('嬉しい', 'うれしい', 'Ureshii', 'Feliz', 'い')],
-    places: [v('大学', 'だいがく', 'Daigaku', 'Universidad')],
+    topic: FREE_WRITING_TOPIC,
+    vocab: [],
+    verbs: [],
+    adjectives: [],
+    places: [],
   },
   {
     level: 'N5',
-    grammar: 'Escritura libre — sin gramática obligatoria, oraciones simples con です／ます.',
+    grammar: FREE_GRAMMAR,
     bonusGrammar: 'いつも・時々・なぜなら (conectores, opcional)',
     themeTitle: '毎日の工夫',
     themeFurigana: 'まいにちのくふう',
     themeTranslation: 'Trucos del día a día',
-    topic: 'Texto corto (3 a 4 oraciones). Escritura libre: contá una rutina o un truco que usás todos los días.',
-    vocab: [v('習慣', 'しゅうかん', 'Shuukan', 'Hábito'), v('工夫', 'くふう', 'Kufuu', 'Truco / ingenio')],
-    verbs: [req('準備します', 'じゅんびします', 'Preparar', 'Forma ます')],
-    adjectives: [adj('便利', 'べんり', 'Benri', 'Conveniente', 'な')],
-    places: [v('台所', 'だいどころ', 'Daidokoro', 'Cocina')],
+    topic: FREE_WRITING_TOPIC,
+    vocab: [],
+    verbs: [],
+    adjectives: [],
+    places: [],
   },
   {
     level: 'N5',
-    grammar: 'Escritura libre — sin gramática obligatoria, oraciones simples con です／ます.',
+    grammar: FREE_GRAMMAR,
     bonusGrammar: 'でも・実は・かもしれません (conectores, opcional)',
     themeTitle: '思い込みを疑う',
     themeFurigana: 'おもいこみをうたがう',
     themeTranslation: 'Cuestionar suposiciones',
-    topic: 'Texto corto (3 a 4 oraciones). Escritura libre: contá algo que la gente suele asumir pero que no siempre es cierto.',
-    vocab: [v('思い込み', 'おもいこみ', 'Omoikomi', 'Suposición / prejuicio'), v('常識', 'じょうしき', 'Joushiki', 'Sentido común')],
-    verbs: [req('信じます', 'しんじます', 'Creer', 'Forma ます')],
-    adjectives: [adj('正しい', 'ただしい', 'Tadashii', 'Correcto', 'い')],
-    places: [v('世界', 'せかい', 'Sekai', 'Mundo')],
+    topic: FREE_WRITING_TOPIC,
+    vocab: [],
+    verbs: [],
+    adjectives: [],
+    places: [],
   },
 ]

@@ -259,12 +259,20 @@ export function Historias({
           </div>
 
           <div className="space-y-1">
-            <p className="font-sans-jp text-xl font-semibold leading-[1.3] text-ink">{daily.weeklyPrompt.themeTitle}</p>
-            <p className="text-sm text-ink-faint">{daily.weeklyPrompt.themeTranslation}</p>
+            <p className="font-sans-jp text-xl font-semibold leading-[1.3] text-ink">自由に書こう</p>
+            <p className="text-sm text-ink-faint">Esta semana no hay un tema asignado</p>
           </div>
 
           <div className="rounded-lg border border-gold/40 bg-paper-elevated p-3.5">
             <p className="text-[15px] leading-relaxed text-ink-soft">{daily.weeklyPrompt.topic}</p>
+          </div>
+
+          <div className="space-y-1">
+            <span className="text-[10px] font-bold tracking-wide text-gold uppercase">Idea, por si te sirve (opcional)</span>
+            <div className="rounded-lg border-l-2 border-gold bg-paper-elevated p-3.5">
+              <p className="font-sans-jp text-base font-semibold text-ink">{daily.weeklyPrompt.themeTitle}</p>
+              <p className="text-sm text-ink-faint">{daily.weeklyPrompt.themeTranslation}</p>
+            </div>
           </div>
 
           <div className="space-y-1">
