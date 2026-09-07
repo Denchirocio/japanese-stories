@@ -60,7 +60,7 @@ export function Historias({
   const { prompt, attemptsUsed, canSubmit, lastEntry, refreshUsed, refreshPrompt } = daily
   const hasEntry = attemptsUsed > 0
 
-  const [requirementsOpen, setRequirementsOpen] = useState(false)
+  const [requirementsOpen, setRequirementsOpen] = useState(true)
   const totalWords = prompt.vocab.length + prompt.verbs.length + prompt.adjectives.length + prompt.places.length
 
   const criteria = [
