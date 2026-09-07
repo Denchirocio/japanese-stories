@@ -60,16 +60,8 @@ export function Historias({
   const { prompt, attemptsUsed, canSubmit, lastEntry, refreshUsed, refreshPrompt } = daily
   const hasEntry = attemptsUsed > 0
 
-  type SectionKey = 'palabras' | 'verbos' | 'adjetivos' | 'lugares' | 'gramatica' | 'bonus'
-  const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
-    palabras: false,
-    verbos: false,
-    adjetivos: false,
-    lugares: false,
-    gramatica: false,
-    bonus: false,
-  })
-  const toggleSection = (key: SectionKey) => setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }))
+  const [requirementsOpen, setRequirementsOpen] = useState(false)
+  const totalWords = prompt.vocab.length + prompt.verbs.length + prompt.adjectives.length + prompt.places.length
 
   const criteria = [
     { text: 'Escribir un texto completo de al menos 6 a 8 oraciones (no 3 frases sueltas)', done: hasEntry },
@@ -176,118 +168,110 @@ export function Historias({
           </div>
         </div>
 
-        {/* Palabras */}
+        {/* Requisitos: Palabras, Verbos, Adjetivos, Lugares, Gramática y Gramática opcional */}
         <AccordionSection
-          title="Palabras"
-          count={prompt.vocab.length}
-          open={openSections.palabras}
-          onToggle={() => toggleSection('palabras')}
+          title="Requisitos"
+          count={totalWords}
+          open={requirementsOpen}
+          onToggle={() => setRequirementsOpen((o) => !o)}
         >
-          <div className="grid grid-cols-2 gap-2">
-            {prompt.vocab.map((word) => (
-              <div key={word.word} className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-2.5">
-                <div className="flex items-start justify-between gap-1">
-                  <JpWord word={word.word} furigana={word.furigana} accentClass="text-indigo" />
-                  <SpeakerButton text={word.word} className="mt-0.5" />
-                </div>
-                <p className="text-[13px] text-ink-soft">
-                  {word.romaji} • {word.translation}
-                </p>
+          <div className="space-y-6">
+            {/* Palabras */}
+            <div className="space-y-2.5">
+              <span className="text-xs font-bold tracking-wide text-ink uppercase">Palabras</span>
+              <div className="grid grid-cols-2 gap-2">
+                {prompt.vocab.map((word) => (
+                  <div key={word.word} className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-2.5">
+                    <div className="flex items-start justify-between gap-1">
+                      <JpWord word={word.word} furigana={word.furigana} accentClass="text-indigo" />
+                      <SpeakerButton text={word.word} className="mt-0.5" />
+                    </div>
+                    <p className="text-[13px] text-ink-soft">
+                      {word.romaji} • {word.translation}
+                    </p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </AccordionSection>
-
-        {/* Verbos */}
-        {prompt.verbs.length > 0 && (
-          <AccordionSection
-            title="Verbos"
-            count={prompt.verbs.length}
-            open={openSections.verbos}
-            onToggle={() => toggleSection('verbos')}
-          >
-            <div className="grid grid-cols-2 gap-2">
-              {prompt.verbs.map((verb) => (
-                <div key={verb.word} className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-2.5">
-                  <div className="flex items-start justify-between gap-1">
-                    <JpWord word={verb.word} furigana={verb.furigana} accentClass="text-indigo" />
-                    <SpeakerButton text={verb.word} className="mt-0.5" />
-                  </div>
-                  <p className="text-[13px] text-ink-soft">{verb.translation}</p>
-                </div>
-              ))}
             </div>
-          </AccordionSection>
-        )}
 
-        {/* Adjetivos */}
-        {prompt.adjectives.length > 0 && (
-          <AccordionSection
-            title="Adjetivos"
-            count={prompt.adjectives.length}
-            open={openSections.adjetivos}
-            onToggle={() => toggleSection('adjetivos')}
-          >
-            <div className="grid grid-cols-2 gap-2">
-              {prompt.adjectives.map((word) => (
-                <div key={word.word} className="rounded-lg border-l-2 border-matcha bg-paper-sunken p-2.5">
-                  <div className="flex items-start justify-between gap-1">
-                    <JpWord word={word.word} furigana={word.furigana} accentClass="text-matcha" />
-                    <SpeakerButton text={word.word} className="mt-0.5" />
-                  </div>
-                  <p className="text-[13px] text-ink-soft">{word.translation}</p>
+            {/* Verbos */}
+            {prompt.verbs.length > 0 && (
+              <div className="space-y-2.5">
+                <span className="text-xs font-bold tracking-wide text-ink uppercase">Verbos</span>
+                <div className="grid grid-cols-2 gap-2">
+                  {prompt.verbs.map((verb) => (
+                    <div key={verb.word} className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-2.5">
+                      <div className="flex items-start justify-between gap-1">
+                        <JpWord word={verb.word} furigana={verb.furigana} accentClass="text-indigo" />
+                        <SpeakerButton text={verb.word} className="mt-0.5" />
+                      </div>
+                      <p className="text-[13px] text-ink-soft">{verb.translation}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </AccordionSection>
-        )}
-
-        {/* Lugares */}
-        {prompt.places.length > 0 && (
-          <AccordionSection
-            title="Lugares"
-            count={prompt.places.length}
-            open={openSections.lugares}
-            onToggle={() => toggleSection('lugares')}
-          >
-            <div className="grid grid-cols-2 gap-2">
-              {prompt.places.map((word) => (
-                <div key={word.word} className="rounded-lg border-l-2 border-violet bg-paper-sunken p-2.5">
-                  <div className="flex items-start justify-between gap-1">
-                    <JpWord word={word.word} furigana={word.furigana} accentClass="text-violet" />
-                    <SpeakerButton text={word.word} className="mt-0.5" />
-                  </div>
-                  <p className="text-[13px] text-ink-soft">{word.translation}</p>
-                </div>
-              ))}
-            </div>
-          </AccordionSection>
-        )}
-
-        {/* Gramática */}
-        <AccordionSection title="Gramática" open={openSections.gramatica} onToggle={() => toggleSection('gramatica')}>
-          <div className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-3.5">
-            <p className="font-sans-jp text-lg font-semibold text-ink">{prompt.grammar}</p>
-            {(prompt.grammar.includes('・') || prompt.grammar.includes('／')) && (
-              <p className="mt-1 text-[11px] text-ink-faint">Alcanza con usar al menos una de estas formas correctamente.</p>
+              </div>
             )}
-          </div>
-        </AccordionSection>
 
-        {/* Gramática opcional (bonus) */}
-        <AccordionSection
-          title="Gramática opcional"
-          badge={
-            <span className="rounded-full bg-gold-soft px-1.5 py-0.5 text-[9px] font-bold tracking-wide text-gold uppercase">
-              Bonus
-            </span>
-          }
-          open={openSections.bonus}
-          onToggle={() => toggleSection('bonus')}
-        >
-          <div className="rounded-lg border-l-2 border-gold bg-paper-sunken p-3.5">
-            <p className="font-sans-jp text-lg font-semibold text-ink">{prompt.bonusGrammar}</p>
-            <p className="mt-1 text-[11px] text-ink-faint">No es obligatoria — si la usás bien, sumás puntos extra en la corrección.</p>
+            {/* Adjetivos */}
+            {prompt.adjectives.length > 0 && (
+              <div className="space-y-2.5">
+                <span className="text-xs font-bold tracking-wide text-ink uppercase">Adjetivos</span>
+                <div className="grid grid-cols-2 gap-2">
+                  {prompt.adjectives.map((word) => (
+                    <div key={word.word} className="rounded-lg border-l-2 border-matcha bg-paper-sunken p-2.5">
+                      <div className="flex items-start justify-between gap-1">
+                        <JpWord word={word.word} furigana={word.furigana} accentClass="text-matcha" />
+                        <SpeakerButton text={word.word} className="mt-0.5" />
+                      </div>
+                      <p className="text-[13px] text-ink-soft">{word.translation}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Lugares */}
+            {prompt.places.length > 0 && (
+              <div className="space-y-2.5">
+                <span className="text-xs font-bold tracking-wide text-ink uppercase">Lugares</span>
+                <div className="grid grid-cols-2 gap-2">
+                  {prompt.places.map((word) => (
+                    <div key={word.word} className="rounded-lg border-l-2 border-violet bg-paper-sunken p-2.5">
+                      <div className="flex items-start justify-between gap-1">
+                        <JpWord word={word.word} furigana={word.furigana} accentClass="text-violet" />
+                        <SpeakerButton text={word.word} className="mt-0.5" />
+                      </div>
+                      <p className="text-[13px] text-ink-soft">{word.translation}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Gramática */}
+            <div className="space-y-2.5">
+              <span className="text-xs font-bold tracking-wide text-ink uppercase">Gramática</span>
+              <div className="rounded-lg border-l-2 border-indigo bg-paper-sunken p-3.5">
+                <p className="font-sans-jp text-lg font-semibold text-ink">{prompt.grammar}</p>
+                {(prompt.grammar.includes('・') || prompt.grammar.includes('／')) && (
+                  <p className="mt-1 text-[11px] text-ink-faint">Alcanza con usar al menos una de estas formas correctamente.</p>
+                )}
+              </div>
+            </div>
+
+            {/* Gramática opcional (bonus) */}
+            <div className="space-y-2.5">
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-bold tracking-wide text-ink uppercase">Gramática opcional</span>
+                <span className="rounded-full bg-gold-soft px-1.5 py-0.5 text-[9px] font-bold tracking-wide text-gold uppercase">
+                  Bonus
+                </span>
+              </div>
+              <div className="rounded-lg border-l-2 border-gold bg-paper-sunken p-3.5">
+                <p className="font-sans-jp text-lg font-semibold text-ink">{prompt.bonusGrammar}</p>
+                <p className="mt-1 text-[11px] text-ink-faint">No es obligatoria — si la usás bien, sumás puntos extra en la corrección.</p>
+              </div>
+            </div>
           </div>
         </AccordionSection>
 
