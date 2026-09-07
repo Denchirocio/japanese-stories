@@ -19,7 +19,7 @@ export const weeklyChallenges: DailyPrompt[] = [
   {
     level: 'N5',
     grammar: FREE_GRAMMAR,
-    bonusGrammar: 'そして・それから・でも・だから (conectores, opcional)',
+    bonusGrammar: 'そして・それから・でも・だから',
     themeTitle: '決断の瞬間',
     themeFurigana: 'けつだんのしゅんかん',
     themeTranslation: 'El momento de decidir',
@@ -32,7 +32,7 @@ export const weeklyChallenges: DailyPrompt[] = [
   {
     level: 'N5',
     grammar: FREE_GRAMMAR,
-    bonusGrammar: 'それから・その後で・でも (conectores, opcional)',
+    bonusGrammar: 'それから・その後で・でも',
     themeTitle: '職場の一日',
     themeFurigana: 'しょくばのいちにち',
     themeTranslation: 'Un día en el trabajo',
@@ -45,7 +45,7 @@ export const weeklyChallenges: DailyPrompt[] = [
   {
     level: 'N5',
     grammar: FREE_GRAMMAR,
-    bonusGrammar: '急に・そのとき・びっくりしました (conectores, opcional)',
+    bonusGrammar: '急に・そのとき・びっくりしました',
     themeTitle: '予想外の出来事',
     themeFurigana: 'よそうがいのできごと',
     themeTranslation: 'Un imprevisto',
@@ -58,7 +58,7 @@ export const weeklyChallenges: DailyPrompt[] = [
   {
     level: 'N5',
     grammar: FREE_GRAMMAR,
-    bonusGrammar: 'でも・だから・と思います (conectores, opcional)',
+    bonusGrammar: 'でも・だから・と思います',
     themeTitle: '誤解されたこと',
     themeFurigana: 'ごかいされたこと',
     themeTranslation: 'Algo que malentendieron de vos',
@@ -71,7 +71,7 @@ export const weeklyChallenges: DailyPrompt[] = [
   {
     level: 'N5',
     grammar: FREE_GRAMMAR,
-    bonusGrammar: '今度は・次からは・〜たいです (conectores, opcional)',
+    bonusGrammar: '今度は・次からは・〜たいです',
     themeTitle: '後悔していること',
     themeFurigana: 'こうかいしていること',
     themeTranslation: 'Algo de lo que te arrepentís',
@@ -84,7 +84,7 @@ export const weeklyChallenges: DailyPrompt[] = [
   {
     level: 'N5',
     grammar: FREE_GRAMMAR,
-    bonusGrammar: 'だから・そのおかげで・嬉しかったです (conectores, opcional)',
+    bonusGrammar: 'だから・そのおかげで・嬉しかったです',
     themeTitle: '成功と失敗',
     themeFurigana: 'せいこうとしっぱい',
     themeTranslation: 'Éxito y fracaso',
@@ -97,7 +97,7 @@ export const weeklyChallenges: DailyPrompt[] = [
   {
     level: 'N5',
     grammar: FREE_GRAMMAR,
-    bonusGrammar: 'いつも・時々・なぜなら (conectores, opcional)',
+    bonusGrammar: 'いつも・時々・なぜなら',
     themeTitle: '毎日の工夫',
     themeFurigana: 'まいにちのくふう',
     themeTranslation: 'Trucos del día a día',
@@ -110,7 +110,7 @@ export const weeklyChallenges: DailyPrompt[] = [
   {
     level: 'N5',
     grammar: FREE_GRAMMAR,
-    bonusGrammar: 'でも・実は・かもしれません (conectores, opcional)',
+    bonusGrammar: 'でも・実は・かもしれません',
     themeTitle: '思い込みを疑う',
     themeFurigana: 'おもいこみをうたがう',
     themeTranslation: 'Cuestionar suposiciones',
