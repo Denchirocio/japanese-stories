@@ -307,7 +307,7 @@ export function Historias({
       </div>
 
       {daily.isSunday && (
-        <div className="space-y-4 rounded-xl border-2 border-gold bg-gold-soft p-6" style={{ boxShadow: CARD_SHADOW }}>
+        <div className="space-y-4 rounded-xl bg-gold-soft p-6" style={{ boxShadow: CARD_SHADOW }}>
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5">
               <span className="size-2 rounded-full bg-gold" />
@@ -323,13 +323,13 @@ export function Historias({
             <p className="text-sm text-ink-faint">Escribí sobre algo que quieras</p>
           </div>
 
-          <div className="rounded-lg border border-gold/40 bg-paper-elevated p-3.5">
+          <div className="rounded-lg bg-paper-elevated p-3.5">
             <p className="text-[15px] leading-relaxed text-ink-soft">{daily.weeklyPrompt.topic}</p>
           </div>
 
           <div className="space-y-1">
             <span className="text-[10px] font-bold tracking-wide text-gold uppercase">Conectores sugeridos (opcional)</span>
-            <div className="rounded-lg border-l-2 border-gold bg-paper-elevated p-3.5">
+            <div className="rounded-lg bg-paper-elevated p-3.5">
               <p className="font-sans-jp text-lg font-semibold text-ink">{daily.weeklyPrompt.bonusGrammar}</p>
               <p className="mt-1 text-[11px] text-ink-faint">No es obligatorio — si usás alguno bien, sumás puntos extra.</p>
             </div>
